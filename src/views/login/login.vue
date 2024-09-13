@@ -29,8 +29,8 @@
       const route = useRoute()
       const router = useRouter()
       const form = reactive({
-        username: 'admin',
-        password: 'admin',
+        username: '',
+        password: '',
       })
       const redirect = route.query?.redirect
       const login = async () => {
