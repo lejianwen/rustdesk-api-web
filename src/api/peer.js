@@ -36,11 +36,3 @@ export function remove (data) {
     data,
   })
 }
-
-export function changePwd (data) {
-  return request({
-    url: '/peer/changePwd',
-    method: 'post',
-    data,
-  })
-}

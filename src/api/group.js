@@ -36,11 +36,3 @@ export function remove (data) {
     data,
   })
 }
-
-export function changePwd (data) {
-  return request({
-    url: '/group/changePwd',
-    method: 'post',
-    data,
-  })
-}

@@ -28,9 +28,22 @@
       const userStore = useUserStore()
       const route = useRoute()
       const router = useRouter()
+
+      let platform = window.navigator.platform
+      if (navigator.platform.indexOf('Mac') === 0) {
+        platform = 'mac'
+      } else if (navigator.platform.indexOf('Win') === 0) {
+        platform = 'windows'
+      } else if (navigator.platform.indexOf('Linux armv') === 0) {
+        platform = 'android'
+      } else if (navigator.platform.indexOf('Linux') === 0) {
+        platform = 'linux'
+      }
+
       const form = reactive({
         username: '',
         password: '',
+        platform: platform,
       })
       const redirect = route.query?.redirect
       const login = async () => {
@@ -50,42 +63,44 @@
 </script>
 
 <style scoped lang="scss">
-  .login {
-    width: 100vw;
-    height: 100vh;
-    background-color: #2d3a4b;
-    padding-top: 200px;
-    box-sizing: border-box;
-    .tips {
-      font-size: 12px;
-      color: #fff;
-      margin-left: 60px;
-    }
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-color: #2d3a4b;
+  padding-top: 25vh;
+  box-sizing: border-box;
 
-    .login-card {
-      width: 500px;
-      background-color: #283342;
-      color: #fff;
-      border: none;
-      margin: 0 auto;
-      .el-form-item {
+  .tips {
+    font-size: 12px;
+    color: #fff;
+    margin-left: 60px;
+  }
 
-        ::v-deep(.el-form-item__label) {
-          color: #fff;
+  .login-card {
+    max-width: 500px;
+    background-color: #283342;
+    color: #fff;
+    border: none;
+    margin: 0 auto;
+
+    .el-form-item {
+
+      ::v-deep(.el-form-item__label) {
+        color: #fff;
+      }
+
+      .el-input {
+
+        ::v-deep(.el-input__wrapper) {
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: transparent;
         }
 
-        .el-input {
-
-          ::v-deep(.el-input__wrapper) {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: transparent;
-          }
-
-          ::v-deep(input) {
-            color: #fff;
-          }
+        ::v-deep(input) {
+          color: #fff;
         }
       }
     }
   }
+}
 </style>

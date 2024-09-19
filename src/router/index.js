@@ -13,7 +13,16 @@ const constantRoutes = [
     component: () => import('@/views/error-page/404.vue'),
     hidden: true,
   },
-
+  {
+    path: '/oauth/:code',
+    component: () => import('@/views/oauth/login.vue'),
+    hidden: true,
+  },
+  {
+    path: '/oauth/bind/:code',
+    component: () => import('@/views/oauth/bind.vue'),
+    hidden: true,
+  },
 ]
 export const asyncRoutes = [
   // {
@@ -35,18 +44,24 @@ export const asyncRoutes = [
   {
     path: '/my',
     name: 'My',
-    redirect: '/my/tag/index',
+    redirect: '/my/info',
     meta: { title: '我的', icon: 'UserFilled' },
     component: () => import('@/layout/index.vue'),
     children: [
       {
         path: '/',
+        name: 'MyInfo',
+        meta: { title: '个人信息', icon: 'User' /*keepAlive: true*/ },
+        component: () => import('@/views/my/info.vue'),
+      },
+      {
+        path: 'address_book',
         name: 'MyAddressBookList',
         meta: { title: '地址簿管理', icon: 'Notebook' /*keepAlive: true*/ },
         component: () => import('@/views/my/address_book/index.vue'),
       },
       {
-        path: 'tag/index',
+        path: 'tag',
         name: 'MyTagList',
         meta: { title: '标签管理', icon: 'CollectionTag' /*keepAlive: true*/ },
         component: () => import('@/views/my/tag/index.vue'),
@@ -103,7 +118,18 @@ export const asyncRoutes = [
         meta: { title: '标签管理', icon: 'CollectionTag' /*keepAlive: true*/ },
         component: () => import('@/views/tag/index.vue'),
       },
-
+      {
+        path: '/oauth',
+        name: 'Oauth',
+        meta: { title: 'Oauth管理', icon: 'Link' /*keepAlive: true*/ },
+        component: () => import('@/views/oauth/index.vue'),
+      },
+      {
+        path: '/loginLog',
+        name: 'LoginLog',
+        meta: { title: '登录日志', icon: 'List' /*keepAlive: true*/ },
+        component: () => import('@/views/login/log.vue'),
+      },
     ],
   },
 ]

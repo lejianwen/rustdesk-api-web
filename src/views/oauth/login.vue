@@ -1,0 +1,95 @@
+<template>
+  <div class="oauth">
+    <el-card class="card">
+      <h2>您正在授权登录</h2>
+      <el-form class="info" label-width="100px">
+        <el-form-item label="设备">
+          <div class="impt">{{ oauthInfo.device_name }}</div>
+        </el-form-item>
+        <el-form-item label="ID">
+          <div class="impt">{{ oauthInfo.id }}</div>
+        </el-form-item>
+        <el-form-item label-width="0">
+          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">授权登录</el-button>
+        </el-form-item>
+        <el-form-item label-width="0">
+          <el-button style="width: 100%" size="large" @click="out">关闭页面</el-button>
+        </el-form-item>
+      </el-form>
+      如果不是您操作的授权，请直接关闭页面
+    </el-card>
+  </div>
+</template>
+
+<script setup>
+  import { ref, onMounted } from 'vue'
+  import { info, confirm } from '@/api/oauth'
+  import { useRoute, useRouter } from 'vue-router'
+  import { ElMessage } from 'element-plus'
+
+  const oauthInfo = ref({})
+  const route = useRoute()
+  const router = useRouter()
+  const code = route.params?.code
+  if (!code) {
+    // router.push('/')
+  }
+  const getInfo = async () => {
+    const res = await info({ code }).catch(_ => false)
+    if (res) {
+      oauthInfo.value = res.data
+    } else {
+      // router.push('/')
+    }
+  }
+  getInfo()
+  const resStatus = ref(0)
+  const toConfirm = async () => {
+    const res = await confirm({ code }).catch(_ => false)
+    if (res) {
+      resStatus.value = 1
+      ElMessage.success('操作成功,3秒后将自动关闭本页面')
+      setTimeout(_ => {
+        out()
+      }, 3000)
+    }
+  }
+  const out = () => {
+    window.close()
+  }
+
+</script>
+
+<style scoped lang="scss">
+.oauth {
+  width: 100vw;
+  height: 100vh;
+  background-color: #2d3a4b;
+  padding-top: 25vh;
+  box-sizing: border-box;
+
+  .card {
+    max-width: 500px;
+    background-color: #283342;
+    color: #fff;
+    border: none;
+    margin: 0 auto;
+    text-align: center;
+
+    .info {
+      display: block;
+      line-height: 30px;
+      margin-bottom: 50px;
+
+      ::v-deep(.el-form-item__label) {
+        color: #fff;
+      }
+    }
+
+    .impt {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}
+</style>

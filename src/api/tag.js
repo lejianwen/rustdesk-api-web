@@ -37,10 +37,3 @@ export function remove (data) {
   })
 }
 
-export function changePwd (data) {
-  return request({
-    url: '/tag/changePwd',
-    method: 'post',
-    data,
-  })
-}

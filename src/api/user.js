@@ -67,3 +67,10 @@ export function changeCurPwd (data) {
     data,
   })
 }
+
+export function myOauth () {
+  return request({
+    url: '/user/myOauth',
+    method: 'post',
+  })
+}
