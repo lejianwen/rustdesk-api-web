@@ -80,6 +80,7 @@
   })
   const ops = [
     { value: 'github', label: 'Github' },
+    { value: 'google', label: 'Google' },
   ]
   const getList = async () => {
     listRes.loading = true
