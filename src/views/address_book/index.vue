@@ -107,20 +107,20 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <!-- <el-form-item label="强制中继" prop="force_always_relay" required>
-                <el-switch v-model="formData.force_always_relay"></el-switch>
+        <!-- <el-form-item label="强制中继" prop="forceAlwaysRelay" required>
+                <el-switch v-model="formData.forceAlwaysRelay"></el-switch>
               </el-form-item>
          <el-form-item label="在线" prop="online">
                 <el-switch v-model="formData.online"></el-switch>
               </el-form-item>
-              <el-form-item label="rdp端口" prop="rdp_port">
-                <el-input v-model="formData.rdp_port"></el-input>
+              <el-form-item label="rdp端口" prop="rdpPort">
+                <el-input v-model="formData.rdpPort"></el-input>
               </el-form-item>
-              <el-form-item label="rdp用户名" prop="rdp_username">
-                <el-input v-model="formData.rdp_username"></el-input>
+              <el-form-item label="rdp用户名" prop="rdpUsername">
+                <el-input v-model="formData.rdpUsername"></el-input>
               </el-form-item>
-              <el-form-item label="同一服务器" prop="same_server">
-                <el-switch v-model="formData.same_server"></el-switch>
+              <el-form-item label="同一服务器" prop="sameServer">
+                <el-switch v-model="formData.sameServer"></el-switch>
               </el-form-item>-->
 
 

@@ -61,17 +61,17 @@ export function useRepositories () {
   const formData = reactive({
     'row_id': 0,
     'alias': '',
-    'force_always_relay': false,
+    'forceAlwaysRelay': false,
     'hash': '',
     'hostname': '',
     'id': '',
-    'login_name': '',
+    'loginName': '',
     'online': false,
     'password': '',
     'platform': '',
-    'rdp_port': '',
-    'rdp_username': '',
-    'same_server': false,
+    'rdpPort': '',
+    'rdpUsername': '',
+    'sameServer': false,
     'tags': [],
     'user_id': null,
     'username': '',
@@ -90,17 +90,17 @@ export function useRepositories () {
     //重置formData
     formData.row_id = 0
     formData.alias = ''
-    formData.force_always_relay = false
+    formData.forceAlwaysRelay = false
     formData.hash = ''
     formData.hostname = ''
     formData.id = ''
-    formData.login_name = ''
+    formData.loginName = ''
     formData.online = false
     formData.password = ''
     formData.platform = ''
-    formData.rdp_port = ''
-    formData.rdp_username = ''
-    formData.same_server = false
+    formData.rdpPort = ''
+    formData.rdpUsername = ''
+    formData.sameServer = false
     formData.tags = []
     formData.user_id = null
     formData.username = ''

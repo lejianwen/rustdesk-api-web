@@ -43,7 +43,7 @@
           <el-radio-group v-model="formData.type">
             <el-radio v-for="item in groupTypes" :key="item.value" :label="item.value" style="display: block">
               {{ item.label }}
-            <span style="font-size: 12px;color: #999">{{item.note}}</span>
+              <span style="font-size: 12px;color: #999">{{ item.note }}</span>
             </el-radio>
           </el-radio-group>
         </el-form-item>
@@ -110,14 +110,14 @@
   watch(() => listQuery.page_size, handlerQuery)
 
   const groupTypes = [
-    { label: '普通组', value: 1, note: '只有管理员能看到小组成员和成员地址簿' },
-    { label: '共享组', value: 2, note: '所有用户都能看到小组成员和成员地址簿' },
+    { label: '普通组', value: 1, note: '只有管理员能看到小组成员和成员的设备' },
+    { label: '共享组', value: 2, note: '所有用户都能看到小组成员和成员的设备' },
   ]
   const formVisible = ref(false)
   const formData = reactive({
     id: 0,
     name: '',
-    type: 1
+    type: 1,
   })
 
   const toEdit = (row) => {
