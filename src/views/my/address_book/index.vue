@@ -149,7 +149,7 @@
 
   watch(() => listQuery.page_size, handlerQuery)
 
-  watch(() => listRes.list, () => {
+  /*watch(() => listRes.list, () => {
         const peers = {}
         listRes.list.map(item => {
           peers[item.id] = {
@@ -170,7 +170,7 @@
       },
       {
         immediate: true,
-      })
+      })*/
 
 </script>
 
