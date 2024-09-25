@@ -3,6 +3,7 @@ import { create, detail, update, remove } from '@/api/user'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { list as groups } from '@/api/group'
+import { T } from '@/utils/i18n'
 
 export function useGetDetail (id) {
   let item = ref({})  //保留原始值
@@ -28,7 +29,7 @@ export function useGetDetail (id) {
     form,
     item,
     getDetail,
-    groupsList
+    groupsList,
   }
 }
 
@@ -36,9 +37,10 @@ export function useSubmit (form, id) {
   const root = ref(null)
   const router = useRouter()
   const rules = reactive({
-    username: [{ required: true, message: '用户名是必须的' }],
+    username: [{ required: true, message: T('ParamRequired', { param: T('Username') }) }],
+    group_id: [{ required: true, message: T('ParamRequired', { param: T('Group') }) }],
     // nickname: [{ required: true, message: '昵称是必须的' }],
-    status: [{ required: true, message: '请选择状态' }],
+    status: [{ required: true, message: T('ParamRequired', { param: T('Status') }) }],
   })
 
   const validate = async () => {
@@ -65,7 +67,7 @@ export function useSubmit (form, id) {
 
     const res = await submitFunc()
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       router.back()
     }
   }

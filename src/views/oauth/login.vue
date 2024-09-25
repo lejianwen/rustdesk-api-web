@@ -1,22 +1,22 @@
 <template>
   <div class="oauth">
     <el-card class="card">
-      <h2>您正在授权登录</h2>
+      <h2>{{ T('OauthLogining') }}</h2>
       <el-form class="info" label-width="100px">
-        <el-form-item label="设备">
+        <el-form-item :label="T('Device')">
           <div class="impt">{{ oauthInfo.device_name }}</div>
         </el-form-item>
         <el-form-item label="ID">
           <div class="impt">{{ oauthInfo.id }}</div>
         </el-form-item>
         <el-form-item label-width="0">
-          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">授权登录</el-button>
+          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">{{ T('ConfirmOauth') }}</el-button>
         </el-form-item>
         <el-form-item label-width="0">
-          <el-button style="width: 100%" size="large" @click="out">关闭页面</el-button>
+          <el-button style="width: 100%" size="large" @click="out">{{ T('Close') }}</el-button>
         </el-form-item>
       </el-form>
-      如果不是您操作的授权，请直接关闭页面
+      {{ T('OauthCloseNote') }}
     </el-card>
   </div>
 </template>
@@ -48,7 +48,7 @@
     const res = await confirm({ code }).catch(_ => false)
     if (res) {
       resStatus.value = 1
-      ElMessage.success('操作成功,3秒后将自动关闭本页面')
+      ElMessage.success(T('OperationSuccessAndCloseAfter3Seconds'))
       setTimeout(_ => {
         out()
       }, 3000)

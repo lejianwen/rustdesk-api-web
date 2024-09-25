@@ -7,7 +7,7 @@
       <el-icon v-if="route.meta?.icon">
         <component :is="`el-icon-${route.meta.icon}`"></component>
       </el-icon>
-      <span>{{route.meta?.title||route.name}}</span>
+      <span>{{ T(route.meta?.title) || T(route.name) }}</span>
     </template>
     <menu-item v-for="(_route,_index) in route.children"
                :route="_route"
@@ -18,12 +18,13 @@
     <el-icon v-if="parseRoute(route).meta?.icon">
       <component :is="`el-icon-${parseRoute(route).meta.icon}`"></component>
     </el-icon>
-    <span>{{parseRoute(route).meta?.title||parseRoute(route).name}}</span>
+    <span>{{ T(parseRoute(route).meta?.title) || T(parseRoute(route).name) }}</span>
   </el-menu-item>
 </template>
 
 <script>
   import { defineComponent } from 'vue'
+  import { T } from '@/utils/i18n'
 
   export default defineComponent({
     name: 'MenuItem',
@@ -43,6 +44,7 @@
       }
       return {
         parseRoute,
+        T,
       }
     },
   })

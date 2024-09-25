@@ -1,0 +1,236 @@
+{
+  "Login": {
+    "One": "登录"
+  },
+  "Logout": {
+    "One": "退出登录"
+  },
+  "Register": {
+    "One": "注册"
+  },
+  "Confirm": {
+    "One": "确认"
+  },
+  "Username": {
+    "One": "用户名"
+  },
+  "Password": {
+    "One": "密码"
+  },
+  "LoginSuccess": {
+    "One": "登录成功"
+  },
+  "ForgotPassword": {
+    "One": "忘记密码"
+  },
+  "ResetPassword": {
+    "One": "重置密码"
+  },
+  "ChangePassword": {
+    "One": "修改密码"
+  },
+  "Userinfo": {
+    "One": "用户信息"
+  },
+  "ParamRequired": {
+    "One": "{param} 是必须的"
+  },
+  "HasBind": {
+    "One": "已绑定"
+  },
+  "NoBind": {
+    "One": "未绑定"
+  },
+  "UnBind": {
+    "One": "解绑"
+  },
+  "ToBind": {
+    "One": "绑定"
+  },
+  "Confirm?": {
+    "One": "确定{param}?"
+  },
+  "Cancel": {
+    "One": "取消"
+  },
+  "Platform": {
+    "One": "平台"
+  },
+  "Status": {
+    "One": "状态"
+  },
+  "Actions": {
+    "One": "操作"
+  },
+  "Filter": {
+    "One": "筛选"
+  },
+  "Add": {
+    "One": "添加"
+  },
+  "Hostname": {
+    "One": "主机名"
+  },
+  "Alias": {
+    "One": "别名"
+  },
+  "Hash": {
+    "One": "哈希"
+  },
+  "Tags": {
+    "One": "标签"
+  },
+  "Edit": {
+    "One": "编辑"
+  },
+  "Delete": {
+    "One": "删除"
+  },
+  "Create": {
+    "One": "创建"
+  },
+  "Update": {
+    "One": "更新"
+  },
+  "LoginName": {
+    "One": "登录名"
+  },
+  "Submit": {
+    "One": "提交"
+  },
+  "OperationSuccess": {
+    "One": "操作成功"
+  },
+  "Owner": {
+    "One": "所有者"
+  },
+  "Name": {
+    "One": "名称"
+  },
+  "Color": {
+    "One": "颜色"
+  },
+  "CreatedAt": {
+    "One": "创建时间"
+  },
+  "UpdatedAt": {
+    "One": "更新时间"
+  },
+  "Memory": {
+    "One": "内存"
+  },
+  "Os": {
+    "One": "操作系统"
+  },
+  "Uuid": {
+    "One": "UUID"
+  },
+  "Version": {
+    "One": "版本"
+  },
+  "Type": {
+    "One": "类型"
+  },
+  "Group": {
+    "One": "组"
+  },
+  "CommonGroup": {
+    "One": "普通组"
+  },
+  "CommonGroupNote": {
+    "One": "只有管理员才能查看群组成员及其设备"
+  },
+  "SharedGroup": {
+    "One": "共享组"
+  },
+  "SharedGroupNote": {
+    "One": "所有用户都可以查看群组成员及其设备"
+  },
+  "Nickname": {
+    "One": "昵称"
+  },
+  "UserTags": {
+    "One": "用户标签"
+  },
+  "UserAddressBook": {
+    "One": "用户地址簿"
+  },
+  "IsAdmin": {
+    "One": "是否管理员"
+  },
+  "PleaseInputNewPassword": {
+    "One": "请输入新密码"
+  },
+  "AutoRegister": {
+    "One": "自动注册"
+  },
+  "AutoRegisterNote": {
+    "One": "如果启用，则当用户使用 OAuth 登录时，将自动注册一个帐户，而无需绑定现有帐户"
+  },
+  "ThirdName": {
+    "One": "第三方名称"
+  },
+  "Close": {
+    "One": "关闭"
+  },
+  "OauthBinding": {
+    "One": "您正在授权绑定"
+  },
+  "OauthLogining": {
+    "One": "您正在授权登录"
+  },
+  "OauthCloseNote": {
+    "One": "如不是您发起的授权，请直接关闭页面"
+  },
+  "OperationSuccessAndCloseAfter3Seconds": {
+    "One": "操作成功，3秒后将自动关闭页面"
+  },
+  "ConfirmOauth": {
+    "One": "确认授权"
+  },
+  "Device": {
+    "One": "设备"
+  },
+  "ChangeLang": {
+    "One": "ToEnglish"
+  },
+  "My": {
+    "One": "我的"
+  },
+  "Info": {
+    "One": "信息"
+  },
+  "AddressBooks": {
+    "One": "地址簿"
+  },
+  "System": {
+    "One": "系统"
+  },
+  "PeerManage": {
+    "One": "设备管理"
+  },
+  "AddressBookManage": {
+    "One": "地址簿管理"
+  },
+  "GroupManage": {
+    "One": "群组管理"
+  },
+  "UserManage": {
+    "One": "用户管理"
+  },
+  "UserAdd": {
+    "One": "用户添加"
+  },
+  "UserEdit": {
+    "One": "用户编辑"
+  },
+  "TagsManage": {
+    "One": "标签管理"
+  },
+  "OauthManage": {
+    "One": "Oauth管理"
+  },
+  "LoginLog": {
+    "One": "登录日志"
+  }
+}

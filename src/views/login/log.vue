@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
+      <el-form inline label-width="80px">
         <el-form-item label="用户">
           <el-select v-model="listQuery.user_id" clearable>
             <el-option

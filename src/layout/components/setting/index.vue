@@ -1,5 +1,8 @@
 <template>
   <div class="setting">
+    <div>
+      <el-button size="small" @click="changeLang" style="width: 100px">{{ T('ChangeLang') }}</el-button>
+    </div>
     <el-dropdown class="menu-item">
       <div class="title">
         <!--        <el-image class="avatar" :src="user.avatar"></el-image>-->
@@ -7,12 +10,13 @@
         <el-icon>
           <el-icon-arrow-down/>
         </el-icon>
+
       </div>
 
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item @click="showChangePwd">修改密码</el-dropdown-item>
-          <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item @click="showChangePwd">{{T('ChangePassword')}}</el-dropdown-item>
+          <el-dropdown-item @click="logout">{{ T('Logout')}}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -22,11 +26,14 @@
 
 <script setup>
   import { useUserStore } from '@/store/user'
+  import { useAppStore } from '@/store/app'
   import changePwdDialog from '@/components/changePwdDialog.vue'
   import { ref } from 'vue'
+  import { T } from '@/utils/i18n'
 
   const userStore = useUserStore()
   const user = userStore
+  const appStore = useAppStore()
 
   const logout = () => {
     userStore.logout()
@@ -36,6 +43,9 @@
   const changePwdVisible = ref(false)
   const showChangePwd = () => {
     changePwdVisible.value = true
+  }
+  const changeLang = () => {
+    appStore.changeLang()
   }
 </script>
 

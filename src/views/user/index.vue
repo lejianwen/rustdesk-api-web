@@ -1,36 +1,36 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
-        <el-form-item label="用户名">
+      <el-form inline label-width="80px">
+        <el-form-item :label="T('Username')">
           <el-input v-model="listQuery.username"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">筛选</el-button>
-          <el-button type="danger" @click="toAdd">添加</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
+          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"></el-table-column>
-        <el-table-column prop="username" label="用户名" align="center"/>
-        <el-table-column prop="nickname" label="昵称" align="center"/>
-        <el-table-column label="所在小组" align="center">
+        <el-table-column prop="username" :label="T('Username')" align="center"/>
+        <el-table-column prop="nickname" :label="T('Nickname')" align="center"/>
+        <el-table-column :label="T('Group')" align="center">
           <template #default="{row}">
             <span v-if="row.group_id"> <el-tag>{{ listRes.groups?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
-            <span v-else> 未分组 </span>
+            <span v-else> - </span>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" label="创建时间" align="center"/>
-        <el-table-column prop="updated_at" label="更新时间" align="center"/>
-        <el-table-column label="操作" align="center" width="550">
+        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
+        <el-table-column :label="T('Actions')" align="center" width="650">
           <template #default="{row}">
-            <el-button @click="toTag(row)">他的标签</el-button>
-            <el-button @click="toAddressBook(row)">他的地址簿</el-button>
-            <el-button @click="toEdit(row)">编辑</el-button>
-            <el-button type="warning" @click="changePass(row)">重置密码</el-button>
-            <el-button type="danger" @click="remove(row)">删除</el-button>
+            <el-button @click="toTag(row)">{{ T('UserTags') }}</el-button>
+            <el-button @click="toAddressBook(row)">{{ T('UserAddressBook') }}</el-button>
+            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button type="warning" @click="changePass(row)">{{ T('ResetPassword') }}</el-button>
+            <el-button type="danger" @click="remove(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -49,7 +49,7 @@
 
 <script setup>
   import { useRepositories, useDel, useToEditOrAdd, useChangePwd } from '@/views/user/composables'
-
+  import { T } from '@/utils/i18n'
   //列表
   const {
     listRes,

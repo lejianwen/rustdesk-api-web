@@ -3,6 +3,7 @@ import { list, remove, changePwd } from '@/api/user'
 import { list as groups } from '@/api/group'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { T } from '@/utils/i18n'
 
 export function useRepositories () {
 
@@ -74,15 +75,15 @@ export function useToEditOrAdd () {
     toAdd,
     toEdit,
     toTag,
-    toAddressBook
+    toAddressBook,
   }
 }
 
 export function useDel () {
   const del = async (id) => {
-    const cf = await ElMessageBox.confirm('确定删除么?', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
       type: 'warning',
     }).catch(_ => false)
     if (!cf) {
@@ -99,16 +100,16 @@ export function useDel () {
 
 export function useChangePwd () {
   const changePass = async (admin) => {
-    const input = await ElMessageBox.prompt('请输入新密码', '重置密码', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const input = await ElMessageBox.prompt(T('PleaseInputNewPassword'), T('ResetPassword'), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
     }).catch(_ => false)
     if (!input) {
       return
     }
-    const confirm = await ElMessageBox.confirm('确定重置密码么？', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const confirm = await ElMessageBox.confirm(T('Confirm?', { param: T('ResetPassword') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
     }).catch(_ => false)
     if (!confirm) {
       return
@@ -117,7 +118,7 @@ export function useChangePwd () {
     if (!res) {
       return
     }
-    ElMessage.success('修改成功')
+    ElMessage.success(T('OperationSuccess'))
   }
 
   return { changePass }

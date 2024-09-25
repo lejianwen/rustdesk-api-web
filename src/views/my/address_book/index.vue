@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
+      <el-form inline label-width="80px">
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">筛选</el-button>
-          <el-button type="danger" @click="toAdd">添加</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
+          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -12,19 +12,19 @@
       <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"/>
-        <el-table-column prop="username" label="用户名" align="center"/>
-        <el-table-column prop="hostname" label="主机名" align="center"/>
-        <el-table-column prop="alias" label="别名" align="center"/>
-        <el-table-column prop="platform" label="平台" align="center"/>
-        <el-table-column prop="hash" label="hash" align="center"/>
-        <el-table-column prop="tags" label="标签" align="center"/>
+        <el-table-column prop="username" :label="T('Username')" align="center"/>
+        <el-table-column prop="hostname" :label="T('Hostname')" align="center"/>
+        <el-table-column prop="alias" :label="T('Alias')" align="center"/>
+        <el-table-column prop="platform" :label="T('Platform')" align="center"/>
+        <el-table-column prop="hash" :label="T('Hash')" align="center"/>
+        <el-table-column prop="tags" :label="T('Tags')" align="center"/>
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column label="操作" align="center" width="400">
+        <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
             <el-button type="success" @click="toWebClientLink(row)">Web-Client</el-button>
-            <el-button @click="toEdit(row)">编辑</el-button>
-            <el-button type="danger" @click="del(row)">删除</el-button>
+            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -38,30 +38,30 @@
                      :total="listRes.total">
       </el-pagination>
     </el-card>
-    <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?'创建':'修改'">
+    <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?T('Create') :T('Update') ">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item label="id" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
-        <el-form-item label="用户名" prop="username">
+        <el-form-item :label="T('Username')" prop="username">
           <el-input v-model="formData.username"></el-input>
         </el-form-item>
-        <el-form-item label="别名" prop="alias">
+        <el-form-item :label="T('Alias')" prop="alias">
           <el-input v-model="formData.alias"></el-input>
         </el-form-item>
-        <el-form-item label="hash" prop="hash">
+        <el-form-item :label="T('Hash')" prop="hash">
           <el-input v-model="formData.hash"></el-input>
         </el-form-item>
-        <el-form-item label="主机名" prop="hostname">
+        <el-form-item :label="T('Hostname')" prop="hostname">
           <el-input v-model="formData.hostname"></el-input>
         </el-form-item>
-        <el-form-item label="登录名" prop="login_name">
-          <el-input v-model="formData.login_name"></el-input>
+        <el-form-item :label="T('LoginName')" prop="loginName">
+          <el-input v-model="formData.loginName"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
+        <el-form-item :label="T('Password')" prop="password">
           <el-input v-model="formData.password"></el-input>
         </el-form-item>
-        <el-form-item label="平台" prop="platform">
+        <el-form-item :label="T('Platform')" prop="platform">
           <el-select v-model="formData.platform">
             <el-option
                 v-for="item in platformList"
@@ -72,7 +72,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="标签" prop="tags">
+        <el-form-item :label="T('Tags')" prop="tags">
           <el-select v-model="formData.tags" multiple>
             <el-option
                 v-for="item in tagList"
@@ -100,8 +100,8 @@
 
 
         <el-form-item>
-          <el-button @click="formVisible = false">取消</el-button>
-          <el-button @click="submit" type="primary">提交</el-button>
+          <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -110,10 +110,10 @@
 
 <script setup>
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'
-  import { create, list, remove, update } from '@/api/address_book'
   import { list as fetchTagList } from '@/api/tag'
   import { useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'
+  import { T } from '@/utils/i18n'
 
   const tagList = ref([])
   const fetchTagListData = async () => {
@@ -136,8 +136,6 @@
     toEdit,
     toAdd,
     submit,
-    activeChange,
-    currentColor,
   } = useRepositories()
 
   listQuery.is_my = 1
@@ -148,29 +146,6 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-
-  /*watch(() => listRes.list, () => {
-        const peers = {}
-        listRes.list.map(item => {
-          peers[item.id] = {
-            'view-style': 'shrink',
-            tm: new Date().getTime(),
-            info: {
-              'id': item.id,
-              'username': item.username,
-              'hostname': item.hostname,
-              'alias': item.alias,
-              'platform': item.platform,
-              'hash': item.hash,
-              'tags': item.tags,
-            },
-          }
-        })
-        localStorage.setItem('peers', JSON.stringify(peers))
-      },
-      {
-        immediate: true,
-      })*/
 
 </script>
 

@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
+      <el-form inline label-width="80px">
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">筛选</el-button>
-          <el-button type="danger" @click="toAdd">添加</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
+          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -12,19 +12,19 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small">
         <el-table-column prop="id" label="id" align="center"/>
         <el-table-column prop="cpu" label="cpu" align="center"/>
-        <el-table-column prop="hostname" label="主机名" align="center"/>
-        <el-table-column prop="memory" label="内存" align="center"/>
-        <el-table-column prop="os" label="系统" align="center"/>
-        <el-table-column prop="username" label="username" align="center"/>
-        <el-table-column prop="uuid" label="uuid" align="center"/>
-        <el-table-column prop="version" label="版本号" align="center"/>
-        <el-table-column prop="created_at" label="创建时间" align="center"/>
-        <el-table-column prop="updated_at" label="更新时间" align="center"/>
-        <el-table-column label="操作" align="center" width="400">
+        <el-table-column prop="hostname" :label="T('Hostname')" align="center"/>
+        <el-table-column prop="memory" :label="T('Memory')" align="center"/>
+        <el-table-column prop="os" :label="T('Os')" align="center"/>
+        <el-table-column prop="username" :label="T('Username')" align="center"/>
+        <el-table-column prop="uuid" :label="T('Uuid')" align="center"/>
+        <el-table-column prop="version" :label="T('Version')" align="center"/>
+        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
+        <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
             <el-button type="success" @click="toWebClientLink(row)">Web-Client</el-button>
-            <el-button @click="toEdit(row)">编辑</el-button>
-            <el-button type="danger" @click="del(row)">删除</el-button>
+            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -38,36 +38,36 @@
                      :total="listRes.total">
       </el-pagination>
     </el-card>
-    <el-dialog v-model="formVisible" :title="!formData.row_id?'创建':'修改'" width="800">
+    <el-dialog v-model="formVisible" :title="!formData.row_id?T('Create'):T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item label="id" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
-        <el-form-item label="用户名" prop="username">
+        <el-form-item :label="T('Username')" prop="username">
           <el-input v-model="formData.username"></el-input>
         </el-form-item>
-        <el-form-item label="主机名" prop="hostname">
+        <el-form-item :label="T('Hostname')" prop="hostname">
           <el-input v-model="formData.hostname"></el-input>
         </el-form-item>
         <el-form-item label="cpu" prop="cpu">
           <el-input v-model="formData.cpu"></el-input>
         </el-form-item>
-        <el-form-item label="内存" prop="memory">
+        <el-form-item :label="T('Memory')" prop="memory">
           <el-input v-model="formData.memory"></el-input>
         </el-form-item>
-        <el-form-item label="系统" prop="os">
+        <el-form-item :label="T('Os')" prop="os">
           <el-input v-model="formData.os"></el-input>
         </el-form-item>
-        <el-form-item label="uuid" prop="uuid">
+        <el-form-item :label="T('Uuid')" prop="uuid">
           <el-input v-model="formData.uuid"></el-input>
         </el-form-item>
-        <el-form-item label="版本" prop="version">
+        <el-form-item :label="T('Version')" prop="version">
           <el-input v-model="formData.version"></el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button @click="formVisible = false">取消</el-button>
-          <el-button @click="submit" type="primary">提交</el-button>
+          <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -77,10 +77,9 @@
 <script setup>
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { create, list, remove, update } from '@/api/peer'
-  import { list as fetchTagList } from '@/api/tag'
   import { ElMessage, ElMessageBox } from 'element-plus'
-  import { loadAllUsers } from '@/global'
   import { toWebClientLink } from '@/utils/webclient'
+  import { T } from '@/utils/i18n'
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -108,9 +107,9 @@
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm('确定删除么?', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
       type: 'warning',
     }).catch(_ => false)
     if (!cf) {
@@ -119,7 +118,7 @@
 
     const res = await remove({ row_id: row.row_id }).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       getList()
     }
   }
@@ -173,7 +172,7 @@
     const api = formData.row_id ? update : create
     const res = await api(formData).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       formVisible.value = false
       getList()
     }

@@ -3,6 +3,7 @@ import { ElMessage } from 'element-plus'
 import { getToken, removeToken } from '@/utils/auth'
 import { useUserStore } from '@/store/user'
 import { pinia } from '@/store'
+import { useAppStore } from '@/store/app'
 
 // create an axios instance
 const service = axios.create({
@@ -14,15 +15,23 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    if (!config.headers) {
+      config.headers = {}
+    }
     const userStore = useUserStore(pinia)
 
     const token = userStore.token || getToken()
     if (token) {
-      if (!config.headers) {
-        config.headers = {}
-      }
       config.headers['api-token'] = token
     }
+
+    const app = useAppStore()
+    const lang = app.setting.lang
+    if (lang) {
+      console.log('lang', lang)
+      config.headers['Accept-Language'] = lang
+    }
+
     return config
   },
   error => {
@@ -66,7 +75,7 @@ service.interceptors.response.use(
   error => {
     if (error.code === 'ECONNABORTED'
       && error.message.indexOf('timeout') > -1) {
-      error.message = '请求超时！'
+      error.message = 'Connection Time Out!'
     }
     ElMessage({
       message: error.message,

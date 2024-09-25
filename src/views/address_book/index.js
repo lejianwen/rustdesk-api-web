@@ -1,7 +1,8 @@
-import { onActivated, onMounted, reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 import { create, list, remove, update } from '@/api/address_book'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
+import { T } from '@/utils/i18n'
 
 export function useRepositories () {
   const route = useRoute()
@@ -35,9 +36,9 @@ export function useRepositories () {
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm('确定删除么?', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
       type: 'warning',
     }).catch(_ => false)
     if (!cf) {
@@ -46,7 +47,7 @@ export function useRepositories () {
 
     const res = await remove({ row_id: row.row_id }).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       getList()
     }
   }
@@ -110,7 +111,7 @@ export function useRepositories () {
     const api = formData.row_id ? update : create
     const res = await api(formData).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       formVisible.value = false
       getList()
     }

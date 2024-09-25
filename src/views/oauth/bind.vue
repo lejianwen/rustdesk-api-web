@@ -1,22 +1,22 @@
 <template>
   <div class="oauth">
     <el-card class="card">
-      <h2>您正在授权绑定</h2>
+      <h2>{{ T('OauthBinding') }}</h2>
       <el-form class="info" label-width="100px">
-        <el-form-item label="平台">
+        <el-form-item :label="T('Op')">
           <div class="impt">{{ oauthInfo.op }}</div>
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item :label="T('ThirdName')">
           <div class="impt">{{ oauthInfo.third_name }}</div>
         </el-form-item>
         <el-form-item label-width="0">
-          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">绑定</el-button>
+          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">{{ T('Bind') }}</el-button>
         </el-form-item>
         <el-form-item label-width="0">
-          <el-button style="width: 100%" size="large" @click="out">关闭页面</el-button>
+          <el-button style="width: 100%" size="large" @click="out">{{ T('Close') }}</el-button>
         </el-form-item>
       </el-form>
-      如果不是您操作的授权，请直接关闭页面
+      {{ T('OauthCloseNote') }}
     </el-card>
   </div>
 </template>
@@ -26,6 +26,7 @@
   import { info, confirm, bindConfirm } from '@/api/oauth'
   import { useRoute, useRouter } from 'vue-router'
   import { ElMessage } from 'element-plus'
+  import { T } from '@/utils/i18n'
 
   const oauthInfo = ref({})
   const route = useRoute()
@@ -48,7 +49,7 @@
     const res = await bindConfirm({ code }).catch(_ => false)
     if (res) {
       resStatus.value = 1
-      ElMessage.success('操作成功,3秒后将自动关闭本页面')
+      ElMessage.success(T('OperationSuccessAndCloseAfter3Seconds'))
       setTimeout(_ => {
         out()
       }, 3000)

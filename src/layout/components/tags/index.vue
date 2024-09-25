@@ -7,7 +7,7 @@
           @click="toTag(t)"
           :type="t.active?'primary':'info'"
           :effect="t.active?'dark':'plain'">
-    {{t.title}}
+    {{ T(t.title) }}
   </el-tag>
 </template>
 
@@ -15,6 +15,7 @@
   import { defineComponent, ref, onMounted, watch } from 'vue'
   import { useTagsStore } from '@/store/tags'
   import { useRoute, useRouter } from 'vue-router'
+  import { T } from '@/utils/i18n'
 
   export default defineComponent({
     name: 'Index',
@@ -64,6 +65,7 @@
         close,
         toLastTag,
         toTag,
+        T,
       }
     },
   })
@@ -71,10 +73,11 @@
 
 <style lang="scss" scoped>
 
-  .tag {
-    border-radius: 0;
-    cursor: pointer;
-    &.active {
-    }
+.tag {
+  border-radius: 0;
+  cursor: pointer;
+
+  &.active {
   }
+}
 </style>

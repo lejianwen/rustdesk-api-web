@@ -1,0 +1,236 @@
+{
+  "Login": {
+    "One": "Login"
+  },
+  "Logout": {
+    "One": "Logout"
+  },
+  "Register": {
+    "One": "Register"
+  },
+  "Confirm": {
+    "One": "Confirm"
+  },
+  "Username": {
+    "One": "Username"
+  },
+  "Password": {
+    "One": "Password"
+  },
+  "LoginSuccess": {
+    "One": "Login Success"
+  },
+  "ForgotPassword": {
+    "One": "Forgot Password"
+  },
+  "ResetPassword": {
+    "One": "Reset Password"
+  },
+  "ChangePassword": {
+    "One": "Change Password"
+  },
+  "Userinfo": {
+    "One": "User Info"
+  },
+  "ParamRequired": {
+    "One": "{param} is required"
+  },
+  "HasBind": {
+    "One": "Has bind"
+  },
+  "NoBind": {
+    "One": "No bind"
+  },
+  "UnBind": {
+    "One": "UnBind"
+  },
+  "ToBind": {
+    "One": "To Bind"
+  },
+  "Confirm?": {
+    "One": "{param} Confirm?"
+  },
+  "Cancel": {
+    "One": "Cancel"
+  },
+  "Platform": {
+    "One": "Platform"
+  },
+  "Status": {
+    "One": "Status"
+  },
+  "Actions": {
+    "One": "Actions"
+  },
+  "Filter": {
+    "One": "Filter"
+  },
+  "Add": {
+    "One": "Add"
+  },
+  "Hostname": {
+    "One": "Hostname"
+  },
+  "Alias": {
+    "One": "Alias"
+  },
+  "Hash": {
+    "One": "Hash"
+  },
+  "Tags": {
+    "One": "Tags"
+  },
+  "Edit": {
+    "One": "Edit"
+  },
+  "Delete": {
+    "One": "Delete"
+  },
+  "Create": {
+    "One": "Create"
+  },
+  "Update": {
+    "One": "Update"
+  },
+  "LoginName": {
+    "One": "Login Name"
+  },
+  "Submit": {
+    "One": "Submit"
+  },
+  "OperationSuccess": {
+    "One": "Operation Success"
+  },
+  "Owner": {
+    "One": "Owner"
+  },
+  "Name": {
+    "One": "Name"
+  },
+  "Color": {
+    "One": "Color"
+  },
+  "CreatedAt": {
+    "One": "Created At"
+  },
+  "UpdatedAt": {
+    "One": "Updated At"
+  },
+  "Memory": {
+    "One": "Memory"
+  },
+  "Os": {
+    "One": "Os"
+  },
+  "Uuid": {
+    "One": "Uuid"
+  },
+  "Version": {
+    "One": "Version"
+  },
+  "Type": {
+    "One": "Type"
+  },
+  "Group": {
+    "One": "Group"
+  },
+  "CommonGroup": {
+    "One": "Common Group"
+  },
+  "CommonGroupNote": {
+    "One": "Only admins can see group members and their devices"
+  },
+  "SharedGroup": {
+    "One": "Shared Group"
+  },
+  "SharedGroupNote": {
+    "One": "All users can see group members and their devices"
+  },
+  "Nickname": {
+    "One": "Nickname"
+  },
+  "UserTags": {
+    "One": "User Tags"
+  },
+  "UserAddressBook": {
+    "One": "User Address Book"
+  },
+  "IsAdmin": {
+    "One": "Is Admin"
+  },
+  "PleaseInputNewPassword": {
+    "One": "Please input new password"
+  },
+  "AutoRegister": {
+    "One": "Auto Register"
+  },
+  "AutoRegisterNote": {
+    "One": "If Enable,An account will be automatically registered when a user logs in with OAuth without binding an existing account"
+  },
+  "ThirdName": {
+    "One": "Third Name"
+  },
+  "Close": {
+    "One": "Close"
+  },
+  "OauthBinding": {
+    "One": "You are authorizing the binding"
+  },
+  "OauthLogining": {
+    "One": "You are authorizing the login"
+  },
+  "OauthCloseNote": {
+    "One": "If it is not authorized by you, please close the page directly"
+  },
+  "OperationSuccessAndCloseAfter3Seconds": {
+    "One": "Operation Success,Close after 3 seconds"
+  },
+  "ConfirmOauth": {
+    "One": "Confirm Oauth"
+  },
+  "Device": {
+    "One": "Device"
+  },
+  "ChangeLang": {
+    "One": "切换中文"
+  },
+  "My": {
+    "One": "My"
+  },
+  "Info": {
+    "One": "Info"
+  },
+  "AddressBooks": {
+    "One": "Address Books"
+  },
+  "System": {
+    "One": "System"
+  },
+  "PeerManage": {
+    "One": "Peers"
+  },
+  "AddressBookManage": {
+    "One": "Address Books"
+  },
+  "GroupManage": {
+    "One": "Groups"
+  },
+  "UserManage": {
+    "One": "Users"
+  },
+  "UserAdd": {
+    "One": "User Add"
+  },
+  "UserEdit": {
+    "One": "User Edit"
+  },
+  "TagsManage": {
+    "One": "Tags"
+  },
+  "OauthManage": {
+    "One": "Oauth"
+  },
+  "LoginLog": {
+    "One": "Login Log"
+  }
+}

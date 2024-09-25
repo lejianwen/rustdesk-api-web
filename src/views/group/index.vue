@@ -1,26 +1,26 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
+      <el-form inline label-width="80px">
         <!--        <el-form-item label="名称">
                   <el-input v-model="listQuery.name"></el-input>
                 </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">筛选</el-button>
-          <el-button type="danger" @click="toAdd">添加</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
+          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"></el-table-column>
-        <el-table-column prop="name" label="名称" align="center"/>
-        <el-table-column prop="created_at" label="创建时间" align="center"/>
-        <el-table-column prop="updated_at" label="更新时间" align="center"/>
-        <el-table-column label="操作" align="center">
+        <el-table-column prop="name" :label="T('Name')" align="center"/>
+        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
+        <el-table-column :label="T('Actions')" align="center">
           <template #default="{row}">
-            <el-button @click="toEdit(row)">编辑</el-button>
-            <el-button type="danger" @click="del(row)">删除</el-button>
+            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -34,12 +34,12 @@
                      :total="listRes.total">
       </el-pagination>
     </el-card>
-    <el-dialog v-model="formVisible" :title="!formData.id?'创建':'修改'" width="800">
+    <el-dialog v-model="formVisible" :title="!formData.id?T('Create'):T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
-        <el-form-item label="名称" prop="name" required>
+        <el-form-item :label="T('Name')" prop="name" required>
           <el-input v-model="formData.name"></el-input>
         </el-form-item>
-        <el-form-item label="类型" prop="type" required>
+        <el-form-item :label="T('Type')" prop="type" required>
           <el-radio-group v-model="formData.type">
             <el-radio v-for="item in groupTypes" :key="item.value" :label="item.value" style="display: block">
               {{ item.label }}
@@ -48,8 +48,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item>
-          <el-button @click="formVisible = false">取消</el-button>
-          <el-button @click="submit" type="primary">提交</el-button>
+          <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -60,6 +60,7 @@
   import { onMounted, reactive, watch, ref, onActivated } from 'vue'
   import { list, create, update, detail, remove } from '@/api/group'
   import { ElMessage, ElMessageBox } from 'element-plus'
+  import { T } from '@/utils/i18n'
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -87,9 +88,9 @@
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm('确定删除么?', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
       type: 'warning',
     }).catch(_ => false)
     if (!cf) {
@@ -98,7 +99,7 @@
 
     const res = await remove({ id: row.id }).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       getList()
     }
   }
@@ -110,8 +111,8 @@
   watch(() => listQuery.page_size, handlerQuery)
 
   const groupTypes = [
-    { label: '普通组', value: 1, note: '只有管理员能看到小组成员和成员的设备' },
-    { label: '共享组', value: 2, note: '所有用户都能看到小组成员和成员的设备' },
+    { label: T('CommonGroup'), value: 1, note: T('CommonGroupNote') },
+    { label: T('SharedGroup'), value: 2, note: T('SharedGroupNote') },
   ]
   const formVisible = ref(false)
   const formData = reactive({
@@ -136,7 +137,7 @@
     const api = formData.id ? update : create
     const res = await api(formData).catch(_ => false)
     if (res) {
-      ElMessage.success('操作成功')
+      ElMessage.success(T('OperationSuccess'))
       formVisible.value = false
       getList()
     }

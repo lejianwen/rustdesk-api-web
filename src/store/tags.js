@@ -8,15 +8,15 @@ export const useTagsStore = defineStore({
   }),
   actions: {
     initTags () {
-      this.tags.push(
-        {
-          name: 'Home',
-          path: '/Home',
-          title: '首页',
-          active: false,
-          closeable: false,
-          keepAlive: false,
-        })
+      // this.tags.push(
+      //   {
+      //     name: 'Home',
+      //     path: '/Home',
+      //     title: '首页',
+      //     active: false,
+      //     closeable: false,
+      //     keepAlive: false,
+      //   })
     },
     addTag (route) {
       const tags = this.tags
