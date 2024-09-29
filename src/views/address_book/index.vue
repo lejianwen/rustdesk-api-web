@@ -12,6 +12,15 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item :label="T('Id')">
+          <el-input v-model="listQuery.id" clearable></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Username')">
+          <el-input v-model="listQuery.username" clearable></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Hostname')">
+          <el-input v-model="listQuery.hostname" clearable></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
@@ -80,12 +89,12 @@
         <el-form-item :label="T('Hostname')" prop="hostname">
           <el-input v-model="formData.hostname"></el-input>
         </el-form-item>
-        <el-form-item :label="T('LoginName')" prop="loginName">
-          <el-input v-model="formData.loginName"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Password')" prop="password">
-          <el-input v-model="formData.password"></el-input>
-        </el-form-item>
+        <!--        <el-form-item :label="T('LoginName')" prop="loginName">
+                  <el-input v-model="formData.loginName"></el-input>
+                </el-form-item>
+                <el-form-item :label="T('Password')" prop="password">
+                  <el-input v-model="formData.password"></el-input>
+                </el-form-item>-->
         <el-form-item :label="T('Platform')" prop="platform">
           <el-select v-model="formData.platform">
             <el-option
@@ -140,7 +149,9 @@
   import { useRepositories } from '@/views/address_book/index'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
+  import { useRoute } from 'vue-router'
 
+  const route = useRoute()
   const { allUsers, getAllUsers } = loadAllUsers()
   getAllUsers()
   const changeUser = (v) => {
@@ -167,9 +178,12 @@
     toEdit,
     toAdd,
     submit,
-    activeChange,
     currentColor,
   } = useRepositories()
+
+  if (route.query?.user_id) {
+    listQuery.user_id = parseInt(route.query.user_id)
+  }
 
   onMounted(getList)
   onActivated(getList)

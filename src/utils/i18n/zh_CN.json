@@ -232,5 +232,47 @@
   },
   "LoginLog": {
     "One": "登录日志"
+  },
+  "LastOnlineTime": {
+    "One": "最后在线时间"
+  },
+  "JustNow": {
+    "One": "刚刚"
+  },
+  "MinutesAgo": {
+    "One": "{param} 分钟前"
+  },
+  "HoursAgo": {
+    "One": "{param} 小时前"
+  },
+  "DaysAgo": {
+    "One": "{param} 天前"
+  },
+  "MonthsAgo": {
+    "One": "{param} 月前"
+  },
+  "YearsAgo": {
+    "One": "{param} 年前"
+  },
+  "MinutesLess": {
+    "One": "{param} 分钟内"
+  },
+  "HoursLess": {
+    "One": "{param} 小时内"
+  },
+  "DaysLess": {
+    "One": "{param} 天内"
+  },
+  "Export": {
+    "One": "导出"
+  },
+  "AddToAddressBook": {
+    "One": "添加到地址簿"
+  },
+  "BatchDelete": {
+    "One": "批量删除"
+  },
+  "PleaseSelectData": {
+    "One": "请选择数据"
   }
 }

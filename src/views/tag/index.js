@@ -22,6 +22,10 @@ export function useRepositories () {
     // color 是十进制的数字,先转成16进制
     let hex = color.toString(16)
     console.log('hex', hex)
+    if (hex.length < 8) {
+      //前面补0
+      hex = '0'.repeat(8 - hex.length) + hex
+    }
     //前两位是透明度
     let alpha = hex.slice(0, 2)
     //后六位是颜色
@@ -51,6 +55,7 @@ export function useRepositories () {
     if (b.length === 1) {
       b = '0' + b
     }
+    console.log('to f color', alpha + r + g + b, parseInt(alpha + r + g + b, 16))
     return parseInt(alpha + r + g + b, 16)
   }
 

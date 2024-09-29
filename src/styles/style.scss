@@ -10,11 +10,21 @@ $sideBarWidth: 210px;
   --primaryColor: #409eff;
 }
 
-.list-body{
+.list-body {
   margin: 10px 0;
 }
 
-.dialog-form{
+.dialog-form {
   max-width: 600px;
   margin: 20px auto;
+}
+
+.list-query {
+  .el-select {
+    --el-select-width: 160px;
+  }
+
+  .el-input {
+    --el-input-width: 160px;
+  }
 }

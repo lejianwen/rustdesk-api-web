@@ -11,7 +11,7 @@ export const useAppStore = defineStore({
       sideIsCollapse: false,
       logo,
       lang: localStorage.getItem('lang') || 'zh-CN',
-      locale: zhCn,
+      locale: localStorage.getItem('lang') === 'en' ? en : zhCn,
     },
   }),
 

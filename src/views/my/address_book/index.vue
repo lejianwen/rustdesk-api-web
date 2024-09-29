@@ -2,6 +2,15 @@
   <div>
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
+        <el-form-item :label="T('Id')">
+          <el-input v-model="listQuery.id" clearable></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Username')">
+          <el-input v-model="listQuery.username" clearable></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Hostname')">
+          <el-input v-model="listQuery.hostname" clearable></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
@@ -55,12 +64,12 @@
         <el-form-item :label="T('Hostname')" prop="hostname">
           <el-input v-model="formData.hostname"></el-input>
         </el-form-item>
-        <el-form-item :label="T('LoginName')" prop="loginName">
-          <el-input v-model="formData.loginName"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Password')" prop="password">
-          <el-input v-model="formData.password"></el-input>
-        </el-form-item>
+        <!--        <el-form-item :label="T('LoginName')" prop="loginName">
+                  <el-input v-model="formData.loginName"></el-input>
+                </el-form-item>-->
+        <!--        <el-form-item :label="T('Password')" prop="password">
+                          <el-input v-model="formData.password"></el-input>
+                        </el-form-item>-->
         <el-form-item :label="T('Platform')" prop="platform">
           <el-select v-model="formData.platform">
             <el-option
@@ -150,9 +159,6 @@
 </script>
 
 <style scoped lang="scss">
-.list-query .el-select {
-  --el-select-width: 160px;
-}
 
 .colors {
   display: flex;

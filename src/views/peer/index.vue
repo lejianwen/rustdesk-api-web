@@ -1,15 +1,29 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="150px">
+        <el-form-item :label="T('LastOnlineTime')">
+          <el-select v-model="listQuery.time_ago" clearable>
+            <el-option
+                v-for="item in timeFilters"
+                :key="item.value"
+                :label="item.text"
+                :value="item.value"
+                :disabled="item.value === 0"
+            ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
+          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
+          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <el-table :data="listRes.list" v-loading="listRes.loading" border size="small">
+      <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" align="center"/>
         <el-table-column prop="id" label="id" align="center"/>
         <el-table-column prop="cpu" label="cpu" align="center"/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center"/>
@@ -17,12 +31,21 @@
         <el-table-column prop="os" :label="T('Os')" align="center"/>
         <el-table-column prop="username" :label="T('Username')" align="center"/>
         <el-table-column prop="uuid" :label="T('Uuid')" align="center"/>
-        <el-table-column prop="version" :label="T('Version')" align="center"/>
+        <el-table-column prop="version" :label="T('Version')" align="center" width="80"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
-        <el-table-column :label="T('Actions')" align="center" width="400">
+        <el-table-column prop="last_online_time" :label="T('LastOnlineTime')" align="center">
+          <template #default="{row}">
+            <div class="last_oline_time">
+              <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
+            </div>
+
+          </template>
+        </el-table-column>
+        <el-table-column :label="T('Actions')" align="center" width="500">
           <template #default="{row}">
             <el-button type="success" @click="toWebClientLink(row)">Web-Client</el-button>
+            <el-button type="primary" @click="toAddressBook(row)">{{ T('AddToAddressBook') }}</el-button>
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
@@ -71,15 +94,73 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+    <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')">
+      <el-form class="dialog-form" ref="form" :model="ABFormData" label-width="120px">
+        <el-form-item :label="T('Owner')" prop="user_ids" required>
+          <el-select v-model="ABFormData.user_ids" multiple>
+            <el-option
+                v-for="item in allUsers"
+                :key="item.id"
+                :label="item.username"
+                :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="id" prop="id" required>
+          <el-input v-model="ABFormData.id"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Username')" prop="username">
+          <el-input v-model="ABFormData.username"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Alias')" prop="alias">
+          <el-input v-model="ABFormData.alias"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Hostname')" prop="hostname">
+          <el-input v-model="ABFormData.hostname"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Platform')" prop="platform">
+          <el-select v-model="ABFormData.platform">
+            <el-option
+                v-for="item in ABPlatformList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item :label="T('Tags')" prop="tags">
+          <el-select v-model="ABFormData.tags" multiple>
+            <el-option
+                v-for="item in tagList"
+                :key="item.name"
+                :label="item.name"
+                :value="item.name"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="ABFormVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="ABSubmit" type="primary">{{ T('Submit') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
-  import { onActivated, onMounted, reactive, ref, watch } from 'vue'
-  import { create, list, remove, update } from '@/api/peer'
+  import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
+  import { batchRemove, create, list, remove, update } from '@/api/peer'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
+  import { timeAgo } from '@/utils/time'
+  import { jsonToCsv, downBlob } from '@/utils/file'
+  import { useRepositories as useABRepositories } from '@/views/address_book/index'
+  import { loadAllUsers } from '@/global'
+  import { list as fetchTagList } from '@/api/tag'
+  import { batchCreate } from '@/api/address_book'
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -87,6 +168,7 @@
   const listQuery = reactive({
     page: 1,
     page_size: 10,
+    time_ago: null,
   })
 
   const getList = async () => {
@@ -129,12 +211,6 @@
 
   watch(() => listQuery.page_size, handlerQuery)
 
-  const platformList = [
-    { label: 'Windows', value: 'Windows' },
-    { label: 'Linux', value: 'Linux' },
-    { label: 'Mac OS', value: 'Mac OS' },
-    { label: 'Android', value: 'Android' },
-  ]
   const formVisible = ref(false)
   const formData = reactive({
     row_id: 0,
@@ -178,33 +254,137 @@
     }
   }
 
+  const timeDis = (time) => {
+    let now = new Date().getTime()
+    let after = new Date(time * 1000).getTime()
+    return (now - after) / 1000
+  }
+
+  const timeFilters = computed(() => [
+    { text: T('MinutesLess', { param: 1 }, 1), value: -60 },
+    { text: T('HoursLess', { param: 1 }, 1), value: -3600 },
+    { text: T('DaysLess', { param: 1 }, 1), value: -86400 },
+    { text: '---------', value: 0 },
+    { text: T('MinutesAgo', { param: 1 }, 1), value: 60 },
+    { text: T('HoursAgo', { param: 1 }, 1), value: 3600 },
+    { text: T('DaysAgo', { param: 1 }, 1), value: 86400 },
+    { text: T('MonthsAgo', { param: 1 }, 1), value: 2592000 },
+    // { text: T('YearsAgo', { param: 1 }, 1), value: 31536000 },
+  ])
+
+  const toExport = async () => {
+    const q = { ...listQuery }
+    q.page_size = 10000
+    q.page = 1
+    const res = await list(q).catch(_ => false)
+    if (res) {
+      const data = res.data.list.map(item => {
+        item.last_online_time = item.last_online_time ? new Date(item.last_online_time * 1000).toLocaleString() : '-'
+        return item
+      })
+      const csv = jsonToCsv(data)
+      downBlob(csv, 'peers.csv')
+    }
+  }
+
+  const {
+    platformList: ABPlatformList,
+    formVisible: ABFormVisible,
+    formData: ABFormData,
+  } = useABRepositories()
+  const toAddressBook = (peer) => {
+    ABFormData.id = peer.id
+    ABFormData.username = peer.username
+    ABFormData.hostname = peer.hostname
+    //匹配os
+    if (peer.os.indexOf('windows') !== -1) {
+      ABFormData.platform = ABPlatformList.find(item => item.label === 'Windows').value
+    } else if (peer.os.indexOf('linux') !== -1) {
+      ABFormData.platform = ABPlatformList.find(item => item.label === 'Linux').value
+    } else if (peer.os.indexOf('android') !== -1) {
+      ABFormData.platform = ABPlatformList.find(item => item.label === 'Android').value
+    } else if (peer.os.indexOf('mac') !== -1) {
+      ABFormData.platform = ABPlatformList.find(item => item.label === 'Mac OS').value
+    }
+    ABFormData.uuid = peer.uuid
+    ABFormVisible.value = true
+
+  }
+  const ABSubmit = async () => {
+    const res = await batchCreate(ABFormData).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      ABFormVisible.value = false
+    }
+  }
+
+  const { allUsers, getAllUsers } = loadAllUsers()
+  const tagList = ref([])
+  const fetchTagListData = async (user_id) => {
+    const res = await fetchTagList({ user_id }).catch(_ => false)
+    if (res) {
+      const ls = []
+      res.data.list.map(item => {
+        if (!ls.includes(item.name)) {
+          ls.push(item.name)
+        }
+      })
+      tagList.value = ls.map(item => ({ name: item }))
+    }
+  }
+  onMounted(getAllUsers)
+  onMounted(fetchTagListData)
+
+  const multipleSelection = ref([])
+  const handleSelectionChange = (val) => {
+    multipleSelection.value = val
+  }
+  const toBatchDelete = async () => {
+    if (!multipleSelection.value.length) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('BatchDelete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
+      type: 'warning',
+    }).catch(_ => false)
+    if (!cf) {
+      return false
+    }
+
+    const res = await batchRemove({ row_ids: multipleSelection.value.map(i => i.row_id) }).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      getList()
+    }
+  }
 </script>
 
 <style scoped lang="scss">
 .list-query .el-select {
-  --el-select-width: 160px;
+  --el-select-width: 180px;
 }
 
-.colors {
+.last_oline_time {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .colorbox {
-    width: 50px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      display: block;
-      border-radius: 50%;
-    }
-  }
-
 }
 
+.dot {
+  width: 6px;
+  height: 6px;
+  display: block;
+  border-radius: 50%;
+  margin-left: 10px;
+
+  &.red {
+    background-color: red;
+  }
+
+  &.green {
+    background-color: green;
+  }
+}
 </style>

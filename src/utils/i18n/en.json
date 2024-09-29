@@ -232,5 +232,55 @@
   },
   "LoginLog": {
     "One": "Login Log"
+  },
+  "LastOnlineTime": {
+    "One": "Last Online Time"
+  },
+  "JustNow": {
+    "One": "Just Now"
+  },
+  "MinutesAgo": {
+    "One": "{param} Minute Ago",
+    "Other": "{param} Minutes Ago"
+  },
+  "HoursAgo": {
+    "One": "{param} Hour Ago",
+    "Other": "{param} Hours Ago"
+  },
+  "DaysAgo": {
+    "One": "{param} Day Ago",
+    "Other": "{param} Days Ago"
+  },
+  "MonthsAgo": {
+    "One": "{param} Month Ago",
+    "Other": "{param} Months Ago"
+  },
+  "YearsAgo": {
+    "One": "{param} Year Ago",
+    "Other": "{param} Years Ago"
+  },
+  "MinutesLess": {
+    "One": "Less than {param} minute",
+    "Other": "Less than {param} minutes"
+  },
+  "HoursLess": {
+    "One": "Less than {param} hour",
+    "Other": "Less than {param} hours"
+  },
+  "DaysLess": {
+    "One": "Less than {param} day",
+    "Other": "Less than {param} days"
+  },
+  "Export": {
+    "One": "Export"
+  },
+  "AddToAddressBook": {
+    "One": "Add To Address Book"
+  },
+  "BatchDelete": {
+    "One": "Batch Delete"
+  },
+  "PleaseSelectData": {
+    "One": "Please select data"
   }
 }

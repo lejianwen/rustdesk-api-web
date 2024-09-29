@@ -36,3 +36,11 @@ export function remove (data) {
     data,
   })
 }
+
+export function batchRemove (data) {
+  return request({
+    url: '/peer/batchDelete',
+    method: 'post',
+    data,
+  })
+}

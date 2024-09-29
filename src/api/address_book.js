@@ -37,9 +37,9 @@ export function remove (data) {
   })
 }
 
-export function changePwd (data) {
+export function batchCreate (data) {
   return request({
-    url: '/address_book/changePwd',
+    url: '/address_book/batchCreate',
     method: 'post',
     data,
   })
