@@ -280,6 +280,8 @@
     if (res) {
       const data = res.data.list.map(item => {
         item.last_online_time = item.last_online_time ? new Date(item.last_online_time * 1000).toLocaleString() : '-'
+        delete item.user_id
+        delete item.user
         return item
       })
       const csv = jsonToCsv(data)
