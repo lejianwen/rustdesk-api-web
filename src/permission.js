@@ -6,6 +6,7 @@ import { pinia } from '@/store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
 import { useAppStore } from '@/store/app' // progress bar style
+import { T } from '@/utils/i18n'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -14,7 +15,7 @@ const routeStore = useRouteStore(pinia)
 const appStore = useAppStore(pinia)
 router.beforeEach(async (to, from, next) => {
 
-  document.title = (to.meta?.title || 'Rust-api-web') + '-' + appStore.setting.title
+  document.title = T(to.meta?.title) + ' - ' + appStore.setting.title
   NProgress.start()
 
   const token = getToken()
