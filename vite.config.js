@@ -31,8 +31,8 @@ const conf = {
     },
   },
   build: {
-    target: 'es2015',
-    minify: 'terser', // 是否进行压缩,boolean | 'terser' | 'esbuild',默认使用 esbuild
+    target: 'es2020',
+    minify: 'esbuild', // 是否进行压缩,boolean | 'terser' | 'esbuild',默认使用 esbuild
     manifest: false, // 是否产出maifest.json
     sourcemap: false, // 是否产出soucemap.json
     emptyOutDir: true,

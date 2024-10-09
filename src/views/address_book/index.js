@@ -116,7 +116,16 @@ export function useRepositories (user_id) {
       getList()
     }
   }
-
+  const shareToWebClientVisible = ref(false)
+  const shareToWebClientForm = reactive({
+    id: '',
+    hash: '',
+  })
+  const toShowShare = (row) => {
+    shareToWebClientForm.id = row.id
+    shareToWebClientForm.hash = row.hash
+    shareToWebClientVisible.value = true
+  }
   return {
     listRes,
     listQuery,
@@ -129,5 +138,8 @@ export function useRepositories (user_id) {
     toEdit,
     toAdd,
     submit,
+    shareToWebClientVisible,
+    shareToWebClientForm,
+    toShowShare,
   }
 }

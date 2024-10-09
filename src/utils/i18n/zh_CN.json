@@ -274,5 +274,65 @@
   },
   "PleaseSelectData": {
     "One": "请选择数据"
+  },
+  "PasswordType": {
+    "One": "密码类型"
+  },
+  "OncePassword": {
+    "One": "一次性密码"
+  },
+  "FixedPassword": {
+    "One": "固定密码"
+  },
+  "FixedPasswordWarning": {
+    "One": "固定密码可能存在泄露风险，请谨慎使用，建议使用一次性密码"
+  },
+  "ExpireTime": {
+    "One": "过期时间"
+  },
+  "ShareByWebClient": {
+    "One": "通过 Web Client 分享"
+  },
+  "Minutes": {
+    "One": "{param} 分钟"
+  },
+  "Hours": {
+    "One": "{param} 小时"
+  },
+  "Days": {
+    "One": "{param} 天"
+  },
+  "Weeks": {
+    "One": "{param} 周"
+  },
+  "Months": {
+    "One": "{param} 月"
+  },
+  "Forever": {
+    "One": "永久"
+  },
+  "Error": {
+    "One": "错误"
+  },
+  "IDNotExist": {
+    "One": "ID 不存在"
+  },
+  "RemoteDesktopOffline": {
+    "One": "远程电脑不在线"
+  },
+  "KeyMismatch": {
+    "One": "KEY不匹配"
+  },
+  "KeyOveruse": {
+    "One": "KEY使用过度"
+  },
+  "Link": {
+    "One": "链接"
+  },
+  "CopySuccess": {
+    "One": "复制成功"
+  },
+  "CopyFailed": {
+    "One": "复制失败"
   }
 }

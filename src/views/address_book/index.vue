@@ -44,9 +44,10 @@
         <el-table-column prop="tags" :label="T('Tags')" align="center"/>
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column label="操作" align="center" width="400">
+        <el-table-column label="操作" align="center" width="500">
           <template #default="{row}">
-            <el-button type="success" @click="toWebClientLink(row)">Web-Client</el-button>
+            <el-button type="success" @click="toWebClientLink(row)">Web Client</el-button>
+            <!--            <el-button type="primary" @click="toShowShare(row)">{{ T('ShareByWebClient') }}</el-button>-->
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
@@ -139,6 +140,12 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+<!--    <el-dialog v-model="shareToWebClientVisible" width="900" :close-on-click-modal="false">
+      <shareByWebClient :id="shareToWebClientForm.id"
+                        :hash="shareToWebClientForm.hash"
+                        @cancel="shareToWebClientVisible=false"
+                        @success=""/>
+    </el-dialog>-->
   </div>
 </template>
 
@@ -147,9 +154,10 @@
   import { list as fetchTagList } from '@/api/tag'
   import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/address_book/index'
-  import { toWebClientLink } from '@/utils/webclient'
+  import { toWebClientLink, getPeerSlat } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
   import { useRoute } from 'vue-router'
+  import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
 
   const route = useRoute()
   const { allUsers, getAllUsers } = loadAllUsers()
@@ -178,7 +186,9 @@
     toEdit,
     toAdd,
     submit,
-    currentColor,
+    shareToWebClientVisible,
+    shareToWebClientForm,
+    toShowShare,
   } = useRepositories()
 
   if (route.query?.user_id) {
@@ -191,6 +201,7 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
+
 
 </script>
 

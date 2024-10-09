@@ -44,3 +44,12 @@ export function batchCreate (data) {
     data,
   })
 }
+
+export function shareByWebClient (data) {
+  return request({
+    url: '/address_book/shareByWebClient',
+    method: 'post',
+    data,
+  })
+}
+

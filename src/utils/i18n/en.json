@@ -282,5 +282,70 @@
   },
   "PleaseSelectData": {
     "One": "Please select data"
+  },
+  "PasswordType": {
+    "One": "Password Type"
+  },
+  "OncePassword": {
+    "One": "One-time Password"
+  },
+  "FixedPassword": {
+    "One": "Fixed Password"
+  },
+  "FixedPasswordWarning": {
+    "One": "Fixed passwords may be leaked, so please use them with caution and use one-time passwords is recommended"
+  },
+  "ExpireTime": {
+    "One": "Expire Time"
+  },
+  "ShareByWebClient": {
+    "One": "Share By Web Client"
+  },
+  "Minutes": {
+    "One": "{param} Minute",
+    "Other": "{param} Minutes"
+  },
+  "Hours": {
+    "One": "{param} Hour",
+    "Other": "{param} Hours"
+  },
+  "Days": {
+    "One": "{param} Day",
+    "Other": "{param} Days"
+  },
+  "Weeks": {
+    "One": "{param} Week",
+    "Other": "{param} Weeks"
+  },
+  "Months": {
+    "One": "{param} Month",
+    "Other": "{param} Months"
+  },
+  "Forever": {
+    "One": "Forever"
+  },
+  "Error": {
+    "One": "Error"
+  },
+  "IDNotExist": {
+    "One": "ID does not exist"
+  },
+  "RemoteDesktopOffline": {
+    "One": "Remote desktop is offline"
+  },
+  "KeyMismatch": {
+    "One": "Key mismatch"
+  },
+  "KeyOveruse": {
+    "One": "Key overuse"
+  },
+  "Link": {
+    "One": "Link"
+  },
+  "CopySuccess": {
+    "One": "Copy Success"
+  },
+  "CopyFailed": {
+    "One": "Copy Failed"
   }
 }
