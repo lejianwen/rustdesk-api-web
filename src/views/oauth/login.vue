@@ -26,6 +26,7 @@
   import { info, confirm } from '@/api/oauth'
   import { useRoute, useRouter } from 'vue-router'
   import { ElMessage } from 'element-plus'
+  import { T } from '@/utils/i18n'
 
   const oauthInfo = ref({})
   const route = useRoute()
