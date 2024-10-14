@@ -160,7 +160,9 @@
   import { useRoute } from 'vue-router'
   import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
   import { connectByClient } from '@/utils/peer'
+  import { useAppStore } from '@/store/app'
 
+  const appStore = useAppStore()
   const route = useRoute()
   const { allUsers, getAllUsers } = loadAllUsers()
   getAllUsers()
