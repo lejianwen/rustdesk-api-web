@@ -347,5 +347,8 @@
   },
   "CopyFailed": {
     "One": "Copy Failed"
+  },
+  "Timeout": {
+    "One": "Timeout"
   }
 }

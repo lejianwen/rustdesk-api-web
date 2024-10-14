@@ -50,6 +50,7 @@
   import { shareByWebClient } from '@/api/address_book'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
+  import { ElMessageBox } from 'element-plus'
 
   const props = defineProps({
     id: String,
@@ -71,7 +72,7 @@
     formData.id = props.id
     formData.hash = props.hash
     formData.password = ''
-    formData.expire = 300
+    formData.expire = 1800
     formData.password_type = 'once'
     link.value = ''
   }
@@ -106,7 +107,10 @@
     loading.value = true
     const _formData = { ...formData }
     if (formData.password !== formData.hash) {
-      const res = await getPeerSlat(formData.id).catch(_ => false)
+      const res = await getPeerSlat(formData.id).catch(e => {
+        ElMessageBox.alert(T('Timeout'), T('Error'))
+        return false
+      })
       if (!res) {
         loading.value = false
         return

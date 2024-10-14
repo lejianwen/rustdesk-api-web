@@ -2,6 +2,12 @@
   <div>
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="150px">
+        <el-form-item label="ID">
+          <el-input v-model="listQuery.id" clearable/>
+        </el-form-item>
+        <el-form-item :label="T('Hostname')">
+          <el-input v-model="listQuery.hostname" clearable/>
+        </el-form-item>
         <el-form-item :label="T('LastOnlineTime')">
           <el-select v-model="listQuery.time_ago" clearable>
             <el-option
@@ -42,9 +48,10 @@
 
           </template>
         </el-table-column>
-        <el-table-column :label="T('Actions')" align="center" width="500">
+        <el-table-column :label="T('Actions')" align="center" width="500" class-name="table-actions">
           <template #default="{row}">
-            <el-button type="success" @click="toWebClientLink(row)">Web-Client</el-button>
+            <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
+            <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>
             <el-button type="primary" @click="toAddressBook(row)">{{ T('AddToAddressBook') }}</el-button>
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
@@ -161,7 +168,10 @@
   import { loadAllUsers } from '@/global'
   import { list as fetchTagList } from '@/api/tag'
   import { batchCreate } from '@/api/address_book'
+  import { useAppStore } from '@/store/app'
+  import { connectByClient } from '@/utils/peer'
 
+  const appStore = useAppStore()
   const listRes = reactive({
     list: [], total: 0, loading: false,
   })
@@ -169,6 +179,8 @@
     page: 1,
     page_size: 10,
     time_ago: null,
+    id: '',
+    hostname: '',
   })
 
   const getList = async () => {

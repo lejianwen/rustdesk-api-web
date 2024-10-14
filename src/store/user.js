@@ -2,6 +2,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { current, login } from '@/api/user'
 import { setToken, removeToken } from '@/utils/auth'
 import { useRouteStore } from '@/store/router'
+import { useAppStore } from '@/store/app'
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -26,6 +27,7 @@ export const useUserStore = defineStore({
     async login (form) {
       const res = await login(form).catch(_ => false)
       if (res) {
+        useAppStore().getAppConfig()
         const userData = res.data
         setToken(userData.token)
         //
@@ -44,6 +46,7 @@ export const useUserStore = defineStore({
     async info () {
       const res = await current().catch(_ => false)
       if (res) {
+        useAppStore().getAppConfig()
         const userData = res.data
         setToken(userData.token)
         this.$patch({

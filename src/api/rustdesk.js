@@ -6,3 +6,9 @@ export function config () {
     method: 'get',
   })
 }
+export function appConfig () {
+  return request({
+    url: '/app-config',
+    method: 'get',
+  })
+}

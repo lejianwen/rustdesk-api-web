@@ -334,5 +334,8 @@
   },
   "CopyFailed": {
     "One": "复制失败"
+  },
+  "Timeout": {
+    "One": "超时"
   }
 }
