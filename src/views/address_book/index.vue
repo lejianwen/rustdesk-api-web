@@ -38,13 +38,14 @@
         </el-table-column>
         <el-table-column prop="username" :label="T('Username')" align="center" width="150"/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="150"/>
-        <el-table-column prop="alias" :label="T('Alias')" align="center" width="150"/>
+
         <el-table-column prop="platform" :label="T('Platform')" align="center" width="120"/>
-        <el-table-column prop="hash" :label="T('Hash')" align="center" width="250"/>
-        <el-table-column prop="tags" :label="T('Tags')" align="center" width="250"/>
+        <el-table-column prop="tags" :label="T('Tags')" align="center"/>
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :label="T('Actions')" align="center" class-name="table-actions">
+        <el-table-column prop="alias" :label="T('Alias')" align="center" width="150"/>
+        <el-table-column prop="hash" :label="T('Hash')" align="center" width="150" show-overflow-tooltip/>
+        <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="500" fixed="right">
           <template #default="{row}">
             <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
             <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>
