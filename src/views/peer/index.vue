@@ -30,7 +30,11 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column prop="id" label="id" align="center" width="150"/>
+        <el-table-column prop="id" label="id" align="center" width="150">
+          <template #default="{row}">
+            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+          </template>
+        </el-table-column>
         <el-table-column prop="cpu" label="cpu" align="center" width="100" show-overflow-tooltip/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="120"/>
         <el-table-column prop="memory" :label="T('Memory')" align="center" width="120"/>
@@ -169,6 +173,8 @@
   import { batchCreate } from '@/api/address_book'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
+  import { CopyDocument } from '@element-plus/icons'
+  import { handleClipboard } from '@/utils/clipboard'
 
   const appStore = useAppStore()
   const listRes = reactive({

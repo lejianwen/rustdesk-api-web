@@ -130,6 +130,12 @@ export const asyncRoutes = [
         meta: { title: 'LoginLog', icon: 'List' /*keepAlive: true*/ },
         component: () => import('@/views/login/log.vue'),
       },
+      {
+        path: '/auditConn',
+        name: 'AuditConn',
+        meta: { title: 'AuditConnLog', icon: 'Tickets' /*keepAlive: true*/ },
+        component: () => import('@/views/audit/connList.vue'),
+      },
     ],
   },
 ]

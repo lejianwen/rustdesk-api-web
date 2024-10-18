@@ -337,5 +337,20 @@
   },
   "Timeout": {
     "One": "超时"
+  },
+  "AuditConnLog": {
+    "One": "连接日志"
+  },
+  "Peer": {
+    "One": "设备"
+  },
+  "FromPeer": {
+    "One": "来源设备"
+  },
+  "FromName": {
+    "One": "来源名称"
+  },
+  "CloseTime": {
+    "One": "关闭时间"
   }
 }

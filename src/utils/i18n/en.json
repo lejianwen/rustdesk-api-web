@@ -350,5 +350,21 @@
   },
   "Timeout": {
     "One": "Timeout"
+  },
+  "AuditConnLog": {
+    "One": "Connection Log"
+  },
+  "Peer": {
+    "One": "Peer",
+    "Other": "Peers"
+  },
+  "FromPeer": {
+    "One": "From Peer"
+  },
+  "FromName": {
+    "One": "From Name"
+  },
+  "CloseTime": {
+    "One": "Close Time"
   }
 }

@@ -30,7 +30,11 @@
     <el-card class="list-body" shadow="hover">
       <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="id" align="center" width="200"/>
+        <el-table-column prop="id" label="id" align="center" width="200">
+          <template #default="{row}">
+            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+          </template>
+        </el-table-column>
         <el-table-column :label="T('Owner')" align="center" width="200">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
@@ -162,6 +166,8 @@
   import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
   import { connectByClient } from '@/utils/peer'
   import { useAppStore } from '@/store/app'
+  import { handleClipboard } from '@/utils/clipboard'
+  import { CopyDocument } from '@element-plus/icons'
 
   const appStore = useAppStore()
   const route = useRoute()
