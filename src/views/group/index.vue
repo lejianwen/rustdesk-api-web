@@ -15,6 +15,12 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"></el-table-column>
         <el-table-column prop="name" :label="T('Name')" align="center"/>
+        <el-table-column prop="type" :label="T('Type')" align="center">
+          <template #default="{row}">
+            <span v-if="row.type === 1">{{ T('CommonGroup') }}</span>
+            <span v-else>{{ T('SharedGroup') }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
         <el-table-column :label="T('Actions')" align="center">
