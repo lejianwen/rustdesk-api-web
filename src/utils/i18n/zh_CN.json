@@ -352,5 +352,38 @@
   },
   "CloseTime": {
     "One": "关闭时间"
+  },
+  "AuditFileLog": {
+    "One": "文件日志"
+  },
+  "Common": {
+    "One": "普通"
+  },
+  "File": {
+    "One": "文件"
+  },
+  "Num": {
+    "One": "数量"
+  },
+  "Ip": {
+    "One": "IP"
+  },
+  "FileName": {
+    "One": "文件名"
+  },
+  "FileInfo": {
+    "One": "文件信息"
+  },
+  "Path": {
+    "One": "路径"
+  },
+  "IndexNum": {
+    "One": "序号"
+  },
+  "ToRemote": {
+    "One": "到远程"
+  },
+  "ToLocal": {
+    "One": "到本地"
   }
 }

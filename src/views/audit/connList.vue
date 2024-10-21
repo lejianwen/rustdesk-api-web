@@ -14,16 +14,22 @@
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center" width="100"/>
         <el-table-column :label="T('Peer')" prop="peer_id" align="center" width="120"/>
         <el-table-column :label="T('FromPeer')" prop="from_peer" align="center" width="120"/>
         <el-table-column :label="T('FromName')" prop="from_name" align="center" width="120"/>
+        <el-table-column :label="T('Ip')" prop="ip" align="center" width="120"/>
+        <el-table-column pop="type" :label="T('Type')" align="center" width="120">
+          <template #default="{row}">
+            <el-tag v-if="row.type === 1" type="warning">{{ T('File') }}</el-tag>
+            <el-tag v-else>{{ T('Common') }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="uuid" label="uuid" align="center" width="120" show-overflow-tooltip/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="T('CloseTime')" prop="close_time" align="center"/>
-        <el-table-column :label="T('Actions')" align="center" width="400">
+        <el-table-column :label="T('Actions')" align="center" width="150">
           <template #default="{row}">
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>

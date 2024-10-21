@@ -14,3 +14,18 @@ export function remove (data) {
     data,
   })
 }
+
+export function fileList (params) {
+  return request({
+    url: '/audit_file/list',
+    params,
+  })
+}
+
+export function fileRemove (data) {
+  return request({
+    url: '/audit_file/delete',
+    method: 'post',
+    data,
+  })
+}

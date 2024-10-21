@@ -136,6 +136,12 @@ export const asyncRoutes = [
         meta: { title: 'AuditConnLog', icon: 'Tickets' /*keepAlive: true*/ },
         component: () => import('@/views/audit/connList.vue'),
       },
+      {
+        path: '/auditFile',
+        name: 'AuditFile',
+        meta: { title: 'AuditFileLog', icon: 'Files' /*keepAlive: true*/ },
+        component: () => import('@/views/audit/fileList.vue'),
+      },
     ],
   },
 ]

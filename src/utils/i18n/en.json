@@ -366,5 +366,38 @@
   },
   "CloseTime": {
     "One": "Close Time"
+  },
+  "AuditFileLog": {
+    "One": "File Log"
+  },
+  "Common": {
+    "One": "Common"
+  },
+  "File": {
+    "One": "File"
+  },
+  "Num": {
+    "One": "Num"
+  },
+  "Ip": {
+    "One": "Ip"
+  },
+  "FileName": {
+    "One": "File Name"
+  },
+  "FileInfo": {
+    "One": "File Info"
+  },
+  "Path": {
+    "One": "Path"
+  },
+  "IndexNum": {
+    "One": "Index Num"
+  },
+  "ToRemote": {
+    "One": "To Remote"
+  },
+  "ToLocal": {
+    "One": "To Local"
   }
 }
