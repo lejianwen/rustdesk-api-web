@@ -1,0 +1,404 @@
+{
+  "Login": {
+    "One": "Вход"
+  },
+  "Logout": {
+    "One": "Выход"
+  },
+  "Register": {
+    "One": "Регистрация"
+  },
+  "Confirm": {
+    "One": "Подтвердить"
+  },
+  "Username": {
+    "One": "Имя пользователя"
+  },
+  "Password": {
+    "One": "Пароль"
+  },
+  "LoginSuccess": {
+    "One": "Успешный вход"
+  },
+  "ForgotPassword": {
+    "One": "Забыли пароль"
+  },
+  "ResetPassword": {
+    "One": "Сбросить пароль"
+  },
+  "ChangePassword": {
+    "One": "Сменить пароль"
+  },
+  "Userinfo": {
+    "One": "Информация о пользователе"
+  },
+  "ParamRequired": {
+    "One": "{param} обязательный"
+  },
+  "HasBind": {
+    "One": "Связано"
+  },
+  "NoBind": {
+    "One": "Не связано"
+  },
+  "UnBind": {
+    "One": "Разъединить"
+  },
+  "ToBind": {
+    "One": "Привязать"
+  },
+  "Confirm?": {
+    "One": "Подтвердить {param}?"
+  },
+  "Cancel": {
+    "One": "Отмена"
+  },
+  "Platform": {
+    "One": "Платформа"
+  },
+  "Status": {
+    "One": "Статус"
+  },
+  "Actions": {
+    "One": "Действия"
+  },
+  "Filter": {
+    "One": "Фильтр"
+  },
+  "Add": {
+    "One": "Добавить"
+  },
+  "Hostname": {
+    "One": "Имя хоста"
+  },
+  "Alias": {
+    "One": "Псевдоним"
+  },
+  "Hash": {
+    "One": "Хэш"
+  },
+  "Tags": {
+    "One": "Теги"
+  },
+  "Edit": {
+    "One": "Редактировать"
+  },
+  "Delete": {
+    "One": "Удалить"
+  },
+  "Create": {
+    "One": "Создать"
+  },
+  "Update": {
+    "One": "Обновить"
+  },
+  "LoginName": {
+    "One": "Имя для входа"
+  },
+  "Submit": {
+    "One": "Отправить"
+  },
+  "OperationSuccess": {
+    "One": "Операция выполнена успешно"
+  },
+  "Owner": {
+    "One": "Владелец"
+  },
+  "Name": {
+    "One": "Имя"
+  },
+  "Color": {
+    "One": "Цвет"
+  },
+  "CreatedAt": {
+    "One": "Создано"
+  },
+  "UpdatedAt": {
+    "One": "Обновлено"
+  },
+  "Memory": {
+    "One": "Память"
+  },
+  "Os": {
+    "One": "ОС"
+  },
+  "Uuid": {
+    "One": "UUID"
+  },
+  "Version": {
+    "One": "Версия"
+  },
+  "Type": {
+    "One": "Тип"
+  },
+  "Group": {
+    "One": "Группа"
+  },
+  "CommonGroup": {
+    "One": "Общая группа"
+  },
+  "CommonGroupNote": {
+    "One": "Только администраторы могут видеть участников группы и их устройства"
+  },
+  "SharedGroup": {
+    "One": "Общая группа"
+  },
+  "SharedGroupNote": {
+    "One": "Все пользователи могут видеть участников группы и их устройства"
+  },
+  "Nickname": {
+    "One": "Псевдоним"
+  },
+  "UserTags": {
+    "One": "Теги пользователя"
+  },
+  "UserAddressBook": {
+    "One": "Адресная книга пользователя"
+  },
+  "IsAdmin": {
+    "One": "Является администратором"
+  },
+  "PleaseInputNewPassword": {
+    "One": "Пожалуйста, введите новый пароль"
+  },
+  "AutoRegister": {
+    "One": "Авто-регистрация"
+  },
+  "AutoRegisterNote": {
+    "One": "Если включено, аккаунт будет автоматически зарегистрирован, когда пользователь входит через OAuth без привязки к существующему аккаунту"
+  },
+  "ThirdName": {
+    "One": "Третье имя"
+  },
+  "Close": {
+    "One": "Закрыть"
+  },
+  "OauthBinding": {
+    "One": "Вы авторизуете привязку"
+  },
+  "OauthLogining": {
+    "One": "Вы авторизуете вход"
+  },
+  "OauthCloseNote": {
+    "One": "Если это не было авторизовано вами, пожалуйста, закройте страницу"
+  },
+  "OperationSuccessAndCloseAfter3Seconds": {
+    "One": "Операция выполнена успешно, закройте через 3 секунды"
+  },
+  "ConfirmOauth": {
+    "One": "Подтвердить Oauth"
+  },
+  "Device": {
+    "One": "Устройство"
+  },
+  "ChangeLang": {
+    "One": "Сменить на китайский"
+  },
+  "My": {
+    "One": "Мой"
+  },
+  "Info": {
+    "One": "Информация"
+  },
+  "AddressBooks": {
+    "One": "Адресные книги"
+  },
+  "System": {
+    "One": "Система"
+  },
+  "PeerManage": {
+    "One": "Пиры"
+  },
+  "AddressBookManage": {
+    "One": "Адресные книги"
+  },
+  "GroupManage": {
+    "One": "Группы"
+  },
+  "UserManage": {
+    "One": "Пользователи"
+  },
+  "UserAdd": {
+    "One": "Добавить пользователя"
+  },
+  "UserEdit": {
+    "One": "Редактировать пользователя"
+  },
+  "TagsManage": {
+    "One": "Теги"
+  },
+  "OauthManage": {
+    "One": "Oauth"
+  },
+  "LoginLog": {
+    "One": "Журнал входов"
+  },
+  "LastOnlineTime": {
+    "One": "Последнее время онлайн"
+  },
+  "JustNow": {
+    "One": "Только что"
+  },
+  "MinutesAgo": {
+    "One": "{param} минуту назад",
+    "Other": "{param} минут назад"
+  },
+  "HoursAgo": {
+    "One": "{param} час назад",
+    "Other": "{param} часов назад"
+  },
+  "DaysAgo": {
+    "One": "{param} день назад",
+    "Other": "{param} дней назад"
+  },
+  "MonthsAgo": {
+    "One": "{param} месяц назад",
+    "Other": "{param} месяцев назад"
+  },
+  "YearsAgo": {
+    "One": "{param} год назад",
+    "Other": "{param} лет назад"
+  },
+  "MinutesLess": {
+    "One": "Менее {param} минуты",
+    "Other": "Менее {param} минут"
+  },
+  "HoursLess": {
+    "One": "Менее {param} часа",
+    "Other": "Менее {param} часов"
+  },
+  "DaysLess": {
+    "One": "Менее {param} дня",
+    "Other": "Менее {param} дней"
+  },
+  "Export": {
+    "One": "Экспорт"
+  },
+  "AddToAddressBook": {
+    "One": "Добавить в адресную книгу"
+  },
+  "BatchDelete": {
+    "One": "Пакетное удаление"
+  },
+  "PleaseSelectData": {
+    "One": "Пожалуйста, выберите данные"
+  },
+  "PasswordType": {
+    "One": "Тип пароля"
+  },
+  "OncePassword": {
+    "One": "Одноразовый пароль"
+  },
+  "FixedPassword": {
+    "One": "Фиксированный пароль"
+  },
+  "FixedPasswordWarning": {
+    "One": "Фиксированные пароли могут быть скомпрометированы, поэтому используйте их с осторожностью; рекомендуется использовать одноразовые пароли"
+  },
+  "ExpireTime": {
+    "One": "Время истечения"
+  },
+  "ShareByWebClient": {
+    "One": "Поделиться через веб-клиент"
+  },
+  "Minutes": {
+    "One": "{param} минута",
+    "Other": "{param} минуты"
+  },
+  "Hours": {
+    "One": "{param} час",
+    "Other": "{param} часа"
+  },
+  "Days": {
+    "One": "{param} день",
+    "Other": "{param} дня"
+  },
+  "Weeks": {
+    "One": "{param} неделя",
+    "Other": "{param} недели"
+  },
+  "Months": {
+    "One": "{param} месяц",
+    "Other": "{param} месяца"
+  },
+  "Forever": {
+    "One": "Навсегда"
+  },
+  "Error": {
+    "One": "Ошибка"
+  },
+  "IDNotExist": {
+    "One": "ID не существует"
+  },
+  "RemoteDesktopOffline": {
+    "One": "Удаленный рабочий стол отключен"
+  },
+  "KeyMismatch": {
+    "One": "Несоответствие ключа"
+  },
+  "KeyOveruse": {
+    "One": "Чрезмерное использование ключа"
+  },
+  "Link": {
+    "One": "Ссылка"
+  },
+  "CopySuccess": {
+    "One": "Копирование успешно"
+  },
+  "CopyFailed": {
+    "One": "Ошибка копирования"
+  },
+  "Timeout": {
+    "One": "Время ожидания истекло"
+  },
+  "AuditConnLog": {
+    "One": "Журнал соединений"
+  },
+  "Peer": {
+    "One": "Партнер",
+    "Other": "Партнеры"
+  },
+  "FromPeer": {
+    "One": "От партнера"
+  },
+  "FromName": {
+    "One": "От имени"
+  },
+  "CloseTime": {
+    "One": "Время закрытия"
+  },
+  "AuditFileLog": {
+    "One": "Журнал файлов"
+  },
+  "Common": {
+    "One": "Общий"
+  },
+  "File": {
+    "One": "Файл"
+  },
+  "Num": {
+    "One": "Номер"
+  },
+  "Ip": {
+    "One": "IP"
+  },
+  "FileName": {
+    "One": "Имя файла"
+  },
+  "FileInfo": {
+    "One": "Информация о файле"
+  },
+  "Path": {
+    "One": "Путь"
+  },
+  "IndexNum": {
+    "One": "Индексный номер"
+  },
+  "ToRemote": {
+    "One": "К удаленному"
+  },
+  "ToLocal": {
+    "One": "К локальному"
+  }
+}
+

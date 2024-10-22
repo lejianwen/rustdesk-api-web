@@ -3,9 +3,15 @@ import logo from '@/assets/logo.png'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import ko from 'element-plus/es/locale/lang/ko'
+import ru from 'element-plus/es/locale/lang/ru'
 import { appConfig } from '@/api/rustdesk'
 
-const langs = { 'zh-CN': { name: '中文', value: zhCn }, 'en': { name: 'English', value: en }, 'ko': { name: '한국어', value: ko } }
+const langs = {
+  'zh-CN': { name: '中文', value: zhCn },
+  'en': { name: 'English', value: en },
+  'ko': { name: '한국어', value: ko },
+  'ru': { name: 'русский', value: ru },
+}
 export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
