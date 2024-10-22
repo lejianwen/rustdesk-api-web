@@ -1,0 +1,389 @@
+{
+  "Login": {
+    "One": "로그인"
+  },
+  "Logout": {
+    "One": "로그아웃"
+  },
+  "Register": {
+    "One": "등록"
+  },
+  "Confirm": {
+    "One": "확인"
+  },
+  "Username": {
+    "One": "사용자 이름"
+  },
+  "Password": {
+    "One": "비밀번호"
+  },
+  "LoginSuccess": {
+    "One": "로그인 성공"
+  },
+  "ForgotPassword": {
+    "One": "비밀번호를 잊으셨나요?"
+  },
+  "ResetPassword": {
+    "One": "비밀번호 재설정"
+  },
+  "ChangePassword": {
+    "One": "비밀번호 변경"
+  },
+  "Userinfo": {
+    "One": "사용자 정보"
+  },
+  "ParamRequired": {
+    "One": "{param} 은 필수입니다"
+  },
+  "HasBind": {
+    "One": "이미 연결됨"
+  },
+  "NoBind": {
+    "One": "연결되지 않음"
+  },
+  "UnBind": {
+    "One": "연결 해제"
+  },
+  "ToBind": {
+    "One": "연결"
+  },
+  "Confirm?": {
+    "One": "{param} 를 확인하시겠습니까?"
+  },
+  "Cancel": {
+    "One": "취소"
+  },
+  "Platform": {
+    "One": "플랫폼"
+  },
+  "Status": {
+    "One": "상태"
+  },
+  "Actions": {
+    "One": "작업"
+  },
+  "Filter": {
+    "One": "필터"
+  },
+  "Add": {
+    "One": "추가"
+  },
+  "Hostname": {
+    "One": "호스트 이름"
+  },
+  "Alias": {
+    "One": "별명"
+  },
+  "Hash": {
+    "One": "해시"
+  },
+  "Tags": {
+    "One": "태그"
+  },
+  "Edit": {
+    "One": "편집"
+  },
+  "Delete": {
+    "One": "삭제"
+  },
+  "Create": {
+    "One": "생성"
+  },
+  "Update": {
+    "One": "업데이트"
+  },
+  "LoginName": {
+    "One": "로그인 이름"
+  },
+  "Submit": {
+    "One": "제출"
+  },
+  "OperationSuccess": {
+    "One": "작업 성공"
+  },
+  "Owner": {
+    "One": "소유자"
+  },
+  "Name": {
+    "One": "이름"
+  },
+  "Color": {
+    "One": "색상"
+  },
+  "CreatedAt": {
+    "One": "생성 시간"
+  },
+  "UpdatedAt": {
+    "One": "업데이트 시간"
+  },
+  "Memory": {
+    "One": "메모리"
+  },
+  "Os": {
+    "One": "운영 체제"
+  },
+  "Uuid": {
+    "One": "UUID"
+  },
+  "Version": {
+    "One": "버전"
+  },
+  "Type": {
+    "One": "유형"
+  },
+  "Group": {
+    "One": "그룹"
+  },
+  "CommonGroup": {
+    "One": "일반 그룹"
+  },
+  "CommonGroupNote": {
+    "One": "관리자만 그룹 멤버 및 그들의 장치를 볼 수 있습니다."
+  },
+  "SharedGroup": {
+    "One": "공유 그룹"
+  },
+  "SharedGroupNote": {
+    "One": "모든 사용자가 그룹 멤버 및 그들의 장치를 볼 수 있습니다."
+  },
+  "Nickname": {
+    "One": "닉네임"
+  },
+  "UserTags": {
+    "One": "사용자 태그"
+  },
+  "UserAddressBook": {
+    "One": "사용자 주소록"
+  },
+  "IsAdmin": {
+    "One": "관리자 여부"
+  },
+  "PleaseInputNewPassword": {
+    "One": "새 비밀번호를 입력하십시오"
+  },
+  "AutoRegister": {
+    "One": "자동 등록"
+  },
+  "AutoRegisterNote": {
+    "One": "사용 시, 사용자가 OAuth로 로그인할 때 기존 계정에 연결하지 않고 자동으로 계정이 등록됩니다."
+  },
+  "ThirdName": {
+    "One": "제3자 이름"
+  },
+  "Close": {
+    "One": "닫기"
+  },
+  "OauthBinding": {
+    "One": "바인딩을 허용하고 있습니다."
+  },
+  "OauthLogining": {
+    "One": "로그인을 허용하고 있습니다."
+  },
+  "OauthCloseNote": {
+    "One": "귀하가 시작한 권한 부여가 아닌 경우 페이지를 닫아 주시기 바랍니다."
+  },
+  "OperationSuccessAndCloseAfter3Seconds": {
+    "One": "작업 성공, 3초 후 자동으로 페이지가 닫힙니다."
+  },
+  "ConfirmOauth": {
+    "One": "권한 부여 확인"
+  },
+  "Device": {
+    "One": "장치"
+  },
+  "ChangeLang": {
+    "One": "영어로 변경"
+  },
+  "My": {
+    "One": "내"
+  },
+  "Info": {
+    "One": "정보"
+  },
+  "AddressBooks": {
+    "One": "주소록"
+  },
+  "System": {
+    "One": "시스템"
+  },
+  "PeerManage": {
+    "One": "장치 관리"
+  },
+  "AddressBookManage": {
+    "One": "주소록 관리"
+  },
+  "GroupManage": {
+    "One": "그룹 관리"
+  },
+  "UserManage": {
+    "One": "사용자 관리"
+  },
+  "UserAdd": {
+    "One": "사용자 추가"
+  },
+  "UserEdit": {
+    "One": "사용자 편집"
+  },
+  "TagsManage": {
+    "One": "태그 관리"
+  },
+  "OauthManage": {
+    "One": "Oauth 관리"
+  },
+  "LoginLog": {
+    "One": "로그인 로그"
+  },
+  "LastOnlineTime": {
+    "One": "마지막 온라인 시간"
+  },
+  "JustNow": {
+    "One": "방금"
+  },
+  "MinutesAgo": {
+    "One": "{param} 분 전"
+  },
+  "HoursAgo": {
+    "One": "{param} 시간 전"
+  },
+  "DaysAgo": {
+    "One": "{param} 일 전"
+  },
+  "MonthsAgo": {
+    "One": "{param} 개월 전"
+  },
+  "YearsAgo": {
+    "One": "{param} 년 전"
+  },
+  "MinutesLess": {
+    "One": "{param} 분 이내"
+  },
+  "HoursLess": {
+    "One": "{param} 시간 이내"
+  },
+  "DaysLess": {
+    "One": "{param} 일 이내"
+  },
+  "Export": {
+    "One": "내보내기"
+  },
+  "AddToAddressBook": {
+    "One": "주소록에 추가"
+  },
+  "BatchDelete": {
+    "One": "일괄 삭제"
+  },
+  "PleaseSelectData": {
+    "One": "데이터를 선택하십시오"
+  },
+  "PasswordType": {
+    "One": "비밀번호 유형"
+  },
+  "OncePassword": {
+    "One": "일회용 비밀번호"
+  },
+  "FixedPassword": {
+    "One": "고정 비밀번호"
+  },
+  "FixedPasswordWarning": {
+    "One": "고정 비밀번호는 유출 위험이 있으므로 주의하여 사용하십시오. 일회용 비밀번호를 사용하는 것이 좋습니다."
+  },
+  "ExpireTime": {
+    "One": "만료 시간"
+  },
+  "ShareByWebClient": {
+    "One": "웹 클라이언트를 통해 공유"
+  },
+  "Minutes": {
+    "One": "{param} 분"
+  },
+  "Hours": {
+    "One": "{param} 시간"
+  },
+  "Days": {
+    "One": "{param} 일"
+  },
+  "Weeks": {
+    "One": "{param} 주"
+  },
+  "Months": {
+    "One": "{param} 개월"
+  },
+  "Forever": {
+    "One": "영구"
+  },
+  "Error": {
+    "One": "오류"
+  },
+  "IDNotExist": {
+    "One": "ID가 존재하지 않음"
+  },
+  "RemoteDesktopOffline": {
+    "One": "원격 컴퓨터가 온라인이 아님"
+  },
+  "KeyMismatch": {
+    "One": "키 불일치"
+  },
+  "KeyOveruse": {
+    "One": "키 과다 사용"
+  },
+  "Link": {
+    "One": "링크"
+  },
+  "CopySuccess": {
+    "One": "복사 성공"
+  },
+  "CopyFailed": {
+    "One": "복사 실패"
+  },
+  "Timeout": {
+    "One": "시간 초과"
+  },
+  "AuditConnLog": {
+    "One": "연결 로그"
+  },
+  "Peer": {
+    "One": "장치"
+  },
+  "FromPeer": {
+    "One": "출처 장치"
+  },
+  "FromName": {
+    "One": "출처 이름"
+  },
+  "CloseTime": {
+    "One": "닫는 시간"
+  },
+  "AuditFileLog": {
+    "One": "파일 로그"
+  },
+  "Common": {
+    "One": "일반"
+  },
+  "File": {
+    "One": "파일"
+  },
+  "Num": {
+    "One": "수량"
+  },
+  "Ip": {
+    "One": "IP"
+  },
+  "FileName": {
+    "One": "파일 이름"
+  },
+  "FileInfo": {
+    "One": "파일 정보"
+  },
+  "Path": {
+    "One": "경로"
+  },
+  "IndexNum": {
+    "One": "순번"
+  },
+  "ToRemote": {
+    "One": "원격으로"
+  },
+  "ToLocal": {
+    "One": "로컬로"
+  }
+}

@@ -1,12 +1,17 @@
 import en from '@/utils/i18n/en.json'
 import zhCN from '@/utils/i18n/zh_CN.json'
+import ko from '@/utils/i18n/ko.json'
 import { useAppStore } from '@/store/app'
 
 export function T (key, params, num = 0) {
   const appStore = useAppStore()
   const lang = appStore.setting.lang
-  const trans = lang === 'zh-CN' ? zhCN : en
-  const tran = trans[key]
+  const trans = {
+    'en': en,
+    'zh-CN': zhCN,
+    'ko': ko,
+  }
+  const tran = trans[lang][key]
   if (!tran) {
     return key
   }
