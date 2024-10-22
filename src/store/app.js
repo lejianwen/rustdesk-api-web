@@ -2,8 +2,10 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import logo from '@/assets/logo.png'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
+import ko from 'element-plus/es/locale/lang/ko'
 import { appConfig } from '@/api/rustdesk'
 
+const langs = { 'zh-CN': { name: '中文', value: zhCn }, 'en': { name: 'English', value: en }, 'ko': { name: '한국어', value: ko } }
 export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
@@ -11,8 +13,9 @@ export const useAppStore = defineStore({
       title: 'Rustdesk-Api-Admin',
       sideIsCollapse: false,
       logo,
+      langs: langs,
       lang: localStorage.getItem('lang') || 'zh-CN',
-      locale: localStorage.getItem('lang') === 'en' ? en : zhCn,
+      locale: langs[(localStorage.getItem('lang') || 'zh-CN')].value,
       appConfig: {
         web_client: 1,
       },
@@ -24,12 +27,13 @@ export const useAppStore = defineStore({
       this.setting.sideIsCollapse = !this.setting.sideIsCollapse
     },
     setLang (lang) {
+      console.log('setLang', lang)
       this.setting.lang = lang
-      this.setting.locale = lang === 'zh-CN' ? zhCn : en
+      this.setting.locale = langs[lang].value
       localStorage.setItem('lang', lang)
     },
-    changeLang () {
-      this.setLang(this.setting.lang === 'zh-CN' ? 'en' : 'zh-CN')
+    changeLang (v) {
+      this.setLang(v)
     },
     getAppConfig () {
       console.log('getAppConfig')
