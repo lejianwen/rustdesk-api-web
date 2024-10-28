@@ -385,5 +385,41 @@
   },
   "ToLocal": {
     "One": "로컬로"
+  },
+  "AddressBookName": {
+    "One": "주소록 이름"
+  },
+  "AddRule": {
+    "One": "규칙 추가"
+  },
+  "ShareRules": {
+    "One": "공유 규칙"
+  },
+  "Rule": {
+    "One": "규칙"
+  },
+  "Read": {
+    "One": "읽기"
+  },
+  "ReadWrite": {
+    "One": "읽기/쓰기"
+  },
+  "FullControl": {
+    "One": "전체 제어"
+  },
+  "ShareTo": {
+    "One": "공유 대상"
+  },
+  "MyAddressBook": {
+    "One": "내 주소록"
+  },
+  "AddressBook": {
+    "One": "주소록"
+  },
+  "AddressBookNameManage": {
+    "One": "주소록 이름 관리"
+  },
+  "MyAddressBookTips": {
+    "One": "\"내 주소록\"은 시스템의 기본값이며 수정하거나 삭제할 수 없습니다."
   }
 }

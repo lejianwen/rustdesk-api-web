@@ -2,20 +2,20 @@ import request from '@/utils/request'
 
 export function list (params) {
   return request({
-    url: '/address_book/list',
+    url: '/address_book_collection_rule/list',
     params,
   })
 }
 
 export function detail (id) {
   return request({
-    url: `/address_book/detail/${id}`,
+    url: `/address_book_collection_rule/detail/${id}`,
   })
 }
 
 export function create (data) {
   return request({
-    url: '/address_book/create',
+    url: '/address_book_collection_rule/create',
     method: 'post',
     data,
   })
@@ -23,7 +23,7 @@ export function create (data) {
 
 export function update (data) {
   return request({
-    url: '/address_book/update',
+    url: '/address_book_collection_rule/update',
     method: 'post',
     data,
   })
@@ -31,7 +31,7 @@ export function update (data) {
 
 export function remove (data) {
   return request({
-    url: '/address_book/delete',
+    url: '/address_book_collection_rule/delete',
     method: 'post',
     data,
   })
@@ -39,15 +39,7 @@ export function remove (data) {
 
 export function batchCreate (data) {
   return request({
-    url: '/address_book/batchCreate',
-    method: 'post',
-    data,
-  })
-}
-
-export function shareByWebClient (data) {
-  return request({
-    url: '/address_book/shareByWebClient',
+    url: '/address_book_collection_rule/batchCreate',
     method: 'post',
     data,
   })

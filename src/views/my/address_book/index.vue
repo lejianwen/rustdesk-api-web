@@ -1,7 +1,13 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="120px">
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="listQuery.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item :label="T('Id')">
           <el-input v-model="listQuery.id" clearable></el-input>
         </el-form-item>
@@ -22,12 +28,24 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center" width="200">
           <template #default="{row}">
-            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+            <div>
+              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" style="width: 20px;height: 20px;display: inline-block" color="var(--basicBlack)"/>
+              {{ row.id }}
+              <el-icon @click="handleClipboard(row.id, $event)">
+                <CopyDocument/>
+              </el-icon>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+          <template #default="{row}">
+            <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
+            <span v-else>{{ collectionListRes.list.find(c => c.id === row.collection_id)?.name }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="username" :label="T('Username')" align="center" width="150"/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="150"/>
-        <el-table-column prop="platform" :label="T('Platform')" align="center" width="120"/>
+        <!--        <el-table-column prop="platform" :label="T('Platform')" align="center" width="120"/>-->
         <el-table-column prop="tags" :label="T('Tags')" align="center"/>
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
@@ -55,6 +73,12 @@
     </el-card>
     <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?T('Create') :T('Update') ">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
+        <el-form-item :label="T('AddressBookName')" required prop="collection_id">
+          <el-select v-model="formData.collection_id" clearable @change="changeCollection">
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="id" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
@@ -90,7 +114,7 @@
         <el-form-item :label="T('Tags')" prop="tags">
           <el-select v-model="formData.tags" multiple>
             <el-option
-                v-for="item in tagList"
+                v-for="item in tagListRes.list"
                 :key="item.name"
                 :label="item.name"
                 :value="item.name"
@@ -130,7 +154,7 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, reactive, ref, watch } from 'vue'
+  import { onActivated, onMounted, ref, watch } from 'vue'
   import { list as fetchTagList } from '@/api/tag'
   import { useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'
@@ -140,16 +164,10 @@
   import { connectByClient } from '@/utils/peer'
   import { handleClipboard } from '@/utils/clipboard'
   import { CopyDocument } from '@element-plus/icons'
+  import PlatformIcons from '@/components/icons/platform.vue'
 
+  const is_my = 1
   const appStore = useAppStore()
-  const tagList = ref([])
-  const fetchTagListData = async () => {
-    const res = await fetchTagList({ is_my: 1 }).catch(_ => false)
-    if (res) {
-      tagList.value = res.data.list
-    }
-  }
-  fetchTagListData()
 
   const {
     listRes,
@@ -166,17 +184,20 @@
     shareToWebClientVisible,
     shareToWebClientForm,
     toShowShare,
-  } = useRepositories()
+    // collectionListQuery,
+    collectionListRes,
+    getCollectionList,
+    tagListRes,
+    changeCollection,
+  } = useRepositories(is_my)
 
-  listQuery.is_my = 1
-
+  onMounted(getCollectionList)
   onMounted(getList)
   onActivated(getList)
 
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-
 </script>
 
 <style scoped lang="scss">

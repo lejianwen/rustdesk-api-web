@@ -3,8 +3,18 @@ import { create, list, remove, update } from '@/api/tag'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
+import { loadAllUsers } from '@/global'
+import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 
-export function useRepositories () {
+export function useRepositories (is_my = 0) {
+  const { allUsers, getAllUsers } = loadAllUsers()
+
+  const {
+    listRes: collectionListRes,
+    listQuery: collectionListQuery,
+    getList: getCollectionList,
+  } = useCollectionRepositories(is_my)
+  collectionListQuery.page_size = 9999
   //获取query
   const route = useRoute()
   const user_id = route.query?.user_id
@@ -14,8 +24,9 @@ export function useRepositories () {
   const listQuery = reactive({
     page: 1,
     page_size: 10,
-    is_my: 0,
+    is_my,
     user_id: user_id ? parseInt(user_id) : null,
+    collection_id: null,
   })
 
   const flutterColor2rgba = (color) => {
@@ -108,6 +119,7 @@ export function useRepositories () {
     name: '',
     color: 0,
     user_id: 0,
+    collection_id: 0,
   })
   const currentColor = ref('')
   const activeChange = (c) => {
@@ -121,16 +133,24 @@ export function useRepositories () {
     formData.name = row.name
     formData.color = row.color
     formData.user_id = row.user_id
+    formData.collection_id = row.collection_id
+    collectionListQuery.user_id = row.user_id
+    getCollectionList()
   }
   const toAdd = () => {
     formVisible.value = true
     formData.id = 0
     formData.name = ''
-    formData.color = 0
-    formData.user_id = 0
+    formData.color = ''
+    formData.user_id = null
+    formData.collection_id = 0
   }
   const submit = async () => {
     console.log(formData)
+    if (!formData.color) {
+      ElMessage.error('请选择颜色')
+      return
+    }
     const api = formData.id ? update : create
     const data = {
       ...formData,
@@ -142,6 +162,25 @@ export function useRepositories () {
       ElMessage.success(T('OperationSuccess'))
       formVisible.value = false
       getList()
+    }
+  }
+
+  const changeQueryUser = async (val) => {
+    listQuery.collection_id = null
+    if (!val) {
+      collectionListRes.list = []
+    } else {
+      collectionListQuery.user_id = val
+      getCollectionList()
+    }
+  }
+  const changeUser = async (val) => {
+    formData.collection_id = 0
+    if (!val) {
+      collectionListRes.list = []
+    } else {
+      collectionListQuery.user_id = val
+      getCollectionList()
     }
   }
   return {
@@ -157,5 +196,10 @@ export function useRepositories () {
     submit,
     activeChange,
     currentColor,
+
+    collectionListRes,
+    allUsers, getAllUsers,
+    changeQueryUser,
+    changeUser,
   }
 }

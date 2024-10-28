@@ -1,15 +1,21 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="120px">
         <el-form-item :label="T('Owner')">
-          <el-select v-model="listQuery.user_id" clearable>
+          <el-select v-model="listQuery.user_id" clearable @change="changeQueryUser">
             <el-option
                 v-for="item in allUsers"
                 :key="item.id"
                 :label="item.username"
                 :value="item.id"
             ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="listQuery.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -26,15 +32,17 @@
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
+        <el-table-column prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+          <template #default="{row}">
+            <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
+            <span v-else>{{ row.collection?.name }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="name" :label="T('Name')" align="center"/>
         <el-table-column prop="color" :label="T('Color')" align="center">
           <template #default="{row}">
             <div class="colors">
-              <div style="background-color: #efeff2" class="colorbox">
-                <div :style="{backgroundColor: row.color}" class="dot">
-                </div>
-              </div>
-              <div style="background-color: #24252b" class="colorbox">
+              <div style="background-color: var(--tag-bg-color)" class="colorbox">
                 <div :style="{backgroundColor: row.color}" class="dot">
                 </div>
               </div>
@@ -43,7 +51,7 @@
         </el-table-column>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
-        <el-table-column label="操作" align="center">
+        <el-table-column :label="T('Actions')" align="center" width="250">
           <template #default="{row}">
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
@@ -62,25 +70,8 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create'):T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
-        <el-form-item :label="T('Name')" prop="name" required>
-          <el-input v-model="formData.name"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Color')" prop="color" required>
-          <el-color-picker v-model="formData.color" show-alpha @active-change="activeChange"></el-color-picker>
-          <br>
-          <div class="colors">
-            <div style="background-color: #efeff2" class="colorbox">
-              <div :style="{backgroundColor: currentColor}" class="dot">
-              </div>
-            </div>
-            <div style="background-color: #24252b" class="colorbox">
-              <div :style="{backgroundColor: currentColor}" class="dot">
-              </div>
-            </div>
-          </div>
-        </el-form-item>
         <el-form-item :label="T('Owner')" prop="user_id" required>
-          <el-select v-model="formData.user_id">
+          <el-select v-model="formData.user_id" @change="changeUser">
             <el-option
                 v-for="item in allUsers"
                 :key="item.id"
@@ -88,6 +79,24 @@
                 :value="item.id"
             ></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item :label="T('AddressBookName')" prop="collection_id" required>
+          <el-select v-model="formData.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="T('Name')" prop="name" required>
+          <el-input v-model="formData.name"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Color')" prop="color" required>
+          <el-color-picker v-model="formData.color" show-alpha @active-change="activeChange"></el-color-picker>
+          <div class="colors">
+            <div style="background-color: var(--tag-bg-color)" class="colorbox">
+              <div :style="{backgroundColor: currentColor}" class="dot">
+              </div>
+            </div>
+          </div>
         </el-form-item>
         <el-form-item>
           <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
@@ -100,12 +109,9 @@
 
 <script setup>
   import { onMounted, reactive, watch, ref, onActivated } from 'vue'
-  import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/tag/index'
   import { T } from '@/utils/i18n'
 
-  const { allUsers, getAllUsers } = loadAllUsers()
-  getAllUsers()
   const {
     listRes,
     listQuery,
@@ -119,8 +125,12 @@
     submit,
     activeChange,
     currentColor,
+    collectionListRes,
+    allUsers, getAllUsers,
+    changeQueryUser,
+    changeUser,
   } = useRepositories()
-
+  onMounted(getAllUsers)
   onMounted(getList)
   onActivated(getList)
 

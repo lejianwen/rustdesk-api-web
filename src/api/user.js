@@ -74,3 +74,11 @@ export function myOauth () {
     method: 'post',
   })
 }
+
+export function groupUsers (data) {
+  return request({
+    url: '/user/groupUsers',
+    method: 'post',
+    data
+  })
+}

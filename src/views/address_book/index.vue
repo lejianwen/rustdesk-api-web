@@ -1,15 +1,21 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="120px">
         <el-form-item :label="T('Owner')">
-          <el-select v-model="listQuery.user_id" clearable>
+          <el-select v-model="listQuery.user_id" clearable @change="changeQueryUser">
             <el-option
                 v-for="item in allUsers"
                 :key="item.id"
                 :label="item.username"
                 :value="item.id"
             ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="listQuery.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="T('Id')">
@@ -32,7 +38,13 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center" width="200">
           <template #default="{row}">
-            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+            <div>
+              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" style="width: 20px;height: 20px;display: inline-block" color="var(--basicBlack)"/>
+              {{ row.id }}
+              <el-icon @click="handleClipboard(row.id, $event)">
+                <CopyDocument/>
+              </el-icon>
+            </div>
           </template>
         </el-table-column>
         <el-table-column :label="T('Owner')" align="center" width="200">
@@ -40,10 +52,14 @@
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
+        <el-table-column prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+          <template #default="{row}">
+            <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
+            <span v-else>{{ row.collection?.name }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="username" :label="T('Username')" align="center" width="150"/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="150"/>
-
-        <el-table-column prop="platform" :label="T('Platform')" align="center" width="120"/>
         <el-table-column prop="tags" :label="T('Tags')" align="center"/>
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
@@ -81,6 +97,12 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="formData.collection_id" clearable @change="changeCollection">
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="id" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
@@ -116,7 +138,7 @@
         <el-form-item :label="T('Tags')" prop="tags">
           <el-select v-model="formData.tags" multiple>
             <el-option
-                v-for="item in tagList"
+                v-for="item in tagListRes.list"
                 :key="item.name"
                 :label="item.name"
                 :value="item.name"
@@ -146,44 +168,32 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-<!--    <el-dialog v-model="shareToWebClientVisible" width="900" :close-on-click-modal="false">
-      <shareByWebClient :id="shareToWebClientForm.id"
-                        :hash="shareToWebClientForm.hash"
-                        @cancel="shareToWebClientVisible=false"
-                        @success=""/>
-    </el-dialog>-->
+    <!--    <el-dialog v-model="shareToWebClientVisible" width="900" :close-on-click-modal="false">
+          <shareByWebClient :id="shareToWebClientForm.id"
+                            :hash="shareToWebClientForm.hash"
+                            @cancel="shareToWebClientVisible=false"
+                            @success=""/>
+        </el-dialog>-->
   </div>
 </template>
 
 <script setup>
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'
-  import { list as fetchTagList } from '@/api/tag'
-  import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/address_book/index'
   import { toWebClientLink, getPeerSlat } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
   import { useRoute } from 'vue-router'
-  import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
   import { connectByClient } from '@/utils/peer'
   import { useAppStore } from '@/store/app'
   import { handleClipboard } from '@/utils/clipboard'
   import { CopyDocument } from '@element-plus/icons'
+  import PlatformIcons from '@/components/icons/platform.vue'
+
+
 
   const appStore = useAppStore()
   const route = useRoute()
-  const { allUsers, getAllUsers } = loadAllUsers()
-  getAllUsers()
-  const changeUser = (v) => {
-    formData.tags = []
-    fetchTagListData(v)
-  }
-  const tagList = ref([])
-  const fetchTagListData = async (user_id) => {
-    const res = await fetchTagList({ user_id }).catch(_ => false)
-    if (res) {
-      tagList.value = res.data.list
-    }
-  }
+
 
   const {
     listRes,
@@ -197,15 +207,24 @@
     toEdit,
     toAdd,
     submit,
-    shareToWebClientVisible,
-    shareToWebClientForm,
-    toShowShare,
+    // shareToWebClientVisible,
+    // shareToWebClientForm,
+    // toShowShare,
+    collectionListRes,
+
+    tagListRes,
+
+    allUsers, getAllUsers,
+
+    changeQueryUser,
+    changeUser,
+    changeCollection
   } = useRepositories()
 
   if (route.query?.user_id) {
     listQuery.user_id = parseInt(route.query.user_id)
   }
-
+  onMounted(getAllUsers)
   onMounted(getList)
   onActivated(getList)
 

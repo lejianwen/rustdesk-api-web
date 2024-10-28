@@ -8,6 +8,7 @@ $sideBarWidth: 210px;
   --basicBlack: #000000;
   --basicWhite: #ffffff;
   --primaryColor: #409eff;
+  --tag-bg-color: #efefef;
 }
 
 .list-body {
@@ -29,15 +30,18 @@ $sideBarWidth: 210px;
   }
 }
 
-.table-actions{
-  .el-button{
+.table-actions {
+  .el-button {
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
   }
 }
+
 html.dark {
   /* 自定义深色背景颜色 */
   //--el-bg-color: #626aef;
+  --tag-bg-color: #24252b;
+  --basicBlack: #fff;
 }

@@ -1,7 +1,13 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="120px">
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="listQuery.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
@@ -11,15 +17,17 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"/>
+        <el-table-column prop="collection_id" :label="T('AddressBook')" align="center" width="150">
+          <template #default="{row}">
+            <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
+            <span v-else>{{ collectionListRes.list.find(c => c.id === row.collection_id)?.name }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="name" :label="T('Name')" align="center"/>
         <el-table-column prop="color" :label="T('Color')" align="center">
           <template #default="{row}">
             <div class="colors">
-              <div style="background-color: #efeff2" class="colorbox">
-                <div :style="{backgroundColor: row.color}" class="dot">
-                </div>
-              </div>
-              <div style="background-color: #24252b" class="colorbox">
+              <div style="background-color: var(--tag-bg-color)" class="colorbox">
                 <div :style="{backgroundColor: row.color}" class="dot">
                 </div>
               </div>
@@ -47,18 +55,19 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create'):T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
+        <el-form-item :label="T('AddressBookName')">
+          <el-select v-model="formData.collection_id" clearable>
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item :label="T('Name')" prop="name" required>
           <el-input v-model="formData.name"></el-input>
         </el-form-item>
         <el-form-item :label="T('Color')" prop="color" required>
           <el-color-picker v-model="formData.color" show-alpha @active-change="activeChange"></el-color-picker>
-          <br>
           <div class="colors">
-            <div style="background-color: #efeff2" class="colorbox">
-              <div :style="{backgroundColor: currentColor}" class="dot">
-              </div>
-            </div>
-            <div style="background-color: #24252b" class="colorbox">
+            <div style="background-color: var(--tag-bg-color)" class="colorbox">
               <div :style="{backgroundColor: currentColor}" class="dot">
               </div>
             </div>
@@ -77,6 +86,7 @@
   import { onMounted, watch, onActivated } from 'vue'
   import { useRepositories } from '@/views/tag'
   import { T } from '@/utils/i18n'
+  import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 
   const {
     listRes,
@@ -101,6 +111,15 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
+
+  const {
+    listRes: collectionListRes,
+    listQuery: collectionListQuery,
+    getList: getCollectionList,
+  } = useCollectionRepositories()
+  collectionListQuery.is_my = 1
+  collectionListQuery.page_size = 999
+  onMounted(getCollectionList)
 
 </script>
 

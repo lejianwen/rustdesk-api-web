@@ -399,5 +399,41 @@
   },
   "ToLocal": {
     "One": "To Local"
+  },
+  "AddressBookName": {
+    "One": "Address Book Name"
+  },
+  "AddRule": {
+    "One": "Add Rule"
+  },
+  "ShareRules": {
+    "One": "Share Rules"
+  },
+  "Rule": {
+    "One": "Rule"
+  },
+  "Read": {
+    "One": "Read"
+  },
+  "ReadWrite": {
+    "One": "Read And Write"
+  },
+  "FullControl": {
+    "One": "Full Control"
+  },
+  "ShareTo": {
+    "One": "Share To"
+  },
+  "MyAddressBook": {
+    "One": "My Address Book"
+  },
+  "AddressBook": {
+    "One": "Address Book"
+  },
+  "AddressBookNameManage": {
+    "One": "Address Book Names"
+  },
+  "MyAddressBookTips": {
+    "One": "\"My Address Book\" is the default of the system, cannot be modified or deleted"
   }
 }

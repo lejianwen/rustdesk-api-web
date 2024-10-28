@@ -1,20 +1,40 @@
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { create, list, remove, update } from '@/api/address_book'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { T } from '@/utils/i18n'
+import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
+import { useRepositories as useTagRepositories } from '@/views/tag/index'
+import { loadAllUsers } from '@/global'
 
-export function useRepositories (user_id) {
+export function useRepositories (is_my = 0) {
+
+  const { allUsers, getAllUsers } = loadAllUsers()
+
+  const {
+    listRes: collectionListRes,
+    listQuery: collectionListQuery,
+    getList: getCollectionList,
+  } = useCollectionRepositories(is_my)
+  collectionListQuery.page_size = 9999
+  const {
+    listRes: tagListRes,
+    listQuery: tagListQuery,
+    getList: getTagList,
+  } = useTagRepositories(is_my)
+  tagListQuery.page_size = 9999
+
   const listRes = reactive({
     list: [], total: 0, loading: false,
   })
   const listQuery = reactive({
     page: 1,
     page_size: 10,
-    is_my: 0,
+    is_my,
     id: null,
     user_id: null,
     username: null,
     hostname: null,
+    collection_id: null,
   })
 
   const getList = async () => {
@@ -52,10 +72,10 @@ export function useRepositories (user_id) {
   }
 
   const platformList = [
-    { label: 'Windows', value: 'Windows' },
-    { label: 'Linux', value: 'Linux' },
-    { label: 'Mac OS', value: 'Mac OS' },
-    { label: 'Android', value: 'Android' },
+    { label: 'Windows', value: 'Windows', icon: 'windows' },
+    { label: 'Linux', value: 'Linux', icon: 'linux' },
+    { label: 'Mac OS', value: 'Mac OS', icon: 'mac' },
+    { label: 'Android', value: 'Android', icon: 'android' },
   ]
   const formVisible = ref(false)
   const formData = reactive({
@@ -76,6 +96,7 @@ export function useRepositories (user_id) {
     'user_id': null,
     user_ids: [],
     'username': '',
+    collection_id: null,
   })
 
   const toEdit = (row) => {
@@ -84,6 +105,10 @@ export function useRepositories (user_id) {
     Object.keys(formData).forEach(key => {
       formData[key] = row[key]
     })
+    collectionListQuery.user_id = row.user_id
+    getCollectionList()
+    tagListQuery.collection_id = row.collection_id
+    getTagList()
 
   }
   const toAdd = () => {
@@ -126,6 +151,36 @@ export function useRepositories (user_id) {
     shareToWebClientForm.hash = row.hash
     shareToWebClientVisible.value = true
   }
+
+  const changeQueryUser = async (val) => {
+    tagListRes.list = []
+    listQuery.collection_id = null
+    if (!val) {
+      collectionListRes.list = []
+    } else {
+      collectionListQuery.user_id = val
+      getCollectionList()
+    }
+  }
+  const changeUser = async (val) => {
+    tagListRes.list = []
+    formData.tags = []
+    formData.collection_id = 0
+    if (!val) {
+      collectionListRes.list = []
+    } else {
+      collectionListQuery.user_id = val
+      getCollectionList()
+    }
+  }
+  const changeCollection = async (val) => {
+    tagListRes.list = []
+    formData.tags = []
+    tagListQuery.user_id = formData.user_id
+    tagListQuery.collection_id = val
+    getTagList()
+  }
+
   return {
     listRes,
     listQuery,
@@ -141,5 +196,20 @@ export function useRepositories (user_id) {
     shareToWebClientVisible,
     shareToWebClientForm,
     toShowShare,
+
+    collectionListQuery,
+    getCollectionList,
+    collectionListRes,
+
+    tagListQuery,
+    getTagList,
+    tagListRes,
+
+    allUsers,
+    getAllUsers,
+
+    changeQueryUser,
+    changeUser,
+    changeCollection,
   }
 }

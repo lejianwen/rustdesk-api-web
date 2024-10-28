@@ -385,5 +385,44 @@
   },
   "ToLocal": {
     "One": "到本地"
+  },
+  "AddressBookName": {
+    "One": "地址簿名称"
+  },
+  "AddressBookCollection": {
+    "One": "地址簿集"
+  },
+  "AddRule": {
+    "One": "添加规则"
+  },
+  "ShareRules": {
+    "One": "分享规则"
+  },
+  "Rule": {
+    "One": "规则"
+  },
+  "Read": {
+    "One": "读取"
+  },
+  "ReadWrite": {
+    "One": "读写"
+  },
+  "FullControl": {
+    "One": "完全控制"
+  },
+  "ShareTo": {
+    "One": "分享给"
+  },
+  "MyAddressBook": {
+    "One": "我的地址簿"
+  },
+  "AddressBook": {
+    "One": "地址簿"
+  },
+  "AddressBookNameManage": {
+    "One": "地址簿名称"
+  },
+  "MyAddressBookTips": {
+    "One": "\"我的地址簿\"是系统默认，不可修改、删除"
   }
 }
