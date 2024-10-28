@@ -5,6 +5,7 @@ import { T } from '@/utils/i18n'
 import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 import { useRepositories as useTagRepositories } from '@/views/tag/index'
 import { loadAllUsers } from '@/global'
+import { simpleData } from '@/api/peer'
 
 export function useRepositories (is_my = 0) {
 
@@ -42,6 +43,19 @@ export function useRepositories (is_my = 0) {
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
+      const ids = res.data.list.map(item => item.id)
+      if (ids.length) {
+        const peer_data = await simpleData({ ids }).catch(_ => false)
+        if (peer_data) {
+          res.data.list.forEach(item => {
+            const peer = peer_data.data.list.find(peer => peer.id === item.id)
+            if (peer) {
+              item.peer = peer
+            }
+          })
+        }
+      }
+
       listRes.list = res.data.list
       listRes.total = res.data.total
     }

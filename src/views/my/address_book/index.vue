@@ -50,6 +50,7 @@
         <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
         <el-table-column prop="alias" :label="T('Alias')" align="center" width="150"/>
+        <el-table-column prop="peer.version" :label="T('Version')" align="center" width="100"/>
         <el-table-column prop="hash" :label="T('Hash')" align="center" width="150" show-overflow-tooltip/>
         <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="600" fixed="right">
           <template #default="{row}">

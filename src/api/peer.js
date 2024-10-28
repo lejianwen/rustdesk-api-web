@@ -44,3 +44,11 @@ export function batchRemove (data) {
     data,
   })
 }
+
+export function simpleData (data) {
+  return request({
+    url: '/peer/simpleData',
+    method: 'post',
+    data,
+  })
+}
