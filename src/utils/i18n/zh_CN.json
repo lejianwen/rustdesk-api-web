@@ -424,5 +424,8 @@
   },
   "MyAddressBookTips": {
     "One": "\"我的地址簿\"是系统默认，不可修改、删除"
+  },
+  "LastOnlineIp": {
+    "One": "最后在线IP"
   }
 }

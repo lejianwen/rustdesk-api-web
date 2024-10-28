@@ -46,6 +46,7 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="120"/>
         <el-table-column prop="username" :label="T('Username')" align="center" width="120"/>
         <el-table-column prop="uuid" :label="T('Uuid')" align="center" width="120" show-overflow-tooltip/>
         <el-table-column prop="version" :label="T('Version')" align="center" width="80"/>

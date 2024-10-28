@@ -421,5 +421,8 @@
   },
   "MyAddressBookTips": {
     "One": "\"내 주소록\"은 시스템의 기본값이며 수정하거나 삭제할 수 없습니다."
+  },
+  "LastOnlineIp": {
+    "One": "마지막 온라인 IP"
   }
 }

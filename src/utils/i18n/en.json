@@ -435,5 +435,8 @@
   },
   "MyAddressBookTips": {
     "One": "\"My Address Book\" is the default of the system, cannot be modified or deleted"
+  },
+  "LastOnlineIp": {
+    "One": "Last Online Ip"
   }
 }
