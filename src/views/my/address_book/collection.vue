@@ -9,17 +9,19 @@
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <el-tag type="danger" effect="light" style="margin-bottom: 10px">{{T('MyAddressBookTips')}}</el-tag>
-      <el-table :data="listRes.list" v-loading="listRes.loading" border>
+      <el-tag type="danger" effect="light" style="margin-bottom: 10px">{{ T('MyAddressBookTips') }}</el-tag>
+      <el-table :data="list" v-loading="listRes.loading" border>
         <!--        <el-table-column prop="id" label="id" align="center"/>-->
         <el-table-column prop="name" :label="T('Name')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
         <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="600" fixed="right">
           <template #default="{row}">
-            <el-button type="primary" @click="showRules(row)">{{ T('ShareRules') }}</el-button>
-            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
-            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            <template v-if="row.id>0">
+              <el-button type="primary" @click="showRules(row)">{{ T('ShareRules') }}</el-button>
+              <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
+              <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            </template>
           </template>
         </el-table-column>
       </el-table>
@@ -53,7 +55,7 @@
 
 <script setup>
   import { T } from '@/utils/i18n'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { useRepositories } from '@/views/address_book/collection'
   import { onActivated, onMounted, watch } from 'vue'
   import Rule from '@/views/address_book/rule.vue'
@@ -76,7 +78,16 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-
+  const list = computed(_ => {
+    if (listQuery.page > 1) {
+      return listRes.list
+    } else {
+      return [
+        { id: 0, name: T('MyAddressBook') },
+        ...listRes.list,
+      ]
+    }
+  })
   const clickRow = ref({})
   const rulesVisible = ref(false)
   const showRules = (row) => {
