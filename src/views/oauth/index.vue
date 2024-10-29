@@ -34,6 +34,9 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create') :T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" :rules="rules" label-width="120px">
+        <el-form-item label="Issuer" prop="issuer">
+          <el-input v-model="formData.issuer" :placeholder="formData.op === 'oidc' ? 'Required when OIDC is selected' : 'Not required unless OIDC is selected'"></el-input>
+        </el-form-item>
         <el-form-item label="ClientId" prop="client_id">
           <el-input v-model="formData.client_id"></el-input>
         </el-form-item>
@@ -42,6 +45,9 @@
         </el-form-item>
         <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
+        </el-form-item>
+        <el-form-item label="Scopes" prop="scopes">
+          <el-input v-model="formData.scopes" :placeholder="formData.op === 'oidc' ? 'Optional when OIDC is selected, default is openid,profile,email' : 'Not required unless OIDC is selected'"></el-input>
         </el-form-item>
         <el-form-item label="op" prop="op">
           <el-radio-group v-model="formData.op" :disabled="!!formData.id">
@@ -82,6 +88,7 @@
   const ops = [
     { value: 'github', label: 'Github' },
     { value: 'google', label: 'Google' },
+    { value: 'oidc',   label: 'OIDC'   }
   ]
   const getList = async () => {
     listRes.loading = true
@@ -127,9 +134,11 @@
   const formData = reactive({
     id: 0,
     op: '',
+    issuer: '',
     client_id: '',
     client_secret: '',
     redirect_url: '',
+    scopes: '',
     auto_register: false,
   })
   const rules = {
@@ -142,9 +151,11 @@
     formVisible.value = true
     formData.id = row.id
     formData.op = row.op
+    formData.issuer = row.issuer
     formData.client_id = row.client_id
     formData.client_secret = row.client_secret
     formData.redirect_url = row.redirect_url
+    formData.scopes = row.scopes
     formData.auto_register = row.auto_register
 
   }
@@ -152,9 +163,11 @@
     formVisible.value = true
     formData.id = 0
     formData.op = ''
+    formData.issuer = ''
     formData.client_id = ''
     formData.client_secret = ''
     formData.redirect_url = ''
+    formData.scopes = ''
     formData.auto_register = false
   }
   const form = ref(null)
