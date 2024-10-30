@@ -11,7 +11,7 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"/>
-        <el-table-column prop="op" :label="T('Op')" align="center"/>
+        <el-table-column prop="op" :label="T('Type')" align="center"/>
         <el-table-column prop="auto_register" :label="T('AutoRegister')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
