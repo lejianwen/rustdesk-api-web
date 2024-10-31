@@ -427,5 +427,9 @@
   },
   "LastOnlineIp": {
     "One": "最后在线IP"
+  },
+  "or login in with" :
+  {
+    "One": "或使用以下登陆"
   }
 }

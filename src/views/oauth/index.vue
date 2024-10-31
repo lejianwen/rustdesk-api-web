@@ -11,7 +11,7 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="id" align="center"/>
-        <el-table-column prop="op" :label="T('Op')" align="center"/>
+        <el-table-column prop="op" :label="T('Type')" align="center"/>
         <el-table-column prop="auto_register" :label="T('AutoRegister')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
@@ -34,8 +34,18 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create') :T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" :rules="rules" label-width="120px">
-        <el-form-item label="Issuer" prop="issuer">
-          <el-input v-model="formData.issuer" :placeholder="formData.op === 'oidc' ? 'Required when OIDC is selected' : 'Not required unless OIDC is selected'"></el-input>
+        <el-form-item label="Type" prop="op">
+          <el-radio-group v-model="formData.op" :disabled="!!formData.id">
+            <el-radio v-for="item in ops" :key="item.value" :value="item.value" style="display: block">
+              {{ item.label }}
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item v-if="formData.op === 'oidc'" label="Issuer" prop="issuer">
+          <el-input v-model="formData.issuer" placeholder="Check your IdP docs, without '/.well-known/openid-configuration'"></el-input>
+        </el-form-item>
+        <el-form-item v-show="formData.op === 'oidc'" label="Scopes" prop="scopes">
+          <el-input v-model="formData.scopes" placeholder= "Optional, default is 'openid,profile,email'"></el-input>
         </el-form-item>
         <el-form-item label="ClientId" prop="client_id">
           <el-input v-model="formData.client_id"></el-input>
@@ -45,16 +55,6 @@
         </el-form-item>
         <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
-        </el-form-item>
-        <el-form-item label="Scopes" prop="scopes">
-          <el-input v-model="formData.scopes" :placeholder="formData.op === 'oidc' ? 'Optional when OIDC is selected, default is openid,profile,email' : 'Not required unless OIDC is selected'"></el-input>
-        </el-form-item>
-        <el-form-item label="op" prop="op">
-          <el-radio-group v-model="formData.op" :disabled="!!formData.id">
-            <el-radio v-for="item in ops" :key="item.value" :value="item.value" style="display: block">
-              {{ item.label }}
-            </el-radio>
-          </el-radio-group>
         </el-form-item>
         <el-form-item :label="T('AutoRegister')" prop="auto_register">
           <el-switch v-model="formData.auto_register"
@@ -146,6 +146,7 @@
     client_secret: [{ required: true, message: T('ParamRequired', { param: 'client_secret' }), trigger: 'blur' }],
     redirect_url: [{ required: true, message: T('ParamRequired', { param: 'redirect_url' }), trigger: 'blur' }],
     op: [{ required: true, message: T('ParamRequired', { param: 'op' }), trigger: 'blur' }],
+    issuer: [{ required: true, message: T('ParamRequired', { param: 'issuer' }), trigger: 'blur' }],
   }
   const toEdit = (row) => {
     formVisible.value = true
