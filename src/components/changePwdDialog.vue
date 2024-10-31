@@ -1,13 +1,13 @@
 <template>
-  <el-dialog v-model="visible" width="45%" :show-close="false">
-    <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="130px" label-position="left" style="margin-top: 20px">
-      <el-form-item :label="T('Old PassWD')" prop="old_password">
+  <el-dialog v-model="visible" width="50%" :show-close="false">
+    <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="150px" label-position="left" style="margin-top: 20px">
+      <el-form-item :label="T('OldPassword')" prop="old_password">
         <el-input v-model="changePwdForm.old_password" :placeholder="T('For OIDC login without a password, enter any 4-20 letters')" show-password></el-input>
       </el-form-item>
-      <el-form-item :label="T('New PassWD')" prop="new_password">
+      <el-form-item :label="T('NewPassword')" prop="new_password">
         <el-input v-model="changePwdForm.new_password" show-password></el-input>
       </el-form-item>
-      <el-form-item :label="T('ConformPassWD')" prop="confirmPwd">
+      <el-form-item :label="T('ConfirmPassword')" prop="confirmPwd">
         <el-input v-model="changePwdForm.confirmPwd" show-password></el-input>
       </el-form-item>
       <el-form-item>
