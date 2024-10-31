@@ -85,12 +85,18 @@ const handleOIDCLogin = (provider) => {
   userStore.oidc(provider, platform, browser)
 };
 
+import googleImage from '@/assets/google.png';
+import githubImage from '@/assets/github.png';
+import oidcImage from '@/assets/oidc.png';
+import webauthImage from '@/assets/webauth.png';
+import defaultImage from '@/assets/oidc.png';
+
 const providerImageMap = {
-  google: '/google.png',
-  github: '/github.png',
-  oidc: '/oidc.png',
-  webauth: '/webauth.png',
-  default: '/default.png',
+  google: googleImage,
+  github: githubImage,
+  oidc: oidcImage,
+  webauth: webauthImage,
+  default: defaultImage,
 };
 
 const getProviderImage = (provider) => {
