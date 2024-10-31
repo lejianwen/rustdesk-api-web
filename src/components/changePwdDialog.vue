@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="visible" width="50%" :show-close="false">
+  <el-dialog v-model="v" width="50%" :show-close="false">
     <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="150px" label-position="left" style="margin-top: 20px">
       <el-form-item :label="T('OldPassword')" prop="old_password">
         <el-input v-model="changePwdForm.old_password" :placeholder="T('For OIDC login without a password, enter any 4-20 letters')" show-password></el-input>
@@ -20,15 +20,21 @@
 
 <script setup>
 
-  import { reactive, ref } from 'vue'
+  import { computed, reactive, ref } from 'vue'
   import { ElMessageBox } from 'element-plus'
   import { changeCurPwd } from '@/api/user'
   import { useUserStore } from '@/store/user'
   import { T } from '@/utils/i18n'
+
   const props = defineProps({
     visible: Boolean,
   })
-
+  const v = computed({
+    get: () => props.visible,
+    set: (val) => {
+      emit('update:visible', val)
+    },
+  })
   const emit = defineEmits(['update:visible'])
 
   // Watch for changes to the prop and emit an event if necessary
