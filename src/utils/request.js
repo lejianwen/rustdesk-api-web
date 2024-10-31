@@ -55,6 +55,12 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
+    // for the endpoint /login-options
+    // I'm not sure if this is a good idea
+    if (Array.isArray(res)) {
+      return res;
+    }
+
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
       ElMessage({
