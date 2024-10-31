@@ -143,6 +143,12 @@ export const asyncRoutes = [
         component: () => import('@/views/oauth/index.vue'),
       },
       {
+        path: '/userToken',
+        name: 'UserToken',
+        meta: { title: 'UserToken', icon: 'Ticket' /*keepAlive: true*/ },
+        component: () => import('@/views/user/token.vue'),
+      },
+      {
         path: '/loginLog',
         name: 'LoginLog',
         meta: { title: 'LoginLog', icon: 'List' /*keepAlive: true*/ },

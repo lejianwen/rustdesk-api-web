@@ -447,5 +447,8 @@
   },
   "ToLogin": {
     "One": "To Login"
+  },
+  "UserToken": {
+    "One": "User Token"
   }
 }

@@ -1,6 +1,5 @@
 import { reactive } from 'vue'
-import { list, remove } from '@/api/login_log'
-import { list as fetchPeers } from '@/api/peer'
+import { list, remove } from '@/api/user_token'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
@@ -24,15 +23,6 @@ export function useRepositories () {
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      const uuids = res.data.list.filter(item => item.uuid).map(item => item.uuid)
-      const peers = await fetchPeers({ uuids }).catch(_ => false)
-      if (peers?.data?.list) {
-        res.data.list.forEach(item => {
-          if (item.uuid) {
-            item.peer = peers.data.list.find(peer => peer.uuid === item.uuid)
-          }
-        })
-      }
       listRes.list = res.data.list
       listRes.total = res.data.total
     }
@@ -46,7 +36,7 @@ export function useRepositories () {
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+    const cf = await ElMessageBox.confirm(T('Confirm?', {param: T('Logout')}), {
       confirmButtonText: T('Confirm'),
       cancelButtonText: T('Cancel'),
       type: 'warning',

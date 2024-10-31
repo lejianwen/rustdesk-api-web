@@ -18,24 +18,27 @@
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="ID" align="center" width="100"/>
-        <el-table-column :label="T('Owner')" align="center" width="120">
+        <el-table-column prop="id" label="id" align="center" width="100"/>
+        <el-table-column :label="T('Owner')" align="center">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
-        <el-table-column prop="client" label="client" align="center" width="120"/>
-        <el-table-column prop="peer.id" :label="T('Peer')" align="center"/>
-        <el-table-column prop="uuid" label="uuid" align="center"/>
-        <el-table-column prop="ip" label="ip" align="center" width="150"/>
-        <el-table-column prop="type" label="type" align="center" width="100"/>
-        <el-table-column prop="platform" label="platform" align="center" width="120"/>
+        <el-table-column :label="T('Token')" align="center">
+          <template #default="{row}">
+            <span> {{ maskToken(row.token) }} </span>
+          </template>
+        </el-table-column>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column :label="T('ExpireTime')" prop="expired_at" align="center">
+          <template #default="{row}">
+            <el-tag :type="expired(row)?'info':'success'">{{ row.expired_at ? new Date(row.expired_at * 1000).toLocaleString() : '-' }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
-            <el-button type="danger" @click="del(row)">删除</el-button>
+            <el-button type="danger" @click="del(row)">{{ T('Logout') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -55,7 +58,7 @@
 <script setup>
   import { onActivated, onMounted, watch } from 'vue'
   import { loadAllUsers } from '@/global'
-  import { useRepositories } from '@/views/login/log.js'
+  import { useRepositories } from '@/views/user/token.js'
   import { T } from '@/utils/i18n'
 
   const { allUsers, getAllUsers } = loadAllUsers()
@@ -75,7 +78,13 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-
+  const maskToken = (token) => {
+    return token.slice(0, 4) + '****' + token.slice(-4)
+  }
+  const expired = (row) => {
+    const now = new Date().getTime()
+    return row.expired_at * 1000 < now
+  }
 </script>
 
 <style scoped lang="scss">
