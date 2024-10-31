@@ -10,8 +10,8 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="id" align="center"/>
-        <el-table-column prop="op" :label="T('Type')" align="center"/>
+        <el-table-column prop="id" label="ID" align="center"/>
+        <el-table-column prop="op" :label="T('Platform')" align="center"/>
         <el-table-column prop="auto_register" :label="T('AutoRegister')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
@@ -42,10 +42,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-if="formData.op === 'oidc'" label="Issuer" prop="issuer">
-          <el-input v-model="formData.issuer" placeholder="Check your IdP docs, without '/.well-known/openid-configuration'"></el-input>
+          <el-input v-model="formData.issuer" :placeholder="`${T('Check your IdP docs, without')} '/.well-known/openid-configuration'`"></el-input>
         </el-form-item>
         <el-form-item v-show="formData.op === 'oidc'" label="Scopes" prop="scopes">
-          <el-input v-model="formData.scopes" placeholder= "Optional, default is 'openid,profile,email'"></el-input>
+          <el-input v-model="formData.scopes" :placeholder="`${T('Optional, default is')} 'openid,profile,email'`" ></el-input>
         </el-form-item>
         <el-form-item label="ClientId" prop="client_id">
           <el-input v-model="formData.client_id"></el-input>

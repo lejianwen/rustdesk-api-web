@@ -431,5 +431,13 @@
   "or login in with" :
   {
     "One": "或使用以下登陆"
+  },
+  "Optional, default is" :
+  {
+    "One": "可选, 默认值是"
+  },
+  "Check your IdP docs, without":
+  {
+    "One": "检查IdP的文档, 不包含"
   }
 }
