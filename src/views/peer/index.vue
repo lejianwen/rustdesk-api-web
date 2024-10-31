@@ -35,7 +35,7 @@
             <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
           </template>
         </el-table-column>
-        <el-table-column prop="cpu" label="cpu" align="center" width="100" show-overflow-tooltip/>
+        <el-table-column prop="cpu" label="CPU" align="center" width="100" show-overflow-tooltip/>
         <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="120"/>
         <el-table-column prop="memory" :label="T('Memory')" align="center" width="120"/>
         <el-table-column prop="os" :label="T('Os')" align="center" width="120" show-overflow-tooltip/>
@@ -83,7 +83,7 @@
         <el-form-item :label="T('Hostname')" prop="hostname">
           <el-input v-model="formData.hostname"></el-input>
         </el-form-item>
-        <el-form-item label="cpu" prop="cpu">
+        <el-form-item label="CPU" prop="cpu">
           <el-input v-model="formData.cpu"></el-input>
         </el-form-item>
         <el-form-item :label="T('Memory')" prop="memory">
