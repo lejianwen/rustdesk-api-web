@@ -431,6 +431,24 @@
   "or login in with": {
     "One": "或使用以下登陆"
   },
+  "Optional, default is" :
+  {
+    "One": "可选, 默认值是"
+  },
+  "Check your IdP docs, without":
+  {
+    "One": "检查IdP的文档, 不包含"
+  },
+  "For OIDC login without a password, enter any 4-20 letters":
+  {
+    "One": "如果通过 OIDC 登录且未设置密码，请输入任意 4-20 个字符"
+  },
+  "OldPassword": {
+    "One": "旧密码"
+  },
+  "NewPassword": {
+    "One": "新密码"
+  },
   "ConfirmPassword": {
     "One": "确认密码"
   },

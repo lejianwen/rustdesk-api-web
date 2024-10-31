@@ -13,7 +13,7 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="id" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" align="center"></el-table-column>
         <el-table-column prop="username" :label="T('Username')" align="center"/>
         <el-table-column prop="nickname" :label="T('Nickname')" align="center"/>
         <el-table-column :label="T('Group')" align="center">

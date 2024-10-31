@@ -21,7 +21,7 @@
     <el-card class="list-body" shadow="hover">
       <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="id" align="center" width="100"/>
+        <el-table-column prop="id" label="ID" align="center" width="100"/>
         <el-table-column label="所属用户" align="center" width="120">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>

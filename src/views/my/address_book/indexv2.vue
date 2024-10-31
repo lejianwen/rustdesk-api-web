@@ -46,7 +46,7 @@
       <el-card class="list-body" shadow="hover">
         <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
         <el-table :data="listRes.list" v-loading="listRes.loading" border>
-          <el-table-column prop="id" label="id" align="center" width="200">
+          <el-table-column prop="id" label="ID" align="center" width="200">
             <template #default="{row}">
               <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
             </template>
@@ -90,7 +90,7 @@
 
     <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?T('Create') :T('Update') ">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
-        <el-form-item label="id" prop="id" required>
+        <el-form-item label="ID" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
         <el-form-item :label="T('Username')" prop="username">

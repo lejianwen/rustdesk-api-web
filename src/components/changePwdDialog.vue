@@ -1,18 +1,18 @@
 <template>
-  <el-dialog v-model="visible" width="50%">
-    <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="120px" style="margin-top: 20px">
-      <el-form-item label="旧密码" prop="old_password">
-        <el-input v-model="changePwdForm.old_password" show-password></el-input>
+  <el-dialog v-model="visible" width="50%" :show-close="false">
+    <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="150px" label-position="left" style="margin-top: 20px">
+      <el-form-item :label="T('OldPassword')" prop="old_password">
+        <el-input v-model="changePwdForm.old_password" :placeholder="T('For OIDC login without a password, enter any 4-20 letters')" show-password></el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="new_password">
+      <el-form-item :label="T('NewPassword')" prop="new_password">
         <el-input v-model="changePwdForm.new_password" show-password></el-input>
       </el-form-item>
-      <el-form-item label="确认密码" prop="confirmPwd">
+      <el-form-item :label="T('ConfirmPassword')" prop="confirmPwd">
         <el-input v-model="changePwdForm.confirmPwd" show-password></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="cancelChangePwd">取消</el-button>
-        <el-button type="primary" @click="changePassword">确定</el-button>
+        <el-button @click="cancelChangePwd">{{ T('Cancel') }}</el-button>
+        <el-button type="primary" @click="changePassword">{{ T('Confirm') }}</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -24,7 +24,7 @@
   import { ElMessageBox } from 'element-plus'
   import { changeCurPwd } from '@/api/user'
   import { useUserStore } from '@/store/user'
-
+  import { T } from '@/utils/i18n'
   const props = defineProps({
     visible: Boolean,
   })

@@ -41,7 +41,7 @@ import { useUserStore } from '@/store/user'
 import { ElMessage } from 'element-plus';
 import { T } from '@/utils/i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { loginOptions, oidcAuth, oidcQuery } from '@/api/login';
+import { loginOptions } from '@/api/login';
 import { getCode, removeCode } from '@/utils/auth'
 
 const oauthInfo = ref({})
