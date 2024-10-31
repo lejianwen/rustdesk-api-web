@@ -49,10 +49,17 @@
     const res = await bindConfirm({ code }).catch(_ => false)
     if (res) {
       resStatus.value = 1
-      ElMessage.success(T('OperationSuccessAndCloseAfter3Seconds'))
-      setTimeout(_ => {
-        out()
-      }, 3000)
+      if (res.data.device_type === 'webadmin') {
+        ElMessage.success(T('OperationSuccess'))
+        //后台登录
+        router.push('/')
+      } else {
+        ElMessage.success(T('OperationSuccessAndCloseAfter3Seconds'))
+        setTimeout(_ => {
+          out()
+        }, 3000)
+      }
+
     }
   }
   const out = () => {

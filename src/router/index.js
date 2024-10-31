@@ -15,11 +15,13 @@ const constantRoutes = [
   },
   {
     path: '/oauth/:code',
+    meta: { title: 'OauthLogin' },
     component: () => import('@/views/oauth/login.vue'),
     hidden: true,
   },
   {
     path: '/oauth/bind/:code',
+    meta: { title: 'OauthBind' },
     component: () => import('@/views/oauth/bind.vue'),
     hidden: true,
   },
