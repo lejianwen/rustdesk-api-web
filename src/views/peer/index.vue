@@ -30,7 +30,7 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column prop="id" label="id" align="center" width="150">
+        <el-table-column prop="id" label="ID" align="center" width="150">
           <template #default="{row}">
             <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
           </template>
@@ -74,7 +74,7 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.row_id?T('Create'):T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
-        <el-form-item label="id" prop="id" required>
+        <el-form-item label="ID" prop="id" required>
           <el-input v-model="formData.id"></el-input>
         </el-form-item>
         <el-form-item :label="T('Username')" prop="username">
@@ -118,7 +118,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="id" prop="id" required>
+        <el-form-item label="ID" prop="id" required>
           <el-input v-model="ABFormData.id"></el-input>
         </el-form-item>
         <el-form-item :label="T('Username')" prop="username">
