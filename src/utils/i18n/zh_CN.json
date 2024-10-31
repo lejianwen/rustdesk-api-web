@@ -428,8 +428,16 @@
   "LastOnlineIp": {
     "One": "最后在线IP"
   },
-  "or login in with" :
-  {
+  "or login in with": {
     "One": "或使用以下登陆"
+  },
+  "ConfirmPassword": {
+    "One": "确认密码"
+  },
+  "PasswordNotMatchConfirmPassword": {
+    "One": "密码与确认密码不匹配"
+  },
+  "ToLogin": {
+    "One": "去登录"
   }
 }

@@ -79,6 +79,14 @@ export function groupUsers (data) {
   return request({
     url: '/user/groupUsers',
     method: 'post',
-    data
+    data,
+  })
+}
+
+export function register (data) {
+  return request({
+    url: '/user/register',
+    method: 'post',
+    data,
   })
 }

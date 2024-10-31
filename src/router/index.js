@@ -7,7 +7,12 @@ const constantRoutes = [
     meta: { title: 'Login' },
     component: () => import('@/views/login/login.vue'),
   },
-
+  {
+    path: '/register',
+    name: 'Register',
+    meta: { title: 'Register' },
+    component: () => import('@/views/register/index.vue'),
+  },
   {
     path: '/404',
     component: () => import('@/views/error-page/404.vue'),

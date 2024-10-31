@@ -15,6 +15,7 @@
 
         <el-form-item>
           <el-button @click="login" type="primary" class="login-button">{{ T('Login') }}</el-button>
+          <el-button v-if="allowRegister" @click="register" class="login-button">{{ T('Register') }}</el-button>
         </el-form-item>
       </el-form>
 
@@ -103,11 +104,13 @@ const getProviderImage = (provider) => {
   return providerImageMap[provider] || providerImageMap.default;
 };
 
+const allowRegister = ref(false)
 const loadLoginOptions = async () => {
   try {
     const res = await loginOptions().catch(_ => false);
     if(!res || !res.data) return console.error('No valid response received');
-    res.data.map(option => (options.push({ name: option }))); // 创建新的对象数组
+    res.data.ops.map(option => (options.push({ name: option }))); // 创建新的对象数组
+    allowRegister.value = res.data.register
   } catch (error) {
     console.error('Error loading login options:', error.message);
   }
@@ -130,6 +133,9 @@ onMounted(async () => {
   }
 });
 
+const register = () => {
+  router.push('/register')
+}
 </script>
 
 <style scoped lang="scss">
@@ -140,6 +146,7 @@ onMounted(async () => {
   height: 100vh;
   background-color: #2d3a4b;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-card {
@@ -169,6 +176,7 @@ h1 {
   width: 100%;
   height: 40px;
   margin-bottom: 20px;
+  margin-left: 0;
 }
 
 .divider {
