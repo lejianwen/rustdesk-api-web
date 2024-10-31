@@ -7,7 +7,12 @@ const constantRoutes = [
     meta: { title: 'Login' },
     component: () => import('@/views/login/login.vue'),
   },
-
+  {
+    path: '/register',
+    name: 'Register',
+    meta: { title: 'Register' },
+    component: () => import('@/views/register/index.vue'),
+  },
   {
     path: '/404',
     component: () => import('@/views/error-page/404.vue'),
@@ -15,11 +20,13 @@ const constantRoutes = [
   },
   {
     path: '/oauth/:code',
+    meta: { title: 'OauthLogin' },
     component: () => import('@/views/oauth/login.vue'),
     hidden: true,
   },
   {
     path: '/oauth/bind/:code',
+    meta: { title: 'OauthBind' },
     component: () => import('@/views/oauth/bind.vue'),
     hidden: true,
   },

@@ -424,5 +424,14 @@
   },
   "LastOnlineIp": {
     "One": "마지막 온라인 IP"
+  },
+  "ConfirmPassword": {
+    "One": "비밀번호 확인"
+  },
+  "PasswordNotMatchConfirmPassword": {
+    "One": "비밀번호가 확인 비밀번호와 일치하지 않습니다"
+  },
+  "ToLogin": {
+    "One": "로그인하려면 클릭하십시오"
   }
 }

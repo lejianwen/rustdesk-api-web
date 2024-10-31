@@ -91,6 +91,9 @@ export function useDel () {
     }
 
     const res = remove({ id }).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+    }
     return res
   }
   return {

@@ -438,5 +438,14 @@
   },
   "LastOnlineIp": {
     "One": "Last Online Ip"
+  },
+  "ConfirmPassword": {
+    "One": "Confirm Password"
+  },
+  "PasswordNotMatchConfirmPassword": {
+    "One": "Password not match Confirm Password"
+  },
+  "ToLogin": {
+    "One": "To Login"
   }
 }
