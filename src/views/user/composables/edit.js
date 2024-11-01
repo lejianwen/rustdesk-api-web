@@ -38,6 +38,7 @@ export function useSubmit (form, id) {
   const router = useRouter()
   const rules = reactive({
     username: [{ required: true, message: T('ParamRequired', { param: T('Username') }) }],
+    email: [{ required: true, message: T('ParamRequired', { param: T('Email') }) }],
     group_id: [{ required: true, message: T('ParamRequired', { param: T('Group') }) }],
     // nickname: [{ required: true, message: '昵称是必须的' }],
     status: [{ required: true, message: T('ParamRequired', { param: T('Status') }) }],

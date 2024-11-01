@@ -5,12 +5,15 @@
         <el-form-item :label="T('Username')">
           <div>{{ userStore.username }}</div>
         </el-form-item>
+        <el-form-item :label="T('Email')">
+          <div>{{ userStore.email }}</div>
+        </el-form-item>
         <el-form-item :label="T('Password')" prop="password">
           <el-button type="danger" @click="showChangePwd">{{ T('ChangePassword') }}</el-button>
         </el-form-item>
         <el-form-item label="OIDC">
           <el-table :data="oidcData" border fit>
-            <el-table-column :label="T('Platform')" prop="third_type" align="center"></el-table-column>
+            <el-table-column :label="T('IdP')" prop="op" align="center"></el-table-column>
             <el-table-column :label="T('Status')" prop="status" align="center">
               <template #default="{ row }">
                 <el-tag v-if="row.status === 1" type="success">{{ T('HasBind') }}</el-tag>
@@ -55,7 +58,7 @@
   }
   getMyOauth()
   const toBind = async (row) => {
-    const res = await bind({ op: row.third_type }).catch(_ => false)
+    const res = await bind({ op: row.op}).catch(_ => false)
     if (res) {
       const { code, url } = res.data
       window.open(url)
@@ -70,7 +73,7 @@
     if (!cf) {
       return false
     }
-    const res = await unbind({ op: row.third_type }).catch(_ => false)
+    const res = await unbind({ op: row.op }).catch(_ => false)
     if (res) {
       getMyOauth()
     }

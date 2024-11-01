@@ -10,6 +10,7 @@ export const useUserStore = defineStore({
   state: () => ({
     nickname: '',
     username: '',
+    email: '',
     token: '',
     role: '',
     avatar: '',

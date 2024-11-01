@@ -4,6 +4,9 @@
       <el-form-item :label="T('Username')" prop="username">
         <el-input v-model="form.username"></el-input>
       </el-form-item>
+      <el-form-item :label="T('Email')" prop="email">
+        <el-input v-model="form.email"></el-input>
+      </el-form-item>
       <el-form-item :label="T('Nickname')" prop="nickname">
         <el-input v-model="form.nickname"></el-input>
       </el-form-item>

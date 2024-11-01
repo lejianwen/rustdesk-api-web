@@ -457,5 +457,8 @@
   },
   "UserToken": {
     "One": "用户Token"
+  },
+  "Email": {
+    "One": "邮箱"
   }
 }

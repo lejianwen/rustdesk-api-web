@@ -11,7 +11,8 @@
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column prop="id" label="ID" align="center"/>
-        <el-table-column prop="op" :label="T('Platform')" align="center"/>
+        <el-table-column prop="op" :label="T('IdP')" align="center"/>
+        <el-table-column prop="oauth_type" :label="T('Type')" align="center"/>
         <el-table-column prop="auto_register" :label="T('AutoRegister')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
@@ -34,17 +35,20 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create') :T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" :rules="rules" label-width="120px">
-        <el-form-item label="Type" prop="op">
-          <el-radio-group v-model="formData.op" :disabled="!!formData.id">
-            <el-radio v-for="item in ops" :key="item.value" :value="item.value" style="display: block">
+        <el-form-item label="Type" prop="">
+          <el-radio-group v-model="formData.oauth_type" :disabled="!!formData.id">
+            <el-radio v-for="item in types" :key="item.value" :value="item.value" style="display: block">
               {{ item.label }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-if="formData.op === 'oidc'" label="Issuer" prop="issuer">
+        <el-form-item v-if="formData.oauth_type === 'oidc'" label="IdP" prop="op">
+          <el-input v-model="formData.op" :placeholder="T('Your IdP Name')"></el-input>
+        </el-form-item>
+        <el-form-item v-if="formData.oauth_type === 'oidc'" label="Issuer" prop="issuer">
           <el-input v-model="formData.issuer" :placeholder="`${T('Check your IdP docs, without')} '/.well-known/openid-configuration'`"></el-input>
         </el-form-item>
-        <el-form-item v-show="formData.op === 'oidc'" label="Scopes" prop="scopes">
+        <el-form-item v-show="formData.oauth_type === 'oidc'" label="Scopes" prop="scopes">
           <el-input v-model="formData.scopes" :placeholder="`${T('Optional, default is')} 'openid,profile,email'`" ></el-input>
         </el-form-item>
         <el-form-item label="ClientId" prop="client_id">
@@ -85,8 +89,8 @@
     page: 1,
     page_size: 10,
   })
-  const ops = [
-    { value: 'github', label: 'Github' },
+  const types = [
+    { value: 'github', label: 'GitHub' },
     { value: 'google', label: 'Google' },
     { value: 'oidc',   label: 'OIDC'   }
   ]
@@ -134,6 +138,7 @@
   const formData = reactive({
     id: 0,
     op: '',
+    oauth_type: '',
     issuer: '',
     client_id: '',
     client_secret: '',
@@ -145,13 +150,14 @@
     client_id: [{ required: true, message: T('ParamRequired', { param: 'client_id' }), trigger: 'blur' }],
     client_secret: [{ required: true, message: T('ParamRequired', { param: 'client_secret' }), trigger: 'blur' }],
     redirect_url: [{ required: true, message: T('ParamRequired', { param: 'redirect_url' }), trigger: 'blur' }],
-    op: [{ required: true, message: T('ParamRequired', { param: 'op' }), trigger: 'blur' }],
+    oauth_type: [{ required: true, message: T('ParamRequired', { param: 'oauth_type' }), trigger: 'blur' }],
     issuer: [{ required: true, message: T('ParamRequired', { param: 'issuer' }), trigger: 'blur' }],
   }
   const toEdit = (row) => {
     formVisible.value = true
     formData.id = row.id
     formData.op = row.op
+    formData.oauth_type = row.oauth_type
     formData.issuer = row.issuer
     formData.client_id = row.client_id
     formData.client_secret = row.client_secret
@@ -164,6 +170,7 @@
     formVisible.value = true
     formData.id = 0
     formData.op = ''
+    formData.oauth_type = ''
     formData.issuer = ''
     formData.client_id = ''
     formData.client_secret = ''

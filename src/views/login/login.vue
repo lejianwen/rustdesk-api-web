@@ -93,10 +93,10 @@ import webauthImage from '@/assets/webauth.png';
 import defaultImage from '@/assets/oidc.png';
 
 const providerImageMap = {
-  google: googleImage,
-  github: githubImage,
-  oidc: oidcImage,
-  webauth: webauthImage,
+  Google: googleImage,
+  GitHub: githubImage,
+  OIDC: oidcImage,
+  WebAuth: webauthImage,
   default: defaultImage,
 };
 
