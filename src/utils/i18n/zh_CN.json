@@ -460,5 +460,14 @@
   },
   "Email": {
     "One": "邮箱"
+  },
+  "MyPeer": {
+    "One": "我的设备"
+  },
+  "View": {
+    "One": "查看"
+  },
+  "Information": {
+    "One": "信息"
   }
 }

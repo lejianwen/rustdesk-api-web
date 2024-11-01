@@ -58,8 +58,14 @@ export const asyncRoutes = [
       {
         path: '/',
         name: 'MyInfo',
-        meta: { title: 'Info', icon: 'User' /*keepAlive: true*/ },
+        meta: { title: 'Userinfo', icon: 'User' /*keepAlive: true*/ },
         component: () => import('@/views/my/info.vue'),
+      },
+      {
+        path: 'peer',
+        name: 'MyPeer',
+        meta: { title: 'MyPeer', icon: 'Monitor' /*keepAlive: true*/ },
+        component: () => import('@/views/my/peer/index.vue'),
       },
       {
         path: 'address_book_collection',
