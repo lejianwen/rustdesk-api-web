@@ -48,9 +48,9 @@
     username: [
       { required: true, message: T('ParamRequired', { param: T('Username') }), trigger: 'blur' },
     ],
-    email: [
-      { required: true, message: T('ParamRequired', { param: T('Email') }), trigger: 'blur' },
-    ],
+    // email: [
+    //   { required: true, message: T('ParamRequired', { param: T('Email') }), trigger: 'blur' },
+    // ],
     password: [
       { required: true, message: T('ParamRequired', { param: T('Password') }), trigger: 'blur' },
     ],
