@@ -93,15 +93,15 @@ import webauthImage from '@/assets/webauth.png';
 import defaultImage from '@/assets/oidc.png';
 
 const providerImageMap = {
-  Google: googleImage,
-  GitHub: githubImage,
-  OIDC: oidcImage,
-  WebAuth: webauthImage,
+  google: googleImage,
+  github: githubImage,
+  oidc: oidcImage,
+  // WebAuth: webauthImage,
   default: defaultImage,
 };
 
 const getProviderImage = (provider) => {
-  return providerImageMap[provider] || providerImageMap.default;
+  return providerImageMap[provider.toLowerCase()] || providerImageMap.default;
 };
 
 const allowRegister = ref(false)
