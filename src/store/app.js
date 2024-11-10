@@ -16,7 +16,7 @@ export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
     setting: {
-      title: import.meta.env.VITE_SERVER_NAME || 'Rustdesk-Api-Admin',
+      title: window.APP_CONFIG?.title || 'Rustdesk-Api-Admin',
       sideIsCollapse: false,
       logo,
       langs: langs,
