@@ -4,7 +4,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import ko from 'element-plus/es/locale/lang/ko'
 import ru from 'element-plus/es/locale/lang/ru'
-import { appConfig } from '@/api/rustdesk'
+import { admin, app } from '@/api/config'
 
 const langs = {
   'zh-CN': { name: '中文', value: zhCn },
@@ -17,6 +17,7 @@ export const useAppStore = defineStore({
   state: () => ({
     setting: {
       title: 'Rustdesk-Api-Admin',
+      hello: '',
       sideIsCollapse: false,
       logo,
       langs: langs,
@@ -41,12 +42,23 @@ export const useAppStore = defineStore({
     changeLang (v) {
       this.setLang(v)
     },
+    loadConfig(){
+      this.getAppConfig()
+      this.getAdminConfig()
+    },
     getAppConfig () {
       console.log('getAppConfig')
-      appConfig().then(res => {
+      app().then(res => {
         this.setting.appConfig = res.data
       })
     },
+    getAdminConfig(){
+      console.log('getAdminConfig')
+      admin().then(res => {
+        this.setting.title = res.data.title
+        this.setting.hello = res.data.hello
+      })
+    }
   },
 })
 

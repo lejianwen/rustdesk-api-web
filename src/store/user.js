@@ -43,7 +43,7 @@ export const useUserStore = defineStore({
     async login (form) {
       const res = await login(form).catch(_ => false)
       if (res) {
-        useAppStore().getAppConfig()
+        useAppStore().loadConfig()
         const userData = res.data
         this.saveUserData(userData)
         return userData
@@ -54,7 +54,7 @@ export const useUserStore = defineStore({
     async info () {
       const res = await current().catch(_ => false)
       if (res) {
-        useAppStore().getAppConfig()
+        useAppStore().loadConfig()
         const userData = res.data
         setToken(userData.token)
         this.$patch({
@@ -93,7 +93,7 @@ export const useUserStore = defineStore({
       const res = await oidcQuery(params).catch(_ => false)
       if (res) {
         removeCode()
-        useAppStore().getAppConfig()
+        useAppStore().loadConfig()
         const userData = res.data
         this.saveUserData(userData)
         return userData

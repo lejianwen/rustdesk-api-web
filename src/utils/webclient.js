@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { config } from '@/api/rustdesk'
+import { server } from '@/api/config'
 import Websock from '@/utils/webclient/websock'
 import * as rendezvous from '@/utils/webclient/rendezvous'
 import * as message from '@/utils/webclient/message'
@@ -13,7 +13,7 @@ export const toWebClientLink = (row) => {
 export function loadRustdeskConfig () {
   const rustdeskConfig = ref({})
   const fetchConfig = async () => {
-    const res = await config().catch(_ => false)
+    const res = await server().catch(_ => false)
     if (res) {
       rustdeskConfig.value = res.data
       localStorage.setItem('custom-rendezvous-server', res.data.id_server)

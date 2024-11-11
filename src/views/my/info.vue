@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-card :title="T('Userinfo')">
-      <el-form class="info-form" ref="form" label-width="120px" label-suffix="：">
+    <el-card :title="T('Userinfo')" shadow="hover">
+      <el-form class="info-form" ref="form" label-width="120px" label-suffix="：" >
         <el-form-item :label="T('Username')">
           <div>{{ userStore.username }}</div>
         </el-form-item>
@@ -30,6 +30,9 @@
         </el-form-item>
       </el-form>
     </el-card>
+    <el-card shadow="hover" style="margin-top: 20px">
+      <div v-html="appStore.setting.hello"></div>
+    </el-card>
     <changePwdDialog v-model:visible="changePwdVisible"></changePwdDialog>
   </div>
 </template>
@@ -38,11 +41,13 @@
   import changePwdDialog from '@/components/changePwdDialog.vue'
   import { ref } from 'vue'
   import { useUserStore } from '@/store/user'
+  import { useAppStore } from '@/store/app'
   import { bind, unbind } from '@/api/oauth'
   import { myOauth } from '@/api/user'
   import { ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
 
+  const appStore = useAppStore()
   const userStore = useUserStore()
   const changePwdVisible = ref(false)
   const showChangePwd = () => {
