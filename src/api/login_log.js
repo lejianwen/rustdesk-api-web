@@ -14,3 +14,11 @@ export function remove (data) {
     data,
   })
 }
+
+export function batchDelete (data) {
+  return request({
+    url: '/login_log/batchDelete',
+    method: 'post',
+    data,
+  })
+}

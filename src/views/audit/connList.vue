@@ -10,11 +10,13 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">筛选</el-button>
+          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <el-table :data="listRes.list" v-loading="listRes.loading" border>
+      <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
+        <el-table-column type="selection" align="center" width="50"/>
         <el-table-column prop="id" label="ID" align="center" width="100"/>
         <el-table-column :label="T('Peer')" prop="peer_id" align="center" width="120"/>
         <el-table-column :label="T('FromPeer')" prop="from_peer" align="center" width="120"/>
@@ -49,7 +51,7 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, watch } from 'vue'
+  import { onActivated, onMounted, ref, watch } from 'vue'
   import { useRepositories } from '@/views/audit/reponsitories'
   import { T } from '@/utils/i18n'
 
@@ -59,6 +61,7 @@
     getList,
     handlerQuery,
     del,
+    batchdel,
   } = useRepositories()
 
   onMounted(getList)
@@ -67,7 +70,16 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-
+  const multipleSelection = ref([])
+  const handleSelectionChange = (val) => {
+    multipleSelection.value = val
+  }
+  const toBatchDelete = () => {
+    if (multipleSelection.value.length === 0) {
+      return
+    }
+    batchdel(multipleSelection.value)
+  }
 </script>
 
 <style scoped lang="scss">

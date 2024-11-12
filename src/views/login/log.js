@@ -1,5 +1,5 @@
-import { reactive } from 'vue'
-import { list, remove } from '@/api/login_log'
+import { reactive, ref } from 'vue'
+import { batchDelete, list, remove } from '@/api/login_log'
 import { list as fetchPeers } from '@/api/peer'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
@@ -62,11 +62,34 @@ export function useRepositories () {
     }
   }
 
+  const batchdel = async (rows) => {
+    const ids = rows.map(r => r.id)
+    if (!ids.length) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('BatchDelete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
+      type: 'warning',
+    }).catch(_ => false)
+    if (!cf) {
+      return false
+    }
+
+    const res = await batchDelete({ ids }).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      getList()
+    }
+  }
+
   return {
     listRes,
     listQuery,
     getList,
     handlerQuery,
     del,
+    batchdel,
   }
 }

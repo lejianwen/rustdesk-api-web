@@ -15,6 +15,14 @@ export function remove (data) {
   })
 }
 
+export function batchDelete (data) {
+  return request({
+    url: '/audit_conn/batchDelete',
+    method: 'post',
+    data,
+  })
+}
+
 export function fileList (params) {
   return request({
     url: '/audit_file/list',
@@ -25,6 +33,14 @@ export function fileList (params) {
 export function fileRemove (data) {
   return request({
     url: '/audit_file/delete',
+    method: 'post',
+    data,
+  })
+}
+
+export function fileBatchDelete (data) {
+  return request({
+    url: '/audit_file/batchDelete',
     method: 'post',
     data,
   })

@@ -10,11 +10,13 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">筛选</el-button>
+          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <el-table :data="listRes.list" v-loading="listRes.loading" border max-height="750">
+      <el-table :data="listRes.list" v-loading="listRes.loading" border max-height="750" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" align="center" width="50"/>
         <el-table-column prop="id" label="ID" align="center" width="100"/>
         <el-table-column :label="T('Peer')" prop="peer_id" align="center" width="120"/>
         <el-table-column :label="T('FromPeer')" prop="from_peer" align="center" width="120"/>
@@ -22,8 +24,18 @@
         <el-table-column :label="T('Ip')" prop="ip" align="center" width="120"/>
         <el-table-column prop="type" :label="T('Type')" align="center" width="200">
           <template #default="{row}">
-            <el-tag v-if="row.type === 1" type="warning"> {{T('ToRemote')}}: <el-icon><Right/></el-icon> {{row.peer_id}}</el-tag>
-            <el-tag v-else>{{T('ToLocal')}}: <el-icon><Right/></el-icon> {{row.from_peer}}</el-tag>
+            <el-tag v-if="row.type === 1" type="warning"> {{ T('ToRemote') }}:
+              <el-icon>
+                <Right/>
+              </el-icon>
+              {{ row.peer_id }}
+            </el-tag>
+            <el-tag v-else>{{ T('ToLocal') }}:
+              <el-icon>
+                <Right/>
+              </el-icon>
+              {{ row.from_peer }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="num" :label="T('Num')" align="center" width="100"/>
@@ -96,6 +108,7 @@
     getList,
     handlerQuery,
     del,
+    batchdel,
   } = useFileRepositories()
 
   onMounted(getList)
@@ -110,6 +123,17 @@
   const showAllFile = (files) => {
     showFiles.value = files
     allFilesVisible.value = true
+  }
+
+  const multipleSelection = ref([])
+  const handleSelectionChange = (val) => {
+    multipleSelection.value = val
+  }
+  const toBatchDelete = () => {
+    if (multipleSelection.value.length === 0) {
+      return
+    }
+    batchdel(multipleSelection.value)
   }
 </script>
 
