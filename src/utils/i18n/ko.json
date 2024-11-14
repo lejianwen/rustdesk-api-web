@@ -12,7 +12,7 @@
     "One": "확인"
   },
   "Username": {
-    "One": "사용자 이름"
+    "One": "유저명"
   },
   "Password": {
     "One": "비밀번호"
@@ -30,7 +30,7 @@
     "One": "비밀번호 변경"
   },
   "Userinfo": {
-    "One": "사용자 정보"
+    "One": "유저 정보"
   },
   "ParamRequired": {
     "One": "{param} 은 필수입니다"
@@ -69,7 +69,7 @@
     "One": "추가"
   },
   "Hostname": {
-    "One": "호스트 이름"
+    "One": "호스트명"
   },
   "Alias": {
     "One": "별명"
@@ -93,7 +93,7 @@
     "One": "업데이트"
   },
   "LoginName": {
-    "One": "로그인 이름"
+    "One": "로그인명"
   },
   "Submit": {
     "One": "제출"
@@ -111,7 +111,7 @@
     "One": "색상"
   },
   "CreatedAt": {
-    "One": "생성 시간"
+    "One": "시작"
   },
   "UpdatedAt": {
     "One": "업데이트 시간"
@@ -144,16 +144,16 @@
     "One": "공유 그룹"
   },
   "SharedGroupNote": {
-    "One": "모든 사용자가 그룹 멤버 및 그들의 장치를 볼 수 있습니다."
+    "One": "모든 유저가 그룹 멤버 및 그들의 장치를 볼 수 있습니다."
   },
   "Nickname": {
     "One": "닉네임"
   },
   "UserTags": {
-    "One": "사용자 태그"
+    "One": "유저 태그"
   },
   "UserAddressBook": {
-    "One": "사용자 주소록"
+    "One": "유저 연락처"
   },
   "IsAdmin": {
     "One": "관리자 여부"
@@ -165,10 +165,10 @@
     "One": "자동 등록"
   },
   "AutoRegisterNote": {
-    "One": "사용 시, 사용자가 OAuth로 로그인할 때 기존 계정에 연결하지 않고 자동으로 계정이 등록됩니다."
+    "One": "사용 시, 유저가 OAuth로 로그인할 때 기존 계정에 연결하지 않고 자동으로 계정이 등록됩니다."
   },
   "ThirdName": {
-    "One": "제3자 이름"
+    "One": "제3자"
   },
   "Close": {
     "One": "닫기"
@@ -197,11 +197,14 @@
   "My": {
     "One": "내"
   },
+  "Mymy": {
+    "One": "내정보"
+  },
   "Info": {
     "One": "정보"
   },
   "AddressBooks": {
-    "One": "주소록"
+    "One": "연락처"
   },
   "System": {
     "One": "시스템"
@@ -210,19 +213,19 @@
     "One": "장치 관리"
   },
   "AddressBookManage": {
-    "One": "주소록 관리"
+    "One": "연락처 관리"
   },
   "GroupManage": {
     "One": "그룹 관리"
   },
   "UserManage": {
-    "One": "사용자 관리"
+    "One": "유저 관리"
   },
   "UserAdd": {
-    "One": "사용자 추가"
+    "One": "유저 추가"
   },
   "UserEdit": {
-    "One": "사용자 편집"
+    "One": "유저 편집"
   },
   "TagsManage": {
     "One": "태그 관리"
@@ -237,37 +240,37 @@
     "One": "마지막 온라인 시간"
   },
   "JustNow": {
-    "One": "방금"
+    "One": "지금"
   },
   "MinutesAgo": {
-    "One": "{param} 분 전"
+    "One": "{param} 분전"
   },
   "HoursAgo": {
-    "One": "{param} 시간 전"
+    "One": "{param} 시간전"
   },
   "DaysAgo": {
-    "One": "{param} 일 전"
+    "One": "{param} 일전"
   },
   "MonthsAgo": {
-    "One": "{param} 개월 전"
+    "One": "{param} 개월전"
   },
   "YearsAgo": {
-    "One": "{param} 년 전"
+    "One": "{param} 년전"
   },
   "MinutesLess": {
-    "One": "{param} 분 이내"
+    "One": "{param} 분이내"
   },
   "HoursLess": {
-    "One": "{param} 시간 이내"
+    "One": "{param} 시간이내"
   },
   "DaysLess": {
-    "One": "{param} 일 이내"
+    "One": "{param} 일이내"
   },
   "Export": {
     "One": "내보내기"
   },
   "AddToAddressBook": {
-    "One": "주소록에 추가"
+    "One": "연락처에 추가"
   },
   "BatchDelete": {
     "One": "일괄 삭제"
@@ -339,19 +342,19 @@
     "One": "시간 초과"
   },
   "AuditConnLog": {
-    "One": "연결 로그"
+    "One": "연결 감사로그"
   },
   "Peer": {
     "One": "장치"
   },
   "FromPeer": {
-    "One": "출처 장치"
+    "One": "연결정보"
   },
   "FromName": {
-    "One": "출처 이름"
+    "One": "보낸사람"
   },
   "CloseTime": {
-    "One": "닫는 시간"
+    "One": "완료"
   },
   "AuditFileLog": {
     "One": "파일 로그"
@@ -369,7 +372,7 @@
     "One": "IP"
   },
   "FileName": {
-    "One": "파일 이름"
+    "One": "파일명"
   },
   "FileInfo": {
     "One": "파일 정보"
@@ -378,16 +381,19 @@
     "One": "경로"
   },
   "IndexNum": {
-    "One": "순번"
+    "One": "순서"
   },
   "ToRemote": {
-    "One": "원격으로"
+    "One": "원격"
   },
   "ToLocal": {
-    "One": "로컬로"
+    "One": "로컬"
   },
   "AddressBookName": {
-    "One": "주소록 이름"
+    "One": "연락처"
+  },
+  "AddressBookCollection": {
+  "One": "연락처모"
   },
   "AddRule": {
     "One": "규칙 추가"
@@ -411,19 +417,37 @@
     "One": "공유 대상"
   },
   "MyAddressBook": {
-    "One": "내 주소록"
+    "One": "내 연락처"
   },
   "AddressBook": {
-    "One": "주소록"
+    "One": "연락처"
   },
   "AddressBookNameManage": {
-    "One": "주소록 이름 관리"
+    "One": "연락처 관리"
   },
   "MyAddressBookTips": {
-    "One": "\"내 주소록\"은 시스템의 기본값이며 수정하거나 삭제할 수 없습니다."
+    "One": "\"내 연락처\"는 시스템의 기본값이며 수정하거나 삭제할 수 없습니다."
   },
   "LastOnlineIp": {
     "One": "마지막 온라인 IP"
+  },
+  "or login in with": {
+    "One": "또는 다음으로 로그인"
+  },
+  "Optional, default is": {
+    "One": "기본값은 선택사항"
+  },
+  "Check your IdP docs, without": {
+    "One": "IdP 문서를 확인하세요, 제외"
+  },
+  "For OIDC login without a password, enter any 4-20 letters": {
+    "One": "비밀번호 없이 OIDC 로그인하려면 4-20자의 문자를 입력하세요"
+  },
+  "OldPassword": {
+    "One": "이전 비밀번호"
+  },
+  "NewPassword": {
+    "One": "새 비밀번호"
   },
   "ConfirmPassword": {
     "One": "비밀번호 확인"
@@ -432,9 +456,21 @@
     "One": "비밀번호가 확인 비밀번호와 일치하지 않습니다"
   },
   "ToLogin": {
-    "One": "로그인하려면 클릭하십시오"
+    "One": "로그인하기"
   },
   "UserToken": {
     "One": "사용자 토큰"
+  },
+  "Email": {
+    "One": "이메일"
+  },
+  "MyPeer": {
+    "One": "내 연결 정보"
+  },
+"View": {
+    "One": "보기"
+  },
+"Information": {
+    "One": "정보"
   }
 }
