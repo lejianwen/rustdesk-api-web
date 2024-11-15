@@ -1,5 +1,5 @@
 # RustDesk API Web
-# 基于 Vue3 + Element Plus 的后台, 适用于 [RustDesk API](https://github.com/lejianwen/rustdesk-api)
+# Vue3 + Element Plus [RustDesk API](https://github.com/lejianwen/rustdesk-api)
 
 <a href="https://github.com/vuejs/vue-next">
     <img src="https://img.shields.io/badge/vue-^3.2.16-brightgreen.svg" alt="vue3">
