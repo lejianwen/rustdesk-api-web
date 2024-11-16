@@ -32,7 +32,7 @@
         <el-table-column prop="uuid" label="uuid" align="center"/>
         <el-table-column prop="ip" label="ip" align="center" width="150"/>
         <el-table-column prop="type" label="type" align="center" width="100"/>
-        <el-table-column prop="platform" label="platform" align="center" width="120"/>
+        <el-table-column prop="platform" label="platform" align="center" width="120" show-overflow-tooltip/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
