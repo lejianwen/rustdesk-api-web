@@ -3,17 +3,17 @@
     <el-form-item :label="T('ID')" prop="id" required>
       {{ formData.id }}
     </el-form-item>
-    <el-form-item :label="T('PasswordType')">
-      <div>
-        <el-radio-group v-model="formData.password_type" @change="changePwdType">
-          <el-radio value="once">{{ T('OncePassword') }}</el-radio>
-          <el-radio value="fixed">{{ T('FixedPassword') }}</el-radio>
-        </el-radio-group>
-        <div v-if="formData.password_type==='fixed'" style="color: red">
-          {{ T('FixedPasswordWarning') }}
-        </div>
-      </div>
-    </el-form-item>
+    <!--    <el-form-item :label="T('PasswordType')">
+          <div>
+            <el-radio-group v-model="formData.password_type" @change="changePwdType">
+              <el-radio value="once">{{ T('OncePassword') }}</el-radio>
+              <el-radio value="fixed">{{ T('FixedPassword') }}</el-radio>
+            </el-radio-group>
+            <div v-if="formData.password_type==='fixed'" style="color: red">
+              {{ T('FixedPasswordWarning') }}
+            </div>
+          </div>
+        </el-form-item>-->
     <el-form-item :label="T('Password')" prop="password" required>
       <el-input v-model="formData.password" type="password" show-password></el-input>
     </el-form-item>
@@ -45,13 +45,14 @@
 <script setup>
   import { T } from '@/utils/i18n'
   import { computed, reactive, ref, watch } from 'vue'
-  import { getPeerSlat, rustdeskConfig } from '@/utils/webclient'
+  import { loadRustdeskConfig, getV2ShareUrl } from '@/utils/webclient'
   import * as sha256 from 'fast-sha256'
   import { shareByWebClient } from '@/api/address_book'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
   import { ElMessageBox } from 'element-plus'
 
+  loadRustdeskConfig()
   const props = defineProps({
     id: String,
     hash: String,
@@ -106,7 +107,7 @@
     }
     loading.value = true
     const _formData = { ...formData }
-    if (formData.password !== formData.hash) {
+    /*if (formData.password !== formData.hash) {
       const res = await getPeerSlat(formData.id).catch(e => {
         ElMessageBox.alert(T('Timeout'), T('Error'))
         return false
@@ -117,10 +118,10 @@
       }
       const p = hash([formData.password, res.salt])
       _formData.password = btoa(p.toString().split(',').map((v) => String.fromCharCode(v)).join(''))
-    }
+    }*/
     const res = await shareByWebClient(_formData).catch(_ => false)
     if (res) {
-      link.value = `${rustdeskConfig.value.api_server}/webclient/#/?share_token=${res.data.share_token}`
+      link.value = getV2ShareUrl(res.data.share_token)
       emits('success')
     }
     loading.value = false
