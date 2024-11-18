@@ -45,14 +45,13 @@
 <script setup>
   import { T } from '@/utils/i18n'
   import { computed, reactive, ref, watch } from 'vue'
-  import { loadRustdeskConfig, getV2ShareUrl } from '@/utils/webclient'
+  import { getV2ShareUrl } from '@/utils/webclient'
   import * as sha256 from 'fast-sha256'
   import { shareByWebClient } from '@/api/address_book'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
   import { ElMessageBox } from 'element-plus'
 
-  loadRustdeskConfig()
   const props = defineProps({
     id: String,
     hash: String,

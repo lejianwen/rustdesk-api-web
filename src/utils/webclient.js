@@ -8,14 +8,9 @@ import { T } from '@/utils/i18n'
 
 const prefix = 'wc-'
 
-export function setToken (token) {
-  localStorage.setItem(`${prefix}option:local:access_token`, token)
-}
-
 export const toWebClientLink = (row) => {
   //v2
   window.open(`${rustdeskConfig.value.api_server}/webclient2/#/${row.id}`)
-  // window.open(`${rustdeskConfig.value.api_server}/webclient/#/?id=${row.id}`)
 }
 
 export const rustdeskConfig = ref({})
@@ -36,6 +31,7 @@ export async function loadRustdeskConfig () {
   }
 }
 
+loadRustdeskConfig()
 
 export async function getPeerSlat (id) {
   const [addr, port] = rustdeskConfig.value.id_server.split(':')

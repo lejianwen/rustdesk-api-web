@@ -1,5 +1,3 @@
-import {setToken as setWCToken} from '@/utils/webclient'
-
 const TokenKey = 'access_token'
 const OidcCode = 'oidc_code'
 const OidcCodeExpiry = 'oidc_code_expiry';
@@ -9,7 +7,7 @@ export function getToken () {
 }
 
 export function setToken (token) {
-  setWCToken(token)
+  localStorage.setItem(`wc-option:local:access_token`, token)
   return localStorage.setItem(TokenKey, token)
 }
 
