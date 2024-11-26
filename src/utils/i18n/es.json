@@ -1,0 +1,457 @@
+{
+  "Login": {
+    "One": "Iniciar sesión"
+  },
+  "Logout": {
+    "One": "Cerrar sesión"
+  },
+  "Register": {
+    "One": "Registrar"
+  },
+  "Confirm": {
+    "One": "Confirmar"
+  },
+  "Username": {
+    "One": "Nombre de usuario"
+  },
+  "Password": {
+    "One": "Contraseña"
+  },
+  "LoginSuccess": {
+    "One": "Inicio de sesión exitoso"
+  },
+  "ForgotPassword": {
+    "One": "Olvidó su contraseña"
+  },
+  "ResetPassword": {
+    "One": "Restablecer contraseña"
+  },
+  "ChangePassword": {
+    "One": "Cambiar contraseña"
+  },
+  "Userinfo": {
+    "One": "Información del usuario"
+  },
+  "ParamRequired": {
+    "One": "{param} es requerido"
+  },
+  "HasBind": {
+    "One": "Está vinculado"
+  },
+  "NoBind": {
+    "One": "No está vinculado"
+  },
+  "UnBind": {
+    "One": "Desvincular"
+  },
+  "ToBind": {
+    "One": "Vincular"
+  },
+  "Confirm?": {
+    "One": "¿Confirmar {param}?"
+  },
+  "Cancel": {
+    "One": "Cancelar"
+  },
+  "Platform": {
+    "One": "Plataforma"
+  },
+  "Status": {
+    "One": "Estado"
+  },
+  "Actions": {
+    "One": "Acciones"
+  },
+  "Filter": {
+    "One": "Filtrar"
+  },
+  "Add": {
+    "One": "Agregar"
+  },
+  "Hostname": {
+    "One": "Nombre del host"
+  },
+  "Alias": {
+    "One": "Alias"
+  },
+  "Hash": {
+    "One": "Hash"
+  },
+  "Tags": {
+    "One": "Etiquetas"
+  },
+  "Edit": {
+    "One": "Editar"
+  },
+  "Delete": {
+    "One": "Eliminar"
+  },
+  "Create": {
+    "One": "Crear"
+  },
+  "Update": {
+    "One": "Actualizar"
+  },
+  "LoginName": {
+    "One": "Nombre de inicio de sesión"
+  },
+  "Submit": {
+    "One": "Enviar"
+  },
+  "OperationSuccess": {
+    "One": "Operación exitosa"
+  },
+  "Owner": {
+    "One": "Propietario"
+  },
+  "Name": {
+    "One": "Nombre"
+  },
+  "Color": {
+    "One": "Color"
+  },
+  "CreatedAt": {
+    "One": "Creado en"
+  },
+  "UpdatedAt": {
+    "One": "Actualizado en"
+  },
+  "Memory": {
+    "One": "Memoria"
+  },
+  "Os": {
+    "One": "Sistema operativo"
+  },
+  "Uuid": {
+    "One": "Uuid"
+  },
+  "Version": {
+    "One": "Versión"
+  },
+  "Type": {
+    "One": "Tipo"
+  },
+  "Group": {
+    "One": "Grupo"
+  },
+  "CommonGroup": {
+    "One": "Grupo común"
+  },
+  "CommonGroupNote": {
+    "One": "Solo los administradores pueden ver a los miembros del grupo y sus dispositivos"
+  },
+  "SharedGroup": {
+    "One": "Grupo compartido"
+  },
+  "SharedGroupNote": {
+    "One": "Todos los usuarios pueden ver a los miembros del grupo y sus dispositivos"
+  },
+  "Nickname": {
+    "One": "Apodo"
+  },
+  "UserTags": {
+    "One": "Etiquetas de usuario"
+  },
+  "UserAddressBook": {
+    "One": "Libreta de direcciones de usuario"
+  },
+  "IsAdmin": {
+    "One": "Es administrador"
+  },
+  "PleaseInputNewPassword": {
+    "One": "Por favor, introduzca una nueva contraseña"
+  },
+  "AutoRegister": {
+    "One": "Registro automático"
+  },
+  "AutoRegisterNote": {
+    "One": "Si está habilitado, se registrará automáticamente una cuenta cuando un usuario inicie sesión con OAuth sin vincular una cuenta existente"
+  },
+  "ThirdName": {
+    "One": "Nombre tercero"
+  },
+  "Close": {
+    "One": "Cerrar"
+  },
+  "OauthBinding": {
+    "One": "Está autorizando la vinculación"
+  },
+  "OauthLogining": {
+    "One": "Está autorizando el inicio de sesión"
+  },
+  "OauthCloseNote": {
+    "One": "Si no fue autorizado por usted, cierre directamente la página"
+  },
+  "OperationSuccessAndCloseAfter3Seconds": {
+    "One": "Operación exitosa, cierre después de 3 segundos"
+  },
+  "ConfirmOauth": {
+    "One": "Confirmar OAuth"
+  },
+  "Device": {
+    "One": "Dispositivo"
+  },
+  "ChangeLang": {
+    "One": "Cambiar a chino"
+  },
+  "My": {
+    "One": "Mi"
+  },
+  "Info": {
+    "One": "Información"
+  },
+  "AddressBooks": {
+    "One": "Libretas de direcciones"
+  },
+  "System": {
+    "One": "Sistema"
+  },
+  "PeerManage": {
+    "One": "Pares"
+  },
+  "AddressBookManage": {
+    "One": "Libretas de direcciones"
+  },
+  "GroupManage": {
+    "One": "Grupos"
+  },
+  "UserManage": {
+    "One": "Usuarios"
+  },
+  "UserAdd": {
+    "One": "Agregar usuario"
+  },
+  "UserEdit": {
+    "One": "Editar usuario"
+  },
+  "TagsManage": {
+    "One": "Etiquetas"
+  },
+  "OauthManage": {
+    "One": "OAuth"
+  },
+  "LoginLog": {
+    "One": "Registro de inicio de sesión"
+  },
+  "LastOnlineTime": {
+    "One": "Última vez en línea"
+  },
+  "JustNow": {
+    "One": "Justo ahora"
+  },
+  "MinutesAgo": {
+    "One": "Hace {param} minuto",
+    "Other": "Hace {param} minutos"
+  },
+  "HoursAgo": {
+    "One": "Hace {param} hora",
+    "Other": "Hace {param} horas"
+  },
+  "DaysAgo": {
+    "One": "Hace {param} día",
+    "Other": "Hace {param} días"
+  },
+  "MonthsAgo": {
+    "One": "Hace {param} mes",
+    "Other": "Hace {param} meses"
+  },
+  "YearsAgo": {
+    "One": "Hace {param} año",
+    "Other": "Hace {param} años"
+  },
+  "MinutesLess": {
+    "One": "Menos de {param} minuto",
+    "Other": "Menos de {param} minutos"
+  },
+  "HoursLess": {
+    "One": "Menos de {param} hora",
+    "Other": "Menos de {param} horas"
+  },
+  "DaysLess": {
+    "One": "Menos de {param} día",
+    "Other": "Menos de {param} días"
+  },
+  "Export": {
+    "One": "Exportar"
+  },
+  "AddToAddressBook": {
+    "One": "Agregar a la libreta de direcciones"
+  },
+  "BatchDelete": {
+    "One": "Eliminar por lotes"
+  },
+  "PleaseSelectData": {
+    "One": "Por favor, seleccione datos"
+  },
+  "PasswordType": {
+    "One": "Tipo de contraseña"
+  },
+  "OncePassword": {
+    "One": "Contraseña de un solo uso"
+  },
+  "FixedPassword": {
+    "One": "Contraseña fija"
+  },
+  "FixedPasswordWarning": {
+    "One": "Las contraseñas fijas pueden ser filtradas, por favor úselas con precaución. Se recomienda usar contraseñas de un solo uso."
+  },
+  "ExpireTime": {
+    "One": "Tiempo de expiración"
+  },
+  "ShareByWebClient": {
+    "One": "Compartir por cliente web"
+  },
+  "Minutes": {
+    "One": "{param} minuto",
+    "Other": "{param} minutos"
+  },
+  "Hours": {
+    "One": "{param} hora",
+    "Other": "{param} horas"
+  },
+  "Days": {
+    "One": "{param} día",
+    "Other": "{param} días"
+  },
+  "Weeks": {
+    "One": "{param} semana",
+    "Other": "{param} semanas"
+  },
+  "Months": {
+    "One": "{param} mes",
+    "Other": "{param} meses"
+  },
+  "Forever": {
+    "One": "Para siempre"
+  },
+  "Error": {
+    "One": "Error"
+  },
+  "IDNotExist": {
+    "One": "El ID no existe"
+  },
+  "RemoteDesktopOffline": {
+    "One": "El escritorio remoto está fuera de línea"
+  },
+  "KeyMismatch": {
+    "One": "La clave no coincide"
+  },
+  "KeyOveruse": {
+    "One": "Uso excesivo de la clave"
+  },
+  "Link": {
+    "One": "Enlace"
+  },
+  "CopySuccess": {
+    "One": "Copia exitosa"
+  },
+  "CopyFailed": {
+    "One": "Copia fallida"
+  },
+  "Timeout": {
+    "One": "Tiempo de espera agotado"
+  },
+  "AuditConnLog": {
+    "One": "Registro de conexiones"
+  },
+  "Peer": {
+    "One": "Par",
+    "Other": "Pares"
+  },
+  "FromPeer": {
+    "One": "Desde el par"
+  },
+  "FromName": {
+    "One": "Desde el nombre"
+  },
+  "CloseTime": {
+    "One": "Hora de cierre"
+  },
+  "AuditFileLog": {
+    "One": "Registro de archivos"
+  },
+  "Common": {
+    "One": "Común"
+  },
+  "File": {
+    "One": "Archivo"
+  },
+  "Num": {
+    "One": "Número"
+  },
+  "Ip": {
+    "One": "Ip"
+  },
+  "FileName": {
+    "One": "Nombre del archivo"
+  },
+  "FileInfo": {
+    "One": "Información del archivo"
+  },
+  "Path": {
+    "One": "Ruta"
+  },
+  "IndexNum": {
+    "One": "Número de índice"
+  },
+  "ToRemote": {
+    "One": "A remoto"
+  },
+  "ToLocal": {
+    "One": "A local"
+  },
+  "AddressBookName": {
+    "One": "Nombre de la libreta"
+  },
+  "AddRule": {
+    "One": "Agregar regla"
+  },
+  "ShareRules": {
+    "One": "Reglas de compartición"
+  },
+  "Rule": {
+    "One": "Regla"
+  },
+  "Read": {
+    "One": "Leer"
+  },
+  "ReadWrite": {
+    "One": "Leer y escribir"
+  },
+  "FullControl": {
+    "One": "Control total"
+  },
+  "ShareTo": {
+    "One": "Compartir con"
+  },
+  "MyAddressBook": {
+    "One": "Mi libreta de direcciones"
+  },
+  "AddressBook": {
+    "One": "Libreta de direcciones"
+  },
+  "AddressBookNameManage": {
+    "One": "Nombre de la libreta"
+  },
+  "MyAddressBookTips": {
+    "One": "\"Mi libreta de direcciones\" es la predeterminada del sistema, no puede ser modificada ni eliminada."
+  },
+  "LastOnlineIp": {
+    "One": "Última IP en línea"
+  },
+  "ConfirmPassword": {
+    "One": "Confirmar contraseña"
+  },
+  "PasswordNotMatchConfirmPassword": {
+    "One": "La contraseña no coincide con la contraseña de confirmación"
+  },
+  "ToLogin": {
+    "One": "Iniciar sesión"
+  },
+  "UserToken": {
+    "One": "Token del usuario"
+  },
+  "MyPeer": {
+    "One": "Mis pares"
+  }
+}

@@ -13,7 +13,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">筛选</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter')}}</el-button>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
@@ -36,7 +36,7 @@
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
-            <el-button type="danger" @click="del(row)">删除</el-button>
+            <el-button type="danger" @click="del(row)">{{T('Delete')}}</el-button>
           </template>
         </el-table-column>
       </el-table>

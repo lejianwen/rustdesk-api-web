@@ -47,7 +47,7 @@
     min-height: 100vh;
     border-right: none;
     &:not(.el-menu--collapse) {
-      width: 210px;
+      width: var(--sideBarWidth);
     }
 
   }

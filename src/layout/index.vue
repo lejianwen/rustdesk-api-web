@@ -1,6 +1,6 @@
 <template>
-  <el-config-provider :locale="appStore.setting.locale">
-    <el-container>
+  <el-config-provider :locale="appStore.setting.locale.value">
+    <el-container :style="{'--sideBarWidth': sideBarWidth}">
       <el-aside :width="leftWidth" class="app-left">
         <g-aside></g-aside>
       </el-aside>
@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-  import { useUserStore } from '@/store/user'
   import { useAppStore } from '@/store/app'
   import { useTagsStore } from '@/store/tags'
   import { ref, computed } from 'vue'
@@ -37,8 +36,8 @@
 
   const appStore = useAppStore()
   const tagStore = useTagsStore()
-
-  const leftWidth = computed(() => appStore.setting.sideIsCollapse ? '64px' : '210px')
+  const sideBarWidth = computed(() => appStore.setting.locale.sideBarWidth)
+  const leftWidth = computed(() => appStore.setting.sideIsCollapse ? '64px' : 'var(--sideBarWidth)')
 
   const cachedTags = ref([])
 
