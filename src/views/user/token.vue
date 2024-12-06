@@ -13,12 +13,14 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter')}}</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
+          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <el-table :data="listRes.list" v-loading="listRes.loading" border>
+      <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
+        <el-table-column type="selection" align="center" width="50"/>
         <el-table-column prop="id" label="id" align="center" width="100"/>
         <el-table-column :label="T('Owner')" align="center">
           <template #default="{row}">
@@ -56,7 +58,7 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, watch } from 'vue'
+  import { onActivated, onMounted, ref, watch } from 'vue'
   import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/user/token.js'
   import { T } from '@/utils/i18n'
@@ -70,6 +72,7 @@
     getList,
     handlerQuery,
     del,
+    batchDelete,
   } = useRepositories()
 
   onMounted(getList)
@@ -84,6 +87,17 @@
   const expired = (row) => {
     const now = new Date().getTime()
     return row.expired_at * 1000 < now
+  }
+
+  const multipleSelection = ref([])
+  const handleSelectionChange = (val) => {
+    multipleSelection.value = val
+  }
+  const toBatchDelete = () => {
+    if (multipleSelection.value.length === 0) {
+      return
+    }
+    batchDelete(multipleSelection.value.map(v => v.id))
   }
 </script>
 

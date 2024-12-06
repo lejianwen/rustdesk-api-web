@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { list, remove } from '@/api/user_token'
+import { batchRemove, list, remove } from '@/api/user_token'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
@@ -36,7 +36,7 @@ export function useRepositories () {
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm(T('Confirm?', {param: T('Logout')}), {
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Logout') }), {
       confirmButtonText: T('Confirm'),
       cancelButtonText: T('Cancel'),
       type: 'warning',
@@ -52,11 +52,29 @@ export function useRepositories () {
     }
   }
 
+  const batchDelete = async (ids) => {
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('BatchDelete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
+      type: 'warning',
+    }).catch(_ => false)
+    if (!cf) {
+      return false
+    }
+
+    const res = await batchRemove({ ids }).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      getList()
+    }
+  }
+
   return {
     listRes,
     listQuery,
     getList,
     handlerQuery,
     del,
+    batchDelete,
   }
 }

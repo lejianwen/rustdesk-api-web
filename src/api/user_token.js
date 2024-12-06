@@ -14,3 +14,11 @@ export function remove (data) {
     data,
   })
 }
+
+export function batchRemove (data) {
+  return request({
+    url: '/user_token/batchDelete',
+    method: 'post',
+    data,
+  })
+}
