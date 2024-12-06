@@ -19,7 +19,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item >
+        <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
@@ -71,9 +71,9 @@
                      :total="listRes.total">
       </el-pagination>
     </el-card>
-    <el-dialog v-model="formVisible" :title="T('Information')" width="800" :style="{ textAlign: 'center' }" >
+    <el-dialog v-model="formVisible" :title="T('Information')" width="800" :style="{ textAlign: 'center' }">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
-        <el-form-item label="ID" prop="id" >
+        <el-form-item label="ID" prop="id">
           <el-input v-model="formData.id" disabled></el-input>
         </el-form-item>
         <el-form-item :label="T('Username')" prop="username">
@@ -102,14 +102,10 @@
 
     <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')">
       <el-form class="dialog-form" ref="form" :model="ABFormData" label-width="120px">
-        <el-form-item :label="T('Owner')" prop="user_ids" required>
-          <el-select v-model="ABFormData.user_ids" multiple>
-            <el-option
-                v-for="item in allUsers"
-                :key="item.id"
-                :label="item.username"
-                :value="item.id"
-            ></el-option>
+        <el-form-item :label="T('AddressBookName')" required prop="collection_id">
+          <el-select v-model="ABFormData.collection_id" clearable @change="changeCollection">
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="ID" prop="id" required>
@@ -138,7 +134,7 @@
         <el-form-item :label="T('Tags')" prop="tags">
           <el-select v-model="ABFormData.tags" multiple>
             <el-option
-                v-for="item in tagList"
+                v-for="item in tagListRes.list"
                 :key="item.name"
                 :label="item.name"
                 :value="item.name"
@@ -164,9 +160,6 @@
   import { timeAgo } from '@/utils/time'
   import { jsonToCsv, downBlob } from '@/utils/file'
   import { useRepositories as useABRepositories } from '@/views/address_book/index'
-  import { loadAllUsers } from '@/global'
-  import { list as fetchTagList } from '@/api/tag'
-  import { batchCreate } from '@/api/address_book'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
   import { CopyDocument } from '@element-plus/icons'
@@ -244,7 +237,7 @@
       formData[key] = row[key]
     })
   }
-  
+
   const timeDis = (time) => {
     let now = new Date().getTime()
     let after = new Date(time * 1000).getTime()
@@ -284,33 +277,18 @@
     platformList: ABPlatformList,
     formVisible: ABFormVisible,
     formData: ABFormData,
+    collectionListRes,
+    getCollectionList,
+    tagListRes,
+    changeCollection,
+    submit: ABSubmit,
+    fromPeer
   } = useABRepositories()
+  onMounted(getCollectionList)
   const toAddressBook = (peer) => {
-    ABFormData.id = peer.id
-    ABFormData.username = peer.username
-    ABFormData.hostname = peer.hostname
-    //匹配os
-    if (peer.os.indexOf('windows') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Windows').value
-    } else if (peer.os.indexOf('linux') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Linux').value
-    } else if (peer.os.indexOf('android') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Android').value
-    } else if (peer.os.indexOf('mac') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Mac OS').value
-    }
-    ABFormData.uuid = peer.uuid
+    fromPeer(peer)
     ABFormVisible.value = true
-
   }
-  const ABSubmit = async () => {
-    const res = await batchCreate(ABFormData).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-      ABFormVisible.value = false
-    }
-  }
-
 
   const multipleSelection = ref([])
   const handleSelectionChange = (val) => {

@@ -195,6 +195,23 @@ export function useRepositories (is_my = 0) {
     getTagList()
   }
 
+  const fromPeer = (peer) => {
+    formData.id = peer.id
+    formData.username = peer.username
+    formData.hostname = peer.hostname
+    //匹配os
+    if (peer.os.indexOf('windows') !== -1) {
+      formData.platform = platformList.find(item => item.label === 'Windows').value
+    } else if (peer.os.indexOf('linux') !== -1) {
+      formData.platform = platformList.find(item => item.label === 'Linux').value
+    } else if (peer.os.indexOf('android') !== -1) {
+      formData.platform = platformList.find(item => item.label === 'Android').value
+    } else if (peer.os.indexOf('mac') !== -1) {
+      formData.platform = platformList.find(item => item.label === 'Mac OS').value
+    }
+    formData.uuid = peer.uuid
+  }
+
   return {
     listRes,
     listQuery,
@@ -225,5 +242,7 @@ export function useRepositories (is_my = 0) {
     changeQueryUser,
     changeUser,
     changeCollection,
+
+    fromPeer,
   }
 }

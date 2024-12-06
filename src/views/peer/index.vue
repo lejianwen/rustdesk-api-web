@@ -311,22 +311,10 @@
     platformList: ABPlatformList,
     formVisible: ABFormVisible,
     formData: ABFormData,
+    fromPeer,
   } = useABRepositories()
   const toAddressBook = (peer) => {
-    ABFormData.id = peer.id
-    ABFormData.username = peer.username
-    ABFormData.hostname = peer.hostname
-    //匹配os
-    if (peer.os.indexOf('windows') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Windows').value
-    } else if (peer.os.indexOf('linux') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Linux').value
-    } else if (peer.os.indexOf('android') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Android').value
-    } else if (peer.os.indexOf('mac') !== -1) {
-      ABFormData.platform = ABPlatformList.find(item => item.label === 'Mac OS').value
-    }
-    ABFormData.uuid = peer.uuid
+    fromPeer(peer)
     ABFormVisible.value = true
 
   }
