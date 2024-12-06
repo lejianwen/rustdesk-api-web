@@ -175,7 +175,6 @@
 
 <script setup>
   import { onActivated, onMounted, ref, watch } from 'vue'
-  import { list as fetchTagList } from '@/api/tag'
   import { useBatchUpdateTagsRepositories, useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
@@ -185,9 +184,6 @@
   import { handleClipboard } from '@/utils/clipboard'
   import { CopyDocument } from '@element-plus/icons'
   import PlatformIcons from '@/components/icons/platform.vue'
-  import { batchUpdateTags } from '@/api/address_book'
-  import { ElMessage } from 'element-plus'
-  import { useRepositories as useTagRepositories } from '@/views/tag'
 
   const is_my = 1
   const appStore = useAppStore()
