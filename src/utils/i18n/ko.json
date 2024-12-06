@@ -439,5 +439,11 @@
   },
   "MyPeer": {
     "One": "내 피어"
+  },
+  "BatchAddToAB": {
+    "One": "주소록에 일괄 추가"
+  },
+  "BatchEditTags": {
+    "One": "태그 일괄 편집"
   }
 }

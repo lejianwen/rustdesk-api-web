@@ -450,5 +450,11 @@
   },
   "UserToken": {
     "One": "User Token"
+  },
+  "BatchAddToAB": {
+    "One": "Batch Add To Address Book"
+  },
+  "BatchEditTags": {
+    "One": "Batch Edit Tags"
   }
 }

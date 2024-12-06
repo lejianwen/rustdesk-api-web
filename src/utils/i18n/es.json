@@ -453,5 +453,11 @@
   },
   "MyPeer": {
     "One": "Mis pares"
+  },
+  "BatchAddToAB": {
+    "One": "Agregar en bloque a la libreta de direcciones"
+  },
+  "BatchEditTags": {
+    "One": "Editar etiquetas en bloque"
   }
 }

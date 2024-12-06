@@ -20,12 +20,13 @@
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
+          <el-button type="primary" @click="showBatchEditTags">{{ T('BatchEditTags') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
-      <el-table :data="listRes.list" v-loading="listRes.loading" border>
+      <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="50" align="center"></el-table-column>
         <el-table-column prop="id" label="ID" align="center" width="200">
           <template #default="{row}">
             <div>
@@ -151,13 +152,31 @@
                         @cancel="shareToWebClientVisible=false"
                         @success=""/>
     </el-dialog>
+    <el-dialog v-model="batchEditTagVisible" width="800">
+      <el-form :model="batchEditTagsFormData" label-width="120px" class="dialog-form">
+        <el-form-item :label="T('Tags')" prop="tags">
+          <el-select v-model="batchEditTagsFormData.tags" multiple>
+            <el-option
+                v-for="item in tagListResForBatchEdit.list"
+                :key="item.name"
+                :label="item.name"
+                :value="item.name"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="batchEditTagVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="submitBatchEditTags" type="primary">{{ T('Submit') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { list as fetchTagList } from '@/api/tag'
-  import { useRepositories } from '@/views/address_book'
+  import { useBatchUpdateTagsRepositories, useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
   import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
@@ -166,6 +185,9 @@
   import { handleClipboard } from '@/utils/clipboard'
   import { CopyDocument } from '@element-plus/icons'
   import PlatformIcons from '@/components/icons/platform.vue'
+  import { batchUpdateTags } from '@/api/address_book'
+  import { ElMessage } from 'element-plus'
+  import { useRepositories as useTagRepositories } from '@/views/tag'
 
   const is_my = 1
   const appStore = useAppStore()
@@ -199,6 +221,31 @@
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
+
+  const {
+    tagListRes: tagListResForBatchEdit,
+    getTagList: getTagListForBatchEdit,
+    visible: batchEditTagVisible,
+    show: showBatchEditTags,
+    formData: batchEditTagsFormData,
+    submit: _submitBatchEditTags,
+  } = useBatchUpdateTagsRepositories(is_my)
+  onMounted(getTagListForBatchEdit)
+  const submitBatchEditTags = async () => {
+    const res = await _submitBatchEditTags().catch(_ => false)
+    if (res) {
+      getList()
+    }
+  }
+
+  const multipleSelection = ref([])
+  const handleSelectionChange = (val) => {
+    multipleSelection.value = val
+
+    batchEditTagsFormData.value.row_ids = val.map(v => v.row_id)
+  }
+
+
 </script>
 
 <style scoped lang="scss">

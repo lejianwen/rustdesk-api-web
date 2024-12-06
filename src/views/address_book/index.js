@@ -1,5 +1,5 @@
-import { reactive, ref, watch } from 'vue'
-import { create, list, remove, update } from '@/api/address_book'
+import { reactive, ref } from 'vue'
+import { batchUpdateTags, create, list, remove, update } from '@/api/address_book'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { T } from '@/utils/i18n'
 import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
@@ -244,5 +244,55 @@ export function useRepositories (is_my = 0) {
     changeCollection,
 
     fromPeer,
+  }
+}
+
+export function useBatchUpdateTagsRepositories (is_my = 0) {
+  const {
+    listRes: tagListRes,
+    listQuery: tagListQuery,
+    getList: getTagList,
+  } = useTagRepositories(is_my)
+  tagListQuery.page_size = 9999
+
+  const visible = ref(false)
+  const show = () => {
+    if (formData.value.row_ids.length === 0) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return
+    }
+    visible.value = true
+  }
+  const formData = ref({
+    tags: [],
+    row_ids: [],
+  })
+  const submit = async () => {
+    if (formData.value.row_ids.length === 0) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    if (formData.value.tags.length === 0) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    const res = await batchUpdateTags(formData.value).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('Success'))
+      visible.value = false
+      return true
+    }
+    return false
+  }
+
+  return {
+    tagListQuery,
+    getTagList,
+    tagListRes,
+
+    visible,
+    formData,
+    show,
+    submit,
   }
 }

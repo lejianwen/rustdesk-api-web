@@ -52,3 +52,19 @@ export function shareByWebClient (data) {
     data,
   })
 }
+
+export function batchCreateFromPeers (data) {
+  return request({
+    url: '/address_book/batchCreateFromPeers',
+    method: 'post',
+    data,
+  })
+}
+
+export function batchUpdateTags (data) {
+  return request({
+    url: '/address_book/batchUpdateTags',
+    method: 'post',
+    data,
+  })
+}

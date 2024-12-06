@@ -469,5 +469,11 @@
   },
   "Information": {
     "One": "信息"
+  },
+  "BatchAddToAB": {
+    "One": "批量添加到地址簿"
+  },
+  "BatchEditTags": {
+    "One": "批量编辑标签"
   }
 }

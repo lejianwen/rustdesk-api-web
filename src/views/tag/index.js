@@ -106,12 +106,6 @@ export function useRepositories (is_my = 0) {
       getList()
     }
   }
-  onMounted(getList)
-  onActivated(getList)
-
-  watch(() => listQuery.page, getList)
-
-  watch(() => listQuery.page_size, handlerQuery)
 
   const formVisible = ref(false)
   const formData = reactive({
