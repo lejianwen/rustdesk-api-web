@@ -191,7 +191,7 @@
   import { connectByClient } from '@/utils/peer'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
-  import { batchCreateFromPeers } from '@/api/address_book'
+  import { address_book_batchCreateFromPeers as batchCreateFromPeers } from '@/api/my'
 
   const appStore = useAppStore()
   const listRes = reactive({

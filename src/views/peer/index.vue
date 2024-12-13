@@ -24,6 +24,7 @@
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
           <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+          <el-button type="primary" @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -157,6 +158,42 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+
+    <el-dialog v-model="batchABFormVisible" width="800" :title="T('Create')">
+      <el-form class="dialog-form" ref="form" :model="batchABFormData" label-width="120px">
+        <el-form-item :label="T('Owner')" prop="user_id" required>
+          <el-select v-model="batchABFormData.user_id" @change="changeUser">
+            <el-option
+                v-for="item in allUsers"
+                :key="item.id"
+                :label="item.username"
+                :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="T('AddressBookName')" required prop="collection_id">
+          <el-select v-model="batchABFormData.collection_id" clearable @change="changeCollection">
+            <el-option :value="0" :label="T('MyAddressBook')"></el-option>
+            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <!--        <el-form-item :label="T('Tags')" prop="tags">
+                  <el-select v-model="batchABFormData.tags" multiple>
+                    <el-option
+                        v-for="item in tagListRes.list"
+                        :key="item.name"
+                        :label="item.name"
+                        :value="item.name"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>-->
+        <el-form-item>
+          <el-button @click="batchABFormVisible = false">{{ T('Cancel') }}</el-button>
+          <el-button @click="submitBatchAddToAB" type="primary">{{ T('Submit') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -176,6 +213,7 @@
   import { connectByClient } from '@/utils/peer'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
+  import { batchCreateFromPeers } from '@/api/address_book'
 
   const appStore = useAppStore()
   const listRes = reactive({
@@ -312,11 +350,14 @@
     formVisible: ABFormVisible,
     formData: ABFormData,
     fromPeer,
+    changeCollection,
+    collectionListRes,
+    collectionListQuery,
+    getCollectionList,
   } = useABRepositories()
   const toAddressBook = (peer) => {
     fromPeer(peer)
     ABFormVisible.value = true
-
   }
   const ABSubmit = async () => {
     const res = await batchCreate(ABFormData).catch(_ => false)
@@ -367,6 +408,42 @@
       getList()
     }
   }
+
+  // 批量添加到地址簿
+  const changeUser = (val) => {
+    collectionListQuery.user_id = val
+    batchABFormData.value.collection_id = 0
+    getCollectionList()
+  }
+  const batchABFormVisible = ref(false)
+  const toBatchAddToAB = () => {
+    batchABFormVisible.value = true
+  }
+  const batchABFormData = ref({
+    collection_id: 0,
+    tags: [],
+    peer_ids: [],
+    user_id: null,
+  })
+  const submitBatchAddToAB = async () => {
+    if (multipleSelection.value.length === 0) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    batchABFormData.value.peer_ids = multipleSelection.value.map(i => i.row_id)
+    if (!batchABFormData.value.peer_ids.length) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+
+    const res = await batchCreateFromPeers(batchABFormData.value).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      batchABFormVisible.value = false
+      getList()
+    }
+  }
+
 </script>
 
 <style scoped lang="scss">

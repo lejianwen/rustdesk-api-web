@@ -22,3 +22,18 @@ export function share_record_batchDelete (data) {
     data,
   })
 }
+
+export function peer_list (params) {
+  return request({
+    url: '/my/peer/list',
+    params,
+  })
+}
+
+export function address_book_batchCreateFromPeers (data) {
+  return request({
+    url: '/my/address_book/batchCreateFromPeers',
+    method: 'post',
+    data,
+  })
+}
