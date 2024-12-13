@@ -30,6 +30,9 @@
         <el-table-column prop="peer_id" :label="T('Peer')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="`${T('ExpireTime')}(${T('Second')})`" prop="expire" align="center">
+          <template #default="{row}">
+            <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : '-' }}</el-tag>
+          </template>
         </el-table-column>
         <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
@@ -88,7 +91,8 @@
   }
   const expired = (row) => {
     const now = new Date().getTime()
-    return row.expire * 1000 < now
+    const created_at = new Date(row.created_at).getTime()
+    return row.expire * 1000 + created_at  < now
   }
 
   const del = async (row) => {
