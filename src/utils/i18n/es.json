@@ -459,5 +459,14 @@
   },
   "BatchEditTags": {
     "One": "Editar etiquetas en bloque"
+  },
+  "User": {
+    "One": "Usuario"
+  },
+  "ShareRecord": {
+    "One": "Registro de compartición"
+  },
+  "Second": {
+    "One": "Segundo"
   }
 }

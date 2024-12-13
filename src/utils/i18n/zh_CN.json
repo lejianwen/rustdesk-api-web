@@ -475,5 +475,14 @@
   },
   "BatchEditTags": {
     "One": "批量编辑标签"
+  },
+  "User": {
+    "One": "用户"
+  },
+  "ShareRecord": {
+    "One": "分享记录"
+  },
+  "Second": {
+    "One": "秒"
   }
 }

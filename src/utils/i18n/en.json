@@ -456,5 +456,14 @@
   },
   "BatchEditTags": {
     "One": "Batch Edit Tags"
+  },
+  "User": {
+    "One": "User"
+  },
+  "ShareRecord": {
+    "One": "Share Record"
+  },
+  "Second": {
+    "One": "Second"
   }
 }

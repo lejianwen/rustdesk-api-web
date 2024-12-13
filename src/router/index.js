@@ -85,6 +85,12 @@ export const asyncRoutes = [
         meta: { title: 'Tags', icon: 'CollectionTag' /*keepAlive: true*/ },
         component: () => import('@/views/my/tag/index.vue'),
       },
+      {
+        path: 'shareRecord',
+        name: 'MyShareRecordList',
+        meta: { title: 'ShareRecord', icon: 'Share' /*keepAlive: true*/ },
+        component: () => import('@/views/my/share_record/index.vue'),
+      },
     ],
   },
   {
@@ -171,6 +177,12 @@ export const asyncRoutes = [
         name: 'AuditFile',
         meta: { title: 'AuditFileLog', icon: 'Files' /*keepAlive: true*/ },
         component: () => import('@/views/audit/fileList.vue'),
+      },
+      {
+        path: '/shareRecord',
+        name: 'ShareRecord',
+        meta: { title: 'ShareRecord', icon: 'Share' /*keepAlive: true*/ },
+        component: () => import('@/views/share_record/index.vue'),
       },
     ],
   },

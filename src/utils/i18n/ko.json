@@ -445,5 +445,14 @@
   },
   "BatchEditTags": {
     "One": "태그 일괄 편집"
+  },
+  "User": {
+    "One": "사용자"
+  },
+  "ShareRecord": {
+    "One": "공유 기록"
+  },
+  "Second": {
+    "One": "초"
   }
 }
