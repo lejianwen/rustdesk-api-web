@@ -440,7 +440,6 @@
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       batchABFormVisible.value = false
-      getList()
     }
   }
 
