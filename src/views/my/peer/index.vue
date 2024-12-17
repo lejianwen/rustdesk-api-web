@@ -22,7 +22,7 @@
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
-          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+          <!--          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>-->
           <el-button type="primary" @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
 
         </el-form-item>
@@ -59,7 +59,7 @@
             <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>
             <el-button type="primary" @click="toAddressBook(row)">{{ T('AddToAddressBook') }}</el-button>
             <el-button @click="toView(row)">{{ T('View') }}</el-button>
-            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            <!--            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -105,9 +105,9 @@
     <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')">
       <el-form class="dialog-form" ref="form" :model="ABFormData" label-width="120px">
         <el-form-item :label="T('AddressBookName')" required prop="collection_id">
-          <el-select v-model="ABFormData.collection_id" clearable @change="changeCollection">
+          <el-select v-model="ABFormData.collection_id" clearable @change="changeCollectionForUpdate">
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForUpdate.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="ID" prop="id" required>
@@ -153,9 +153,9 @@
     <el-dialog v-model="batchABFormVisible" width="800" :title="T('Create')">
       <el-form class="dialog-form" ref="form" :model="batchABFormData" label-width="120px">
         <el-form-item :label="T('AddressBookName')" required prop="collection_id">
-          <el-select v-model="batchABFormData.collection_id" clearable @change="changeCollection">
+          <el-select v-model="batchABFormData.collection_id" clearable @change="changeCollectionForBatchCreateAB">
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForUpdate.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="T('Tags')" prop="tags">
@@ -179,8 +179,7 @@
 
 <script setup>
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
-  import { batchRemove, remove } from '@/api/peer'
-  import { myPeer } from '@/api/user'
+  import { list } from '@/api/my/peer'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
@@ -191,7 +190,7 @@
   import { connectByClient } from '@/utils/peer'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
-  import { address_book_batchCreateFromPeers as batchCreateFromPeers } from '@/api/my'
+  import { batchCreateFromPeers } from '@/api/my/address_book'
 
   const appStore = useAppStore()
   const listRes = reactive({
@@ -207,7 +206,7 @@
 
   const getList = async () => {
     listRes.loading = true
-    const res = await myPeer(listQuery).catch(_ => false)
+    const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
       listRes.list = res.data.list
@@ -222,7 +221,7 @@
     }
   }
 
-  const del = async (row) => {
+  /*const del = async (row) => {
     const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
       confirmButtonText: T('Confirm'),
       cancelButtonText: T('Cancel'),
@@ -237,7 +236,7 @@
       ElMessage.success(T('OperationSuccess'))
       getList()
     }
-  }
+  }*/
   onMounted(getList)
   onActivated(getList)
 
@@ -305,14 +304,14 @@
     platformList: ABPlatformList,
     formVisible: ABFormVisible,
     formData: ABFormData,
-    collectionListRes,
-    getCollectionList,
+    collectionListResForUpdate,
+    getCollectionListForUpdate,
     tagListRes,
-    changeCollection,
+    changeCollectionForUpdate,
     submit: ABSubmit,
     fromPeer,
-  } = useABRepositories(1)
-  onMounted(getCollectionList)
+  } = useABRepositories('my')
+  onMounted(getCollectionListForUpdate)
   const toAddressBook = (peer) => {
     fromPeer(peer)
     ABFormVisible.value = true
@@ -322,7 +321,7 @@
   const handleSelectionChange = (val) => {
     multipleSelection.value = val
   }
-  const toBatchDelete = async () => {
+  /*const toBatchDelete = async () => {
     if (!multipleSelection.value.length) {
       ElMessage.warning(T('PleaseSelectData'))
       return false
@@ -341,7 +340,7 @@
       ElMessage.success(T('OperationSuccess'))
       getList()
     }
-  }
+  }*/
 
   const batchABFormVisible = ref(false)
   const toBatchAddToAB = () => {
@@ -352,6 +351,10 @@
     tags: [],
     peer_ids: [],
   })
+  const changeCollectionForBatchCreateAB = (val) => {
+    batchABFormData.value.tags = []
+    changeCollectionForUpdate(val)
+  }
   const submitBatchAddToAB = async () => {
     if (multipleSelection.value.length === 0) {
       ElMessage.warning(T('PleaseSelectData'))

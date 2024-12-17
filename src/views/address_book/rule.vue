@@ -56,7 +56,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="T('ShareTo')" prop="to_id" required>
-<!--          <el-input-number v-model="formData.to_id"></el-input-number>-->
+          <!--          <el-input-number v-model="formData.to_id"></el-input-number>-->
           <el-select v-model="formData.to_id">
             <el-option
                 v-for="item in groupUsersList"
@@ -106,7 +106,7 @@
     rules,
     groupUsersList,
     getGroupUsers,
-  } = useRepositories(props.is_my)
+  } = useRepositories(props.is_my ? 'my' : 'admin')
 
   formData.collection_id = props.collection.id
   formData.user_id = props.collection.user_id

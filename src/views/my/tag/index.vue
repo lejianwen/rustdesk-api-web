@@ -58,7 +58,7 @@
         <el-form-item :label="T('AddressBookName')">
           <el-select v-model="formData.collection_id" clearable>
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForUpdate.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="T('Name')" prop="name" required>
@@ -86,7 +86,6 @@
   import { onMounted, watch, onActivated } from 'vue'
   import { useRepositories } from '@/views/tag'
   import { T } from '@/utils/i18n'
-  import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 
   const {
     listRes,
@@ -101,9 +100,13 @@
     submit,
     activeChange,
     currentColor,
-  } = useRepositories()
 
-  listQuery.is_my = 1
+    collectionListRes,
+    getCollectionList,
+
+    collectionListResForUpdate,
+    getCollectionListForUpdate,
+  } = useRepositories('my')
 
   onMounted(getList)
   onActivated(getList)
@@ -112,14 +115,8 @@
 
   watch(() => listQuery.page_size, handlerQuery)
 
-  const {
-    listRes: collectionListRes,
-    listQuery: collectionListQuery,
-    getList: getCollectionList,
-  } = useCollectionRepositories()
-  collectionListQuery.is_my = 1
-  collectionListQuery.page_size = 999
   onMounted(getCollectionList)
+  onMounted(getCollectionListForUpdate)
 
 </script>
 

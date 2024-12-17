@@ -76,9 +76,9 @@
     <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?T('Create') :T('Update') ">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item :label="T('AddressBookName')" required prop="collection_id">
-          <el-select v-model="formData.collection_id" clearable @change="changeCollection">
+          <el-select v-model="formData.collection_id" clearable @change="changeCollectionForUpdate">
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForUpdate.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="ID" prop="id" required>
@@ -174,7 +174,7 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, ref, watch } from 'vue'
+  import { onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { useBatchUpdateTagsRepositories, useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
@@ -185,32 +185,33 @@
   import { CopyDocument } from '@element-plus/icons'
   import PlatformIcons from '@/components/icons/platform.vue'
 
-  const is_my = 1
   const appStore = useAppStore()
-
   const {
     listRes,
     listQuery,
     getList,
     handlerQuery,
+    collectionListRes,
+    getCollectionList,
+
     del,
+
     formVisible,
     platformList,
     formData,
     toEdit,
     toAdd,
     submit,
-    shareToWebClientVisible,
-    shareToWebClientForm,
-    toShowShare,
-    // collectionListQuery,
-    collectionListRes,
-    getCollectionList,
     tagListRes,
-    changeCollection,
-  } = useRepositories(is_my)
+    changeCollectionForUpdate,
+    getCollectionListForUpdate,
+    collectionListResForUpdate,
+    // collectionListQuery,
+
+  } = useRepositories('my')
 
   onMounted(getCollectionList)
+  onMounted(getCollectionListForUpdate)
   onMounted(getList)
   onActivated(getList)
 
@@ -218,6 +219,16 @@
 
   watch(() => listQuery.page_size, handlerQuery)
 
+  const shareToWebClientVisible = ref(false)
+  const shareToWebClientForm = reactive({
+    id: '',
+    hash: '',
+  })
+  const toShowShare = (row) => {
+    shareToWebClientForm.id = row.id
+    shareToWebClientForm.hash = row.hash
+    shareToWebClientVisible.value = true
+  }
   const {
     tagListRes: tagListResForBatchEdit,
     getTagList: getTagListForBatchEdit,
@@ -225,7 +236,7 @@
     show: showBatchEditTags,
     formData: batchEditTagsFormData,
     submit: _submitBatchEditTags,
-  } = useBatchUpdateTagsRepositories(is_my)
+  } = useBatchUpdateTagsRepositories()
   onMounted(getTagListForBatchEdit)
   const submitBatchEditTags = async () => {
     const res = await _submitBatchEditTags().catch(_ => false)

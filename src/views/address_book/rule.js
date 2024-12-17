@@ -1,11 +1,16 @@
 import { computed, reactive, ref } from 'vue'
-import { create, list, remove, update } from '@/api/address_book_collection_rule'
+import { list as admin_list, create as admin_create, update as admin_update, remove as admin_remove } from '@/api/address_book_collection_rule'
+import { list as my_list, create as my_create, update as my_update, remove as my_remove } from '@/api/my/address_book_collection_rule'
 import { groupUsers } from '@/api/user'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { T } from '@/utils/i18n'
-import collection from '@element-plus/icons/lib/Collection'
 
-export function useRepositories (is_my) {
+const apis = {
+  admin: { list: admin_list, remove: admin_remove, update: admin_update, create: admin_create },
+  my: { list: my_list, remove: my_remove, create: my_create, update: my_update },
+}
+
+export function useRepositories (api_type = 'my') {
   const listRes = reactive({
     list: [], total: 0, loading: false,
   })
@@ -13,12 +18,11 @@ export function useRepositories (is_my) {
     page: 1,
     page_size: 10,
     collection_id: null,
-    is_my,
   })
 
   const getList = async () => {
     listRes.loading = true
-    const res = await list(listQuery).catch(_ => false)
+    const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
       listRes.list = res.data.list
@@ -43,7 +47,7 @@ export function useRepositories (is_my) {
       return false
     }
 
-    const res = await remove({ id: row.id }).catch(_ => false)
+    const res = await apis[api_type].remove({ id: row.id }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       getList()
@@ -79,7 +83,7 @@ export function useRepositories (is_my) {
 
   }
   const submit = async () => {
-    const api = formData.id ? update : create
+    const api = formData.id ? apis[api_type].update : apis[api_type].create
     const res = await api(formData).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))

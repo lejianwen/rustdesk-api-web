@@ -96,7 +96,7 @@
     toEdit,
     toAdd,
     submit,
-  } = useRepositories()
+  } = useRepositories('admin')
 
   listQuery.is_my = 0
 

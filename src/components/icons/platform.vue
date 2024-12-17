@@ -17,6 +17,7 @@
     name: {
       type: String,
       required: true,
+      default: '',
       values: ['windows', 'android', 'mac', 'linux'],
     },
     color: {

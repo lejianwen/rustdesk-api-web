@@ -1,20 +1,18 @@
 import { reactive, ref } from 'vue'
-import { create, list, remove, update } from '@/api/tag'
+import { create as admin_create, list as admin_list, remove as admin_remove, update as admin_update } from '@/api/tag'
+import { create as my_create, list as my_list, remove as my_remove, update as my_update } from '@/api/my/tag'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
-import { loadAllUsers } from '@/global'
 import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 
-export function useRepositories (is_my = 0) {
-  const { allUsers, getAllUsers } = loadAllUsers()
+const apis = {
+  admin: { list: admin_list, remove: admin_remove, update: admin_update, create: admin_create },
+  my: { list: my_list, remove: my_remove, create: my_create, update: my_update },
+}
 
-  const {
-    listRes: collectionListRes,
-    listQuery: collectionListQuery,
-    getList: getCollectionList,
-  } = useCollectionRepositories(is_my)
-  collectionListQuery.page_size = 9999
+export function useRepositories (api_type = 'my') {
+
   //获取query
   const route = useRoute()
   const user_id = route.query?.user_id
@@ -24,7 +22,6 @@ export function useRepositories (is_my = 0) {
   const listQuery = reactive({
     page: 1,
     page_size: 10,
-    is_my,
     user_id: user_id ? parseInt(user_id) : null,
     collection_id: null,
   })
@@ -72,7 +69,7 @@ export function useRepositories (is_my = 0) {
 
   const getList = async () => {
     listRes.loading = true
-    const res = await list(listQuery).catch(_ => false)
+    const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
       listRes.list = res.data.list.map(item => {
@@ -100,7 +97,7 @@ export function useRepositories (is_my = 0) {
       return false
     }
 
-    const res = await remove({ id: row.id }).catch(_ => false)
+    const res = await apis[api_type].remove({ id: row.id }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       getList()
@@ -112,12 +109,11 @@ export function useRepositories (is_my = 0) {
     id: 0,
     name: '',
     color: 0,
-    user_id: 0,
-    collection_id: 0,
+    user_id: null,
+    collection_id: null,
   })
   const currentColor = ref('')
   const activeChange = (c) => {
-    console.log(c)
     currentColor.value = c
   }
   const toEdit = (row) => {
@@ -137,7 +133,7 @@ export function useRepositories (is_my = 0) {
     formData.name = ''
     formData.color = ''
     formData.user_id = null
-    formData.collection_id = 0
+    formData.collection_id = null
   }
   const submit = async () => {
     console.log(formData)
@@ -145,7 +141,7 @@ export function useRepositories (is_my = 0) {
       ElMessage.error('请选择颜色')
       return
     }
-    const api = formData.id ? update : create
+    const api = formData.id ? apis[api_type].update : apis[api_type].create
     const data = {
       ...formData,
       color: rgba2flutterColor(formData.color),
@@ -159,15 +155,13 @@ export function useRepositories (is_my = 0) {
     }
   }
 
-  const changeQueryUser = async (val) => {
-    listQuery.collection_id = null
-    if (!val) {
-      collectionListRes.list = []
-    } else {
-      collectionListQuery.user_id = val
-      getCollectionList()
-    }
-  }
+  //query form collection
+  const {
+    listRes: collectionListRes,
+    listQuery: collectionListQuery,
+    getList: getCollectionList,
+  } = useCollectionRepositories(api_type)
+  collectionListQuery.page_size = 9999
   const changeUser = async (val) => {
     formData.collection_id = 0
     if (!val) {
@@ -175,6 +169,23 @@ export function useRepositories (is_my = 0) {
     } else {
       collectionListQuery.user_id = val
       getCollectionList()
+    }
+  }
+
+  const {
+    listRes: collectionListResForUpdate,
+    listQuery: collectionListQueryForUpdate,
+    getList: getCollectionListForUpdate,
+  } = useCollectionRepositories(api_type)
+  collectionListQueryForUpdate.page_size = 9999
+  //create or update form collection
+  const changeUserForUpdate = async (val) => {
+    listQuery.collection_id = null
+    if (!val) {
+      collectionListRes.list = []
+    } else {
+      collectionListQuery.user_id = val
+      getCollectionListForUpdate()
     }
   }
   return {
@@ -192,8 +203,12 @@ export function useRepositories (is_my = 0) {
     currentColor,
 
     collectionListRes,
-    allUsers, getAllUsers,
-    changeQueryUser,
     changeUser,
+    getCollectionList,
+
+    collectionListResForUpdate,
+    changeUserForUpdate,
+    getCollectionListForUpdate,
+
   }
 }

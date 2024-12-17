@@ -61,10 +61,3 @@ export function batchCreateFromPeers (data) {
   })
 }
 
-export function batchUpdateTags (data) {
-  return request({
-    url: '/address_book/batchUpdateTags',
-    method: 'post',
-    data,
-  })
-}

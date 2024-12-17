@@ -89,7 +89,7 @@
     <el-dialog v-model="formVisible" width="800" :title="!formData.row_id?T('Create') :T('Update') ">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item :label="T('Owner')" prop="user_id" required>
-          <el-select v-model="formData.user_id" @change="changeUser">
+          <el-select v-model="formData.user_id" @change="changeUserForUpdate">
             <el-option
                 v-for="item in allUsers"
                 :key="item.id"
@@ -99,9 +99,9 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="T('AddressBookName')">
-          <el-select v-model="formData.collection_id" clearable @change="changeCollection">
+          <el-select v-model="formData.collection_id" clearable @change="changeCollectionForUpdate">
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForUpdate.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="ID" prop="id" required>
@@ -162,7 +162,6 @@
                 <el-switch v-model="formData.sameServer"></el-switch>
               </el-form-item>-->
 
-
         <el-form-item>
           <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
           <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>
@@ -179,9 +178,9 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, reactive, ref, watch } from 'vue'
+  import { onActivated, onMounted, watch } from 'vue'
   import { useRepositories } from '@/views/address_book/index'
-  import { toWebClientLink, getPeerSlat } from '@/utils/webclient'
+  import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
   import { useRoute } from 'vue-router'
   import { connectByClient } from '@/utils/peer'
@@ -189,18 +188,19 @@
   import { handleClipboard } from '@/utils/clipboard'
   import { CopyDocument } from '@element-plus/icons'
   import PlatformIcons from '@/components/icons/platform.vue'
-
-
+  import { loadAllUsers } from '@/global'
 
   const appStore = useAppStore()
   const route = useRoute()
-
+  const { allUsers, getAllUsers } = loadAllUsers()
 
   const {
     listRes,
     listQuery,
     getList,
     handlerQuery,
+    collectionListRes,
+
     del,
     formVisible,
     platformList,
@@ -208,19 +208,13 @@
     toEdit,
     toAdd,
     submit,
-    // shareToWebClientVisible,
-    // shareToWebClientForm,
-    // toShowShare,
-    collectionListRes,
-
+    changeUserForUpdate,
+    changeCollectionForUpdate,
+    collectionListResForUpdate,
     tagListRes,
 
-    allUsers, getAllUsers,
-
     changeQueryUser,
-    changeUser,
-    changeCollection
-  } = useRepositories()
+  } = useRepositories('admin')
 
   if (route.query?.user_id) {
     listQuery.user_id = parseInt(route.query.user_id)

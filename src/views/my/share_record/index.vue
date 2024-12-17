@@ -16,7 +16,7 @@
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="`${T('ExpireTime')}(${T('Second')})`" prop="expire" align="center">
           <template #default="{row}">
-            <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : '-' }}</el-tag>
+            <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : T('Forever') }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column :label="T('Actions')" align="center" width="400">
@@ -39,95 +39,31 @@
 </template>
 
 <script setup>
-  import { onActivated, onMounted, ref, watch, reactive } from 'vue'
+  import { onActivated, onMounted, watch } from 'vue'
   import { T } from '@/utils/i18n'
-  import { share_record_remove as remove, share_record_list as list, share_record_batchDelete as batchDelete } from '@/api/my'
-  import { ElMessage, ElMessageBox } from 'element-plus'
+  import { useRepositories } from '@/views/share_record'
 
-  const listRes = reactive({
-    list: [], total: 0, loading: false,
-  })
-  const listQuery = reactive({
-    page: 1,
-    page_size: 10,
-  })
+  const {
+    listRes,
+    listQuery,
+    getList,
+    handlerQuery,
+    del,
+    multipleSelection,
+    toBatchDelete,
+    expired,
+  } = useRepositories('my')
 
-  const getList = async () => {
-    listRes.loading = true
-    const res = await list(listQuery).catch(_ => false)
-    listRes.loading = false
-    if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
-    }
-  }
-  const handlerQuery = () => {
-    if (listQuery.page === 1) {
-      getList()
-    } else {
-      listQuery.page = 1
-    }
-  }
-
-  const del = async (row) => {
-    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
-      confirmButtonText: T('Confirm'),
-      cancelButtonText: T('Cancel'),
-      type: 'warning',
-    }).catch(_ => false)
-    if (!cf) {
-      return false
-    }
-    const res = await remove({ id: row.id }).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-      getList()
-    }
-  }
   onMounted(getList)
   onActivated(getList)
 
   watch(() => listQuery.page, getList)
 
   watch(() => listQuery.page_size, handlerQuery)
-  const multipleSelection = ref([])
   const handleSelectionChange = (val) => {
     multipleSelection.value = val
   }
-  const toBatchDelete = () => {
-    if (multipleSelection.value.length === 0) {
-      return
-    }
-    batchdel(multipleSelection.value)
-  }
 
-  const batchdel = async (rows) => {
-    const ids = rows.map(r => r.id)
-    if (!ids.length) {
-      ElMessage.warning(T('PleaseSelectData'))
-      return false
-    }
-    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('BatchDelete') }), {
-      confirmButtonText: T('Confirm'),
-      cancelButtonText: T('Cancel'),
-      type: 'warning',
-    }).catch(_ => false)
-    if (!cf) {
-      return false
-    }
-
-    const res = await batchDelete({ ids }).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-      getList()
-    }
-  }
-
-  const expired = (row) => {
-    const now = new Date().getTime()
-    const created_at = new Date(row.created_at).getTime()
-    return row.expire * 1000 + created_at < now
-  }
 
 </script>
 

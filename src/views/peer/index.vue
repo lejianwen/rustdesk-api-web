@@ -163,7 +163,7 @@
     <el-dialog v-model="batchABFormVisible" width="800" :title="T('Create')">
       <el-form class="dialog-form" ref="form" :model="batchABFormData" label-width="120px">
         <el-form-item :label="T('Owner')" prop="user_id" required>
-          <el-select v-model="batchABFormData.user_id" @change="changeUser">
+          <el-select v-model="batchABFormData.user_id" @change="changeUserForBatchCreateAB">
             <el-option
                 v-for="item in allUsers"
                 :key="item.id"
@@ -173,9 +173,9 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="T('AddressBookName')" required prop="collection_id">
-          <el-select v-model="batchABFormData.collection_id" clearable @change="changeCollection">
+          <el-select v-model="batchABFormData.collection_id" clearable>
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
-            <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
+            <el-option v-for="c in collectionListResForBatchCreateAB.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
         <!--        <el-form-item :label="T('Tags')" prop="tags">
@@ -214,6 +214,7 @@
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
   import { batchCreateFromPeers } from '@/api/address_book'
+  import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 
   const appStore = useAppStore()
   const listRes = reactive({
@@ -345,16 +346,15 @@
     }
   }
 
+  //添加到地址簿 start
+  const { allUsers, getAllUsers } = loadAllUsers()
+  onMounted(getAllUsers)
   const {
     platformList: ABPlatformList,
     formVisible: ABFormVisible,
     formData: ABFormData,
     fromPeer,
-    changeCollection,
-    collectionListRes,
-    collectionListQuery,
-    getCollectionList,
-  } = useABRepositories()
+  } = useABRepositories('admin')
   const toAddressBook = (peer) => {
     fromPeer(peer)
     ABFormVisible.value = true
@@ -366,8 +366,6 @@
       ABFormVisible.value = false
     }
   }
-
-  const { allUsers, getAllUsers } = loadAllUsers()
   const tagList = ref([])
   const fetchTagListData = async (user_id) => {
     const res = await fetchTagList({ user_id }).catch(_ => false)
@@ -381,8 +379,8 @@
       tagList.value = ls.map(item => ({ name: item }))
     }
   }
-  onMounted(getAllUsers)
   onMounted(fetchTagListData)
+  // 添加到地址簿 end
 
   const multipleSelection = ref([])
   const handleSelectionChange = (val) => {
@@ -409,11 +407,17 @@
     }
   }
 
-  // 批量添加到地址簿
-  const changeUser = (val) => {
-    collectionListQuery.user_id = val
+  // 批量添加到地址簿 start
+  const {
+    listRes: collectionListResForBatchCreateAB,
+    listQuery: collectionListQueryForBatchCreateAB,
+    getList: getCollectionListForBatchCreateAB,
+  } = useCollectionRepositories('admin')
+  collectionListQueryForBatchCreateAB.page_size = 9999
+  const changeUserForBatchCreateAB = (val) => {
     batchABFormData.value.collection_id = 0
-    getCollectionList()
+    collectionListQueryForBatchCreateAB.user_id = val
+    getCollectionListForBatchCreateAB()
   }
   const batchABFormVisible = ref(false)
   const toBatchAddToAB = () => {
@@ -442,6 +446,7 @@
       batchABFormVisible.value = false
     }
   }
+  // 批量添加到地址簿 end
 
 </script>
 

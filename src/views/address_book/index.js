@@ -1,28 +1,24 @@
 import { reactive, ref } from 'vue'
-import { batchUpdateTags, create, list, remove, update } from '@/api/address_book'
+import { create as admin_create, list as admin_list, remove as admin_remove, update as admin_update } from '@/api/address_book'
+import { batchUpdateTags, list as my_list, create as my_create, update as my_update, remove as my_remove } from '@/api/my/address_book'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { T } from '@/utils/i18n'
 import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
 import { useRepositories as useTagRepositories } from '@/views/tag/index'
-import { loadAllUsers } from '@/global'
 import { simpleData } from '@/api/peer'
 
-export function useRepositories (is_my = 0) {
+const apis = {
+  admin: { list: admin_list, remove: admin_remove, update: admin_update, create: admin_create },
+  my: { list: my_list, remove: my_remove, create: my_create, update: my_update },
+}
 
-  const { allUsers, getAllUsers } = loadAllUsers()
-
+export function useRepositories (api_type = 'my') {
   const {
     listRes: collectionListRes,
     listQuery: collectionListQuery,
     getList: getCollectionList,
-  } = useCollectionRepositories(is_my)
+  } = useCollectionRepositories(api_type)
   collectionListQuery.page_size = 9999
-  const {
-    listRes: tagListRes,
-    listQuery: tagListQuery,
-    getList: getTagList,
-  } = useTagRepositories(is_my)
-  tagListQuery.page_size = 9999
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -30,7 +26,6 @@ export function useRepositories (is_my = 0) {
   const listQuery = reactive({
     page: 1,
     page_size: 10,
-    is_my,
     id: null,
     user_id: null,
     username: null,
@@ -40,7 +35,7 @@ export function useRepositories (is_my = 0) {
 
   const getList = async () => {
     listRes.loading = true
-    const res = await list(listQuery).catch(_ => false)
+    const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
       const ids = res.data.list.map(item => item.id)
@@ -78,13 +73,14 @@ export function useRepositories (is_my = 0) {
       return false
     }
 
-    const res = await remove({ row_id: row.row_id }).catch(_ => false)
+    const res = await apis[api_type].remove({ row_id: row.row_id }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       getList()
     }
   }
 
+  //创建或者修改
   const platformList = [
     { label: 'Windows', value: 'Windows', icon: 'windows' },
     { label: 'Linux', value: 'Linux', icon: 'linux' },
@@ -112,6 +108,18 @@ export function useRepositories (is_my = 0) {
     'username': '',
     collection_id: null,
   })
+  const {
+    listRes: collectionListResForUpdate,
+    listQuery: collectionListQueryForUpdate,
+    getList: getCollectionListForUpdate,
+  } = useCollectionRepositories(api_type)
+  collectionListQueryForUpdate.page_size = 9999
+  const {
+    listRes: tagListRes,
+    listQuery: tagListQuery,
+    getList: getTagList,
+  } = useTagRepositories(api_type)
+  tagListQuery.page_size = 9999
 
   const toEdit = (row) => {
     formVisible.value = true
@@ -119,9 +127,9 @@ export function useRepositories (is_my = 0) {
     Object.keys(formData).forEach(key => {
       formData[key] = row[key]
     })
-    collectionListQuery.user_id = row.user_id
-    getCollectionList()
+    collectionListQueryForUpdate.user_id = row.user_id
     tagListQuery.collection_id = row.collection_id
+    getCollectionListForUpdate()
     getTagList()
 
   }
@@ -147,23 +155,13 @@ export function useRepositories (is_my = 0) {
 
   }
   const submit = async () => {
-    const api = formData.row_id ? update : create
+    const api = formData.row_id ? apis[api_type].update : apis[api_type].create
     const res = await api(formData).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       formVisible.value = false
       getList()
     }
-  }
-  const shareToWebClientVisible = ref(false)
-  const shareToWebClientForm = reactive({
-    id: '',
-    hash: '',
-  })
-  const toShowShare = (row) => {
-    shareToWebClientForm.id = row.id
-    shareToWebClientForm.hash = row.hash
-    shareToWebClientVisible.value = true
   }
 
   const changeQueryUser = async (val) => {
@@ -176,18 +174,18 @@ export function useRepositories (is_my = 0) {
       getCollectionList()
     }
   }
-  const changeUser = async (val) => {
+  const changeUserForUpdate = async (val) => {
     tagListRes.list = []
     formData.tags = []
     formData.collection_id = 0
     if (!val) {
-      collectionListRes.list = []
+      collectionListResForUpdate.list = []
     } else {
-      collectionListQuery.user_id = val
-      getCollectionList()
+      collectionListQueryForUpdate.user_id = val
+      getCollectionListForUpdate()
     }
   }
-  const changeCollection = async (val) => {
+  const changeCollectionForUpdate = async (val) => {
     tagListRes.list = []
     formData.tags = []
     tagListQuery.user_id = formData.user_id
@@ -217,42 +215,38 @@ export function useRepositories (is_my = 0) {
     listQuery,
     getList,
     handlerQuery,
-    del,
+    collectionListQuery,
+    getCollectionList,
+    collectionListRes,
+    changeQueryUser,
+
     platformList,
+
+    del,
+
     formVisible,
     formData,
     toEdit,
     toAdd,
     submit,
-    shareToWebClientVisible,
-    shareToWebClientForm,
-    toShowShare,
-
-    collectionListQuery,
-    getCollectionList,
-    collectionListRes,
-
+    getCollectionListForUpdate,
+    collectionListResForUpdate,
+    changeUserForUpdate,
+    changeCollectionForUpdate,
     tagListQuery,
     getTagList,
     tagListRes,
-
-    allUsers,
-    getAllUsers,
-
-    changeQueryUser,
-    changeUser,
-    changeCollection,
 
     fromPeer,
   }
 }
 
-export function useBatchUpdateTagsRepositories (is_my = 0) {
+export function useBatchUpdateTagsRepositories () {
   const {
     listRes: tagListRes,
     listQuery: tagListQuery,
     getList: getTagList,
-  } = useTagRepositories(is_my)
+  } = useTagRepositories('my')
   tagListQuery.page_size = 9999
 
   const visible = ref(false)

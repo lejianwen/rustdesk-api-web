@@ -71,7 +71,7 @@
     toEdit,
     toAdd,
     submit,
-  } = useRepositories(1)
+  } = useRepositories('my')
 
   onMounted(getList)
 

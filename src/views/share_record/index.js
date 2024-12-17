@@ -1,12 +1,12 @@
 import { reactive, ref } from 'vue'
-import { list as admin_list, create as admin_create, update as admin_update, remove as admin_remove } from '@/api/address_book_collection'
-import { list as my_list, create as my_create, update as my_update, remove as my_remove } from '@/api/my/address_book_collection'
+import { batchDelete as admin_batchDelete, list as admin_list, remove as admin_remove } from '@/api/share_record'
+import { batchDelete as my_batchDelete, list as my_list, remove as my_remove } from '@/api/my/share_record'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { T } from '@/utils/i18n'
 
 const apis = {
-  admin: { list: admin_list, remove: admin_remove, update: admin_update, create: admin_create },
-  my: { list: my_list, remove: my_remove, create: my_create, update: my_update },
+  admin: { batchDelete: admin_batchDelete, list: admin_list, remove: admin_remove },
+  my: { batchDelete: my_batchDelete, list: my_list, remove: my_remove },
 }
 
 export function useRepositories (api_type = 'my') {
@@ -16,8 +16,6 @@ export function useRepositories (api_type = 'my') {
   const listQuery = reactive({
     page: 1,
     page_size: 10,
-    name: null,
-    user_id: null,
   })
 
   const getList = async () => {
@@ -46,7 +44,6 @@ export function useRepositories (api_type = 'my') {
     if (!cf) {
       return false
     }
-
     const res = await apis[api_type].remove({ id: row.id }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
@@ -54,47 +51,50 @@ export function useRepositories (api_type = 'my') {
     }
   }
 
-  const formVisible = ref(false)
-  const formData = reactive({
-    id: 0,
-    name: '',
-  })
+  const multipleSelection = ref([])
+  const toBatchDelete = async () => {
+    if (multipleSelection.value.length === 0) {
+      return
+    }
 
-  const toEdit = (row) => {
-    formVisible.value = true
-    //将row中的数据赋值给formData
-    Object.keys(formData).forEach(key => {
-      formData[key] = row[key]
-    })
+    const ids = multipleSelection.value.map(r => r.id)
+    if (!ids.length) {
+      ElMessage.warning(T('PleaseSelectData'))
+      return false
+    }
+    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('BatchDelete') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
+      type: 'warning',
+    }).catch(_ => false)
+    if (!cf) {
+      return false
+    }
 
-  }
-  const toAdd = () => {
-    formVisible.value = true
-    //重置formData
-    Object.keys(formData).forEach(key => {
-      formData[key] = undefined
-    })
-
-  }
-  const submit = async () => {
-    const api = formData.id ? apis[api_type].update : apis[api_type].create
-    const res = await api(formData).catch(_ => false)
+    const res = await apis[api_type].batchDelete({ ids }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
-      formVisible.value = false
       getList()
     }
   }
+
+  const expired = (row) => {
+    if (row.expire === 0) {
+      return false
+    }
+    const now = new Date().getTime()
+    const created_at = new Date(row.created_at).getTime()
+    return row.expire * 1000 + created_at < now
+  }
+
   return {
     listRes,
     listQuery,
     getList,
     handlerQuery,
     del,
-    formVisible,
-    formData,
-    toEdit,
-    toAdd,
-    submit,
+    multipleSelection,
+    toBatchDelete,
+    expired,
   }
 }
