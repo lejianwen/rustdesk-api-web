@@ -41,14 +41,15 @@ export const useUserStore = defineStore({
     },
 
     async login (form) {
-      const res = await login(form).catch(_ => false)
-      if (res) {
+      const res = await login(form).catch(e => e)
+      console.log('login', res)
+      if (!res.code) {
         useAppStore().loadConfig()
         const userData = res.data
         this.saveUserData(userData)
         return userData
       } else {
-        return false
+        return Promise.reject(res)
       }
     },
     async info () {

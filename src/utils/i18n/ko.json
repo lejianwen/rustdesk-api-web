@@ -454,5 +454,8 @@
   },
   "Second": {
     "One": "초"
+  },
+  "Captcha": {
+    "One": "Captcha"
   }
 }

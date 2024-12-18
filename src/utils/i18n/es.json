@@ -468,5 +468,8 @@
   },
   "Second": {
     "One": "Segundo"
+  },
+  "Captcha": {
+    "One": "Captcha"
   }
 }

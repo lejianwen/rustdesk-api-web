@@ -468,6 +468,9 @@
   },
   "Second": {
     "One": "Секунда"
+  },
+  "Captcha": {
+    "One": "Captcha"
   }
 }
 

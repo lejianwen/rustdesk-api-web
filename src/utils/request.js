@@ -73,7 +73,7 @@ service.interceptors.response.use(
         removeToken()
         window.location.reload()
       }
-      return Promise.reject(res.message || 'error')
+      return Promise.reject(res)
     } else {
       return res
     }
