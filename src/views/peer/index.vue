@@ -107,58 +107,9 @@
       </el-form>
     </el-dialog>
 
-    <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')">
-      <el-form class="dialog-form" ref="form" :model="ABFormData" label-width="120px">
-        <el-form-item :label="T('Owner')" prop="user_ids" required>
-          <el-select v-model="ABFormData.user_ids" multiple>
-            <el-option
-                v-for="item in allUsers"
-                :key="item.id"
-                :label="item.username"
-                :value="item.id"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="ID" prop="id" required>
-          <el-input v-model="ABFormData.id"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Username')" prop="username">
-          <el-input v-model="ABFormData.username"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Alias')" prop="alias">
-          <el-input v-model="ABFormData.alias"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Hostname')" prop="hostname">
-          <el-input v-model="ABFormData.hostname"></el-input>
-        </el-form-item>
-        <el-form-item :label="T('Platform')" prop="platform">
-          <el-select v-model="ABFormData.platform">
-            <el-option
-                v-for="item in ABPlatformList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-
-        <el-form-item :label="T('Tags')" prop="tags">
-          <el-select v-model="ABFormData.tags" multiple>
-            <el-option
-                v-for="item in tagList"
-                :key="item.name"
-                :label="item.name"
-                :value="item.name"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="ABFormVisible = false">{{ T('Cancel') }}</el-button>
-          <el-button @click="ABSubmit" type="primary">{{ T('Submit') }}</el-button>
-        </el-form-item>
-      </el-form>
+    <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')" destroy-on-close>
+      <createABForm :peer="clickRow" @success="ABFormVisible=false" @cancel="ABFormVisible=false"></createABForm>
     </el-dialog>
-
 
     <el-dialog v-model="batchABFormVisible" width="800" :title="T('Create')">
       <el-form class="dialog-form" ref="form" :model="batchABFormData" label-width="120px">
@@ -205,16 +156,14 @@
   import { T } from '@/utils/i18n'
   import { timeAgo } from '@/utils/time'
   import { jsonToCsv, downBlob } from '@/utils/file'
-  import { useRepositories as useABRepositories } from '@/views/address_book/index'
   import { loadAllUsers } from '@/global'
-  import { list as fetchTagList } from '@/api/tag'
-  import { batchCreate } from '@/api/address_book'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
   import { CopyDocument } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
   import { batchCreateFromPeers } from '@/api/address_book'
   import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
+  import createABForm from '@/views/peer/createABForm.vue'
 
   const appStore = useAppStore()
   const listRes = reactive({
@@ -346,41 +295,12 @@
     }
   }
 
-  //添加到地址簿 start
-  const { allUsers, getAllUsers } = loadAllUsers()
-  onMounted(getAllUsers)
-  const {
-    platformList: ABPlatformList,
-    formVisible: ABFormVisible,
-    formData: ABFormData,
-    fromPeer,
-  } = useABRepositories('admin')
-  const toAddressBook = (peer) => {
-    fromPeer(peer)
+  const ABFormVisible = ref(false)
+  const clickRow = ref({})
+  const toAddressBook = (row) => {
+    clickRow.value = row
     ABFormVisible.value = true
   }
-  const ABSubmit = async () => {
-    const res = await batchCreate(ABFormData).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-      ABFormVisible.value = false
-    }
-  }
-  const tagList = ref([])
-  const fetchTagListData = async (user_id) => {
-    const res = await fetchTagList({ user_id }).catch(_ => false)
-    if (res) {
-      const ls = []
-      res.data.list.map(item => {
-        if (!ls.includes(item.name)) {
-          ls.push(item.name)
-        }
-      })
-      tagList.value = ls.map(item => ({ name: item }))
-    }
-  }
-  onMounted(fetchTagListData)
-  // 添加到地址簿 end
 
   const multipleSelection = ref([])
   const handleSelectionChange = (val) => {
@@ -408,6 +328,8 @@
   }
 
   // 批量添加到地址簿 start
+  const { allUsers, getAllUsers } = loadAllUsers()
+  onMounted(getAllUsers)
   const {
     listRes: collectionListResForBatchCreateAB,
     listQuery: collectionListQueryForBatchCreateAB,
