@@ -2,7 +2,7 @@
   <div>
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
-        <el-form-item label="用户">
+        <el-form-item :label="T('User')">
           <el-select v-model="listQuery.user_id" clearable>
             <el-option
                 v-for="item in allUsers"

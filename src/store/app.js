@@ -4,12 +4,14 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import ko from 'element-plus/es/locale/lang/ko'
 import ru from 'element-plus/es/locale/lang/ru'
+import fr from 'element-plus/es/locale/lang/fr'
 import es from 'element-plus/es/locale/lang/es'
 import { admin, app } from '@/api/config'
 
 const langs = {
   'zh-CN': { name: '中文', value: zhCn, sideBarWidth: '210px' },
   'en': { name: 'English', value: en, sideBarWidth: '230px' },
+  'fr': { name: 'Français', value: fr, sideBarWidth: '280px' },
   'ko': { name: '한국어', value: ko, sideBarWidth: '230px' },
   'ru': { name: 'русский', value: ru, sideBarWidth: '250px' },
   'es': { name: 'español', value: es, sideBarWidth: '280px' },
