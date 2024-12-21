@@ -1,4 +1,5 @@
 import en from '@/utils/i18n/en.json'
+import fr from '@/utils/i18n/fr.json'
 import zhCN from '@/utils/i18n/zh_CN.json'
 import ko from '@/utils/i18n/ko.json'
 import ru from '@/utils/i18n/ru.json'
@@ -10,6 +11,7 @@ export function T (key, params, num = 0) {
   const lang = appStore.setting.lang
   const trans = {
     'en': en,
+    'fr': fr,
     'zh-CN': zhCN,
     'ko': ko,
     'ru': ru,
