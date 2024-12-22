@@ -14,7 +14,7 @@
         <el-table-column prop="id" label="ID" align="center" width="100"/>
         <el-table-column prop="peer_id" :label="T('Peer')" align="center"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
-        <el-table-column :label="`${T('ExpireTime')}(${T('Second')})`" prop="expire" align="center">
+        <el-table-column :label="`${T('ExpireTime')} (${T('Second')})`" prop="expire" align="center">
           <template #default="{row}">
             <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : T('Forever') }}</el-tag>
           </template>
