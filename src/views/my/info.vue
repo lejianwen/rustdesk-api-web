@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card :title="T('Userinfo')" shadow="hover">
-      <el-form class="info-form" ref="form" label-width="120px" label-suffix="：" >
+      <el-form class="info-form" ref="form" label-width="120px" label-suffix="：">
         <el-form-item :label="T('Username')">
           <div>{{ userStore.username }}</div>
         </el-form-item>
@@ -39,7 +39,7 @@
 
 <script setup>
   import changePwdDialog from '@/components/changePwdDialog.vue'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { useUserStore } from '@/store/user'
   import { useAppStore } from '@/store/app'
   import { bind, unbind } from '@/api/oauth'
@@ -64,7 +64,7 @@
   }
   getMyOauth()
   const toBind = async (row) => {
-    const res = await bind({ op: row.op}).catch(_ => false)
+    const res = await bind({ op: row.op }).catch(_ => false)
     if (res) {
       const { code, url } = res.data
       window.open(url)
@@ -86,7 +86,7 @@
 
   }
 
-  const html = marked(appStore.setting.hello)
+  const html = computed(_ => marked(appStore.setting.hello))
 
 </script>
 
