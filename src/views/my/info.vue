@@ -31,7 +31,7 @@
       </el-form>
     </el-card>
     <el-card shadow="hover" style="margin-top: 20px">
-      <div v-html="appStore.setting.hello"></div>
+      <div v-html="html"></div>
     </el-card>
     <changePwdDialog v-model:visible="changePwdVisible"></changePwdDialog>
   </div>
@@ -46,6 +46,7 @@
   import { myOauth } from '@/api/user'
   import { ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import { marked } from 'marked'
 
   const appStore = useAppStore()
   const userStore = useUserStore()
@@ -84,6 +85,9 @@
     }
 
   }
+
+  const html = marked(appStore.setting.hello)
+
 </script>
 
 <style scoped lang="scss">
