@@ -1,13 +1,18 @@
 import { reactive, ref } from 'vue'
-import { batchDelete, list, remove } from '@/api/login_log'
-import { list as fetchPeers } from '@/api/peer'
+import { list as admin_fetchPeers } from '@/api/peer'
+import { list as my_fetchPeers } from '@/api/my/peer'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
+import { batchDelete as admin_batchDelete, list as admin_list, remove as admin_remove } from '@/api/login_log'
+import { batchDelete as my_batchDelete, list as my_list, remove as my_remove } from '@/api/my/login_log'
 
-export function useRepositories () {
-  const route = useRoute()
-  const user_id = route.query?.user_id
+const apis = {
+  admin: { batchDelete: admin_batchDelete, list: admin_list, remove: admin_remove, fetchPeers: admin_fetchPeers },
+  my: { batchDelete: my_batchDelete, list: my_list, remove: my_remove, fetchPeers: my_fetchPeers },
+}
+
+export function useRepositories (api_type = 'my') {
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -16,16 +21,16 @@ export function useRepositories () {
     page: 1,
     page_size: 10,
     is_my: 0,
-    user_id: user_id ? parseInt(user_id) : null,
+    user_id: null,
   })
 
   const getList = async () => {
     listRes.loading = true
-    const res = await list(listQuery).catch(_ => false)
+    const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
       const uuids = res.data.list.filter(item => item.uuid).map(item => item.uuid)
-      const peers = await fetchPeers({ uuids }).catch(_ => false)
+      const peers = await apis[api_type].fetchPeers({ uuids }).catch(_ => false)
       if (peers?.data?.list) {
         res.data.list.forEach(item => {
           if (item.uuid) {
@@ -55,7 +60,7 @@ export function useRepositories () {
       return false
     }
 
-    const res = await remove({ id: row.id }).catch(_ => false)
+    const res = await apis[api_type].remove({ id: row.id }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       getList()
@@ -77,7 +82,7 @@ export function useRepositories () {
       return false
     }
 
-    const res = await batchDelete({ ids }).catch(_ => false)
+    const res = await apis[api_type].batchDelete({ ids }).catch(_ => false)
     if (res) {
       ElMessage.success(T('OperationSuccess'))
       getList()

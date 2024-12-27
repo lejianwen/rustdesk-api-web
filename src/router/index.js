@@ -91,6 +91,12 @@ export const asyncRoutes = [
         meta: { title: 'ShareRecord', icon: 'Share' /*keepAlive: true*/ },
         component: () => import('@/views/my/share_record/index.vue'),
       },
+      {
+        path: 'loginLog',
+        name: 'MyLoginLog',
+        meta: { title: 'LoginLog', icon: 'List' /*keepAlive: true*/ },
+        component: () => import('@/views/my/login_log/index.vue'),
+      },
     ],
   },
   {
