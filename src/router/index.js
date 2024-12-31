@@ -190,6 +190,12 @@ export const asyncRoutes = [
         meta: { title: 'ShareRecord', icon: 'Share' /*keepAlive: true*/ },
         component: () => import('@/views/share_record/index.vue'),
       },
+      {
+        path: '/rustdesk',
+        name: 'RustDesk',
+        meta: { title: 'RustDesk', icon: 'Setting' /*keepAlive: true*/ },
+        component: () => import('@/views/rustdesk/control.vue'),
+      },
     ],
   },
 ]
