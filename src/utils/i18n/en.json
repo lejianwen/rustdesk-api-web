@@ -468,5 +468,41 @@
   },
   "Captcha": {
     "One": "Captcha"
+  },
+  "ServerCmd": {
+    "One": "Server Cmd"
+  },
+  "Simple": {
+    "One": "Simple"
+  },
+  "Advanced": {
+    "One": "Advanced"
+  },
+  "Available": {
+    "One": "Available"
+  },
+  "NotAvailable": {
+    "One": "Not Available"
+  },
+  "ServerCmdTips": {
+    "One": "This feature is experimental. Please ensure that the API and hbbs are on the same loopback address. For more information, please refer to the {wiki}"
+  },
+  "Refresh": {
+    "One": "Refresh"
+  },
+  "Save": {
+    "One": "Save"
+  },
+  "SendCustom": {
+    "One": "Send Custom"
+  },
+  "Send": {
+    "One": "Send"
+  },
+  "SendCmd": {
+    "One": "Send Cmd"
+  },
+  "Result": {
+    "One": "Result"
   }
 }

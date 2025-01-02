@@ -457,5 +457,41 @@
   },
   "Captcha": {
     "One": "Captcha"
+  },
+  "ServerCmd": {
+    "One": "서버 명령"
+  },
+  "Simple": {
+    "One": "간단"
+  },
+  "Advanced": {
+    "One": "고급"
+  },
+  "Available": {
+    "One": "사용 가능"
+  },
+  "NotAvailable": {
+    "One": "사용 불가"
+  },
+  "ServerCmdTips": {
+    "One": "이 기능은 실험적이므로, api와 hbbs가 동일한 루프백 주소에 있는지 확인하십시오. 자세한 내용은 {wiki}를 참조하십시오."
+  },
+  "Refresh": {
+    "One": "새로 고침"
+  },
+  "Save": {
+    "One": "저장"
+  },
+  "SendCustom": {
+    "One": "사용자 정의 전송"
+  },
+  "Send": {
+    "One": "보내기"
+  },
+  "SendCmd": {
+    "One": "명령 보내기"
+  },
+  "Result": {
+    "One": "결과"
   }
 }

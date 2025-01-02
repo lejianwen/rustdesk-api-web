@@ -487,5 +487,41 @@
   },
   "Captcha": {
     "One": "验证码"
+  },
+  "ServerCmd": {
+    "One": "服务端命令"
+  },
+  "Simple": {
+    "One": "简单"
+  },
+  "Advanced": {
+    "One": "高级"
+  },
+  "Available": {
+    "One": "可用"
+  },
+  "NotAvailable": {
+    "One": "不可用"
+  },
+  "ServerCmdTips": {
+    "One": "此处功能为实验性质，请确保api和hbbs处于同一回环地址下，更多说明请参考 {wiki}"
+  },
+  "Refresh": {
+    "One": "刷新"
+  },
+  "Save": {
+    "One": "保存"
+  },
+  "SendCustom": {
+    "One": "发送自定义"
+  },
+  "Send": {
+    "One": "发送"
+  },
+  "SendCmd": {
+    "One": "发送命令"
+  },
+  "Result": {
+    "One": "结果"
   }
 }

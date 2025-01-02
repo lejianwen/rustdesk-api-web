@@ -191,9 +191,9 @@ export const asyncRoutes = [
         component: () => import('@/views/share_record/index.vue'),
       },
       {
-        path: '/rustdesk',
-        name: 'RustDesk',
-        meta: { title: 'RustDesk', icon: 'Setting' /*keepAlive: true*/ },
+        path: '/serverCmd',
+        name: 'ServerCmd',
+        meta: { title: 'ServerCmd', icon: 'Tools' /*keepAlive: true*/ },
         component: () => import('@/views/rustdesk/control.vue'),
       },
     ],
