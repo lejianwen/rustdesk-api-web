@@ -21,7 +21,7 @@
         <el-space>
           <RelayServers ref="rs" :can-send="canSendCmd(ID_TARGET)"></RelayServers>
           <alwaysUseRelay :can-send="canSendCmd(ID_TARGET)" @success="handleAlwaysUseRelaySuccess"></alwaysUseRelay>
-          <mustLogin :can-send="canSendCmd(ID_TARGET)"></mustLogin>
+          <mustLogin v-if="canControlMustLogin" :can-send="canSendCmd(ID_TARGET)"></mustLogin>
           <blocklist :can-send="canSendCmd(RELAY_TARGET)"></blocklist>
           <blacklist :can-send="canSendCmd(RELAY_TARGET)"></blacklist>
         </el-space>
@@ -133,35 +133,31 @@
   const checkCanSendIdServerCmd = async () => {
     const res = await sendCmd({ cmd: 'h', target: ID_TARGET }).catch(_ => false)
     canSendIdServerCmd.value = !!res.data
+    if (canSendIdServerCmd.value) {
+      const commands = res.data.split('\n').filter(i => i)
+      console.log(commands)
+      canControlMustLogin.value = commands.some(i => i.includes('must-login'))
+    }
   }
+
+  const canControlMustLogin = ref(false)
   const refreshCanSendIdServerCmd = () => {
-    checkCanSendIdServerCmd().then(_ => {
-      if (canSendIdServerCmd.value) {
-      }
-    })
+    checkCanSendIdServerCmd()
   }
   onMounted(refreshCanSendIdServerCmd)
 
   const canSendRelayServerCmd = ref(false)
-  const canControlMustLogin = ref(false)
+
   const checkCanSendRelayServerCmd = async () => {
     const res = await sendCmd({ cmd: 'h', target: RELAY_TARGET }).catch(_ => false)
     canSendRelayServerCmd.value = !!res.data
-    if (canSendRelayServerCmd.value) {
-      const commands = res.data.split('\n').filter(i => i)
-      canControlMustLogin.value = commands.some(i => i.includes('must-login'))
-    }
   }
   const refreshCanSendRelayServerCmd = () => {
-    checkCanSendRelayServerCmd().then(_ => {
-      if (canSendRelayServerCmd.value) {
-      }
-    })
+    checkCanSendRelayServerCmd()
   }
   onMounted(refreshCanSendRelayServerCmd)
 
   const rs = ref(null)
-  console.log(rs)
   const handleAlwaysUseRelaySuccess = () => {
     rs.value.save()
   }
