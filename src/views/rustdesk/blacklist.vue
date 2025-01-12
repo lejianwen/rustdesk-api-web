@@ -36,8 +36,8 @@
   import { reactive, watch } from 'vue'
   import { sendCmd } from '@/api/rustdesk'
   import { ElMessage } from 'element-plus'
+  import { RELAY_TARGET } from '@/views/rustdesk/options'
 
-  const RELAY_TARGET = '21117'
   const props = defineProps({
     canSend: Boolean,
   })

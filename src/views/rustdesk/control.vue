@@ -19,38 +19,9 @@
     >
       <el-tab-pane :label="T('Simple')" name="Simple">
         <el-space>
-          <el-card class="simple-card" shadow="hover" v-loading="rsForm.loading">
-            <template #header>
-              <div class="card-header">
-                <span>RELAY_SERVERS</span>
-              </div>
-            </template>
-            <el-form :disabled="!canSendCmd(rsForm.target)">
-              <el-form-item>
-                <el-input v-model="rsForm.option"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button @click="getRS">{{ T('Refresh') }}</el-button>
-                <el-button @click="saveRS" type="primary">{{ T('Save') }}</el-button>
-              </el-form-item>
-            </el-form>
-          </el-card>
-          <el-card class="simple-card" shadow="hover" v-loading="aurForm.loading">
-            <template #header>
-              <div class="card-header">
-                <span>ALWAYS_USE_RELAY</span>
-              </div>
-            </template>
-            <el-form :disabled="!canSendCmd(aurForm.target)">
-              <el-form-item>
-                <el-switch v-model="aurForm.option" active-value="Y" inactive-value="N"></el-switch>
-              </el-form-item>
-              <el-form-item>
-                <el-button @click="getAUR">{{ T('Refresh') }}</el-button>
-                <el-button @click="saveAUR" type="primary">{{ T('Save') }}</el-button>
-              </el-form-item>
-            </el-form>
-          </el-card>
+          <RelayServers ref="rs" :can-send="canSendCmd(ID_TARGET)"></RelayServers>
+          <alwaysUseRelay :can-send="canSendCmd(ID_TARGET)" @success="handleAlwaysUseRelaySuccess"></alwaysUseRelay>
+          <mustLogin :can-send="canSendCmd(ID_TARGET)"></mustLogin>
           <blocklist :can-send="canSendCmd(RELAY_TARGET)"></blocklist>
           <blacklist :can-send="canSendCmd(RELAY_TARGET)"></blacklist>
         </el-space>
@@ -63,12 +34,12 @@
             <el-form-item>
               <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
               <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-              <el-button type="success" :disabled="!canSendIdServerCmd" @click="showCmd({cmd:'',option:''})">{{ T('Send') }}</el-button>
+              <el-button type="success" :disabled="!canSendIdServerCmd" @click="showCmd({cmd:'',option:'',target:ID_TARGET})">{{ T('Send') }} To Id</el-button>
+              <el-button type="success" :disabled="!canSendRelayServerCmd" @click="showCmd({cmd:'',option:'',target:RELAY_TARGET})">{{ T('Send') }} To Relay</el-button>
             </el-form-item>
           </el-form>
         </el-card>
         <el-card class="list-body" shadow="hover">
-
           <el-table :data="listRes.list" v-loading="listRes.loading" border>
             <el-table-column prop="cmd" label="cmd" align="center"></el-table-column>
             <el-table-column prop="alias" label="alias" align="center"></el-table-column>
@@ -144,16 +115,19 @@
 
 
 <script setup>
-  import { list, sendCmd, remove, create, update } from '@/api/rustdesk'
+  import { create, list, remove, sendCmd, update } from '@/api/rustdesk'
   import { onMounted, reactive, ref } from 'vue'
   import { T } from '@/utils/i18n'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import blocklist from '@/views/rustdesk/blocklist.vue'
   import blacklist from '@/views/rustdesk/blacklist.vue'
+  import alwaysUseRelay from '@/views/rustdesk/always_use_relay.vue'
+  import RelayServers from '@/views/rustdesk/relay_servers.vue'
+  import mustLogin from '@/views/rustdesk/must_login.vue'
+  import { ID_TARGET, RELAY_TARGET } from '@/views/rustdesk/options'
 
-  const ID_TARGET = '21115'
-  const RELAY_TARGET = '21117'
   const activeName = ref('Simple')
+
 
   const canSendIdServerCmd = ref(false)
   const checkCanSendIdServerCmd = async () => {
@@ -163,17 +137,20 @@
   const refreshCanSendIdServerCmd = () => {
     checkCanSendIdServerCmd().then(_ => {
       if (canSendIdServerCmd.value) {
-        getAUR()
-        getRS()
       }
     })
   }
   onMounted(refreshCanSendIdServerCmd)
 
   const canSendRelayServerCmd = ref(false)
+  const canControlMustLogin = ref(false)
   const checkCanSendRelayServerCmd = async () => {
     const res = await sendCmd({ cmd: 'h', target: RELAY_TARGET }).catch(_ => false)
     canSendRelayServerCmd.value = !!res.data
+    if (canSendRelayServerCmd.value) {
+      const commands = res.data.split('\n').filter(i => i)
+      canControlMustLogin.value = commands.some(i => i.includes('must-login'))
+    }
   }
   const refreshCanSendRelayServerCmd = () => {
     checkCanSendRelayServerCmd().then(_ => {
@@ -183,6 +160,12 @@
   }
   onMounted(refreshCanSendRelayServerCmd)
 
+  const rs = ref(null)
+  console.log(rs)
+  const handleAlwaysUseRelaySuccess = () => {
+    rs.value.save()
+  }
+
   const canSendCmd = (target) => {
     if (target === ID_TARGET) {
       return canSendIdServerCmd.value
@@ -191,54 +174,6 @@
       return canSendRelayServerCmd.value
     }
     return false
-  }
-
-  const rsForm = reactive({
-    cmd: 'rs',
-    option: '',
-    target: ID_TARGET,
-    loading: false,
-  })
-  const getRS = async () => {
-    rsForm.loading = true
-    const res = await sendCmd({ cmd: 'rs', target: ID_TARGET }).catch(_ => false)
-    rsForm.loading = false
-    if (res) {
-      const data = res.data.split('\n').filter(i => i)
-      rsForm.option = data.join(',')
-    }
-  }
-  const saveRS = async () => {
-    const res = await sendCmd(rsForm).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-    }
-  }
-
-  const aurForm = reactive({
-    cmd: 'aur',
-    option: '',
-    target: ID_TARGET,
-    value: 0,
-    loading: false,
-  })
-  const getAUR = async () => {
-    aurForm.loading = true
-    const res = await sendCmd({ cmd: 'aur', target: ID_TARGET }).catch(_ => false)
-    aurForm.loading = false
-    if (res) {
-      if (res.data === 'ALWAYS_USE_RELAY: true' || res.data === 'ALWAYS_USE_RELAY: true\n') {
-        aurForm.option = 'Y'
-      } else {
-        aurForm.option = 'N'
-      }
-    }
-  }
-  const saveAUR = async () => {
-    const res = await sendCmd(aurForm).catch(_ => false)
-    if (res) {
-      ElMessage.success(T('OperationSuccess'))
-    }
   }
 
   const listRes = reactive({
