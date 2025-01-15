@@ -19,11 +19,12 @@
     >
       <el-tab-pane :label="T('Simple')" name="Simple">
         <el-space>
-          <RelayServers ref="rs" :can-send="canSendCmd(ID_TARGET)"></RelayServers>
-          <alwaysUseRelay :can-send="canSendCmd(ID_TARGET)" @success="handleAlwaysUseRelaySuccess"></alwaysUseRelay>
-          <mustLogin v-if="canControlMustLogin" :can-send="canSendCmd(ID_TARGET)"></mustLogin>
-          <blocklist :can-send="canSendCmd(RELAY_TARGET)"></blocklist>
-          <blacklist :can-send="canSendCmd(RELAY_TARGET)"></blacklist>
+          <RelayServers ref="rs" :can-send="canSendIdServerCmd"/>
+          <alwaysUseRelay :can-send="canSendIdServerCmd" @success="handleAlwaysUseRelaySuccess"/>
+          <mustLogin v-if="canControlMustLogin" :can-send="canSendIdServerCmd"/>
+          <blocklist :can-send="canSendRelayServerCmd"/>
+          <blacklist :can-send="canSendRelayServerCmd"/>
+          <usage :can-send="canSendRelayServerCmd"/>
         </el-space>
 
 
@@ -119,15 +120,15 @@
   import { onMounted, reactive, ref } from 'vue'
   import { T } from '@/utils/i18n'
   import { ElMessage, ElMessageBox } from 'element-plus'
+  import { ID_TARGET, RELAY_TARGET } from '@/views/rustdesk/options'
   import blocklist from '@/views/rustdesk/blocklist.vue'
   import blacklist from '@/views/rustdesk/blacklist.vue'
   import alwaysUseRelay from '@/views/rustdesk/always_use_relay.vue'
   import RelayServers from '@/views/rustdesk/relay_servers.vue'
   import mustLogin from '@/views/rustdesk/must_login.vue'
-  import { ID_TARGET, RELAY_TARGET } from '@/views/rustdesk/options'
+  import usage from '@/views/rustdesk/usage.vue'
 
   const activeName = ref('Simple')
-
 
   const canSendIdServerCmd = ref(false)
   const checkCanSendIdServerCmd = async () => {
