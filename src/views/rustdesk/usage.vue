@@ -7,7 +7,14 @@
     </template>
     <el-form :disabled="!canSend">
       <el-form-item>
-        <el-input type="textarea" :model-value="form.list.join('|')" :rows="5" readonly></el-input>
+        <el-table :data="form.list" size="small">
+          <el-table-column prop="0" label="IP"></el-table-column>
+          <el-table-column prop="1" label="TIME"></el-table-column>
+          <el-table-column prop="2" label="TOTAL"></el-table-column>
+          <el-table-column prop="3" label="HIGHEST"></el-table-column>
+          <el-table-column prop="4" label="AVG"></el-table-column>
+          <el-table-column prop="5" label="SPEED"></el-table-column>
+        </el-table>
       </el-form-item>
       <el-form-item>
         <el-button @click="getList">{{ T('Refresh') }}</el-button>
@@ -37,7 +44,7 @@
     const res = await sendCmd({ cmd: form.get_cmd, target: RELAY_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      form.list = res.data.split('\n').filter(i => i)
+      form.list = res.data.split('\n').filter(i => i).map(i => i.split(" "))
     }
   }
   watch(() => props.canSend, (v) => {
@@ -49,5 +56,7 @@
 
 </script>
 <style scoped lang="scss">
-
+.simple-card{
+  width: 500px;
+}
 </style>

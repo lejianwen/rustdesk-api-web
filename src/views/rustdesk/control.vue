@@ -18,13 +18,13 @@
         type="card"
     >
       <el-tab-pane :label="T('Simple')" name="Simple">
-        <el-space>
+        <el-space wrap>
           <RelayServers ref="rs" :can-send="canSendIdServerCmd"/>
           <alwaysUseRelay :can-send="canSendIdServerCmd" @success="handleAlwaysUseRelaySuccess"/>
           <mustLogin v-if="canControlMustLogin" :can-send="canSendIdServerCmd"/>
+          <usage :can-send="canSendRelayServerCmd"/>
           <blocklist :can-send="canSendRelayServerCmd"/>
           <blacklist :can-send="canSendRelayServerCmd"/>
-          <usage :can-send="canSendRelayServerCmd"/>
         </el-space>
 
 
@@ -282,7 +282,7 @@
 
 <style scoped lang="scss">
 .simple-card {
-  width: 300px;
+  min-width: 300px;
   margin: 10px;
   min-height: 300px;
 }
