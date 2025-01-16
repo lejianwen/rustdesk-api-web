@@ -21,7 +21,7 @@
         <el-space wrap>
           <RelayServers ref="rs" :can-send="canSendIdServerCmd"/>
           <alwaysUseRelay :can-send="canSendIdServerCmd" @success="handleAlwaysUseRelaySuccess"/>
-          <mustLogin v-if="canControlMustLogin" :can-send="canSendIdServerCmd"/>
+          <mustLogin :can-send="canControlMustLogin&&canSendIdServerCmd"/>
           <usage :can-send="canSendRelayServerCmd"/>
           <blocklist :can-send="canSendRelayServerCmd"/>
           <blacklist :can-send="canSendRelayServerCmd"/>
