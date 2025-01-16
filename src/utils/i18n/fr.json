@@ -491,7 +491,7 @@
     "One": "Non disponible"
   },
   "ServerCmdTips": {
-    "One": "Cette fonctionnalité est expérimentale, veuillez vous assurer que l'API et hbbs sont sur la même adresse de boucle, pour plus de détails veuillez consulter le {wiki}"
+    "One": "Cette fonctionnalité est expérimentale. Veuillez vous assurer que l'API et hbbs et hbbr sont sur la même adresse de boucle locale. Pour plus d'informations, veuillez consulter le {wiki}"
   },
   "Refresh": {
     "One": "Actualiser"

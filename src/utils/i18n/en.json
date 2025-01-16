@@ -485,7 +485,7 @@
     "One": "Not Available"
   },
   "ServerCmdTips": {
-    "One": "This feature is experimental. Please ensure that the API and hbbs are on the same loopback address. For more information, please refer to the {wiki}"
+    "One": "This feature is experimental. Please ensure that the API and hbbs and hbbr are on the same loopback address. For more information, please refer to the {wiki}"
   },
   "Refresh": {
     "One": "Refresh"

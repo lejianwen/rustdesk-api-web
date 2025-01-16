@@ -504,7 +504,7 @@
     "One": "不可用"
   },
   "ServerCmdTips": {
-    "One": "此处功能为实验性质，请确保api和hbbs处于同一回环地址下，更多说明请参考 {wiki}"
+    "One": "此处功能为实验性质，请确保api和 hbbs/hbbr 处于同一回环地址下，更多说明请参考 {wiki}"
   },
   "Refresh": {
     "One": "刷新"

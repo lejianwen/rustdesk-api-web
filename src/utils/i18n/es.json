@@ -488,7 +488,7 @@
     "One": "No disponible"
   },
   "ServerCmdTips": {
-    "One": "Esta función es experimental, asegúrese de que la API y hbbs estén en la misma dirección de bucle, para más detalles consulte el {wiki}"
+    "One": "Esta función es experimental. Asegúrese de que la API y hbbs y hbbr estén en la misma dirección de bucle de retorno. Para obtener más información, consulte el {wiki}"
   },
   "Refresh": {
     "One": "Actualizar"
