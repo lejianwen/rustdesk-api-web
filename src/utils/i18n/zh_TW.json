@@ -1,0 +1,528 @@
+{
+    "Login": {
+      "One": "登入"
+    },
+    "Logout": {
+      "One": "退出登入"
+    },
+    "Register": {
+      "One": "註冊"
+    },
+    "Confirm": {
+      "One": "確認"
+    },
+    "Username": {
+      "One": "使用者名稱"
+    },
+    "Password": {
+      "One": "密碼"
+    },
+    "LoginSuccess": {
+      "One": "登入成功"
+    },
+    "ForgotPassword": {
+      "One": "忘記密碼"
+    },
+    "ResetPassword": {
+      "One": "重置密碼"
+    },
+    "ChangePassword": {
+      "One": "修改密碼"
+    },
+    "Userinfo": {
+      "One": "使用者資訊"
+    },
+    "ParamRequired": {
+      "One": "{param} 是必須的"
+    },
+    "HasBind": {
+      "One": "已繫結"
+    },
+    "NoBind": {
+      "One": "未繫結"
+    },
+    "UnBind": {
+      "One": "解綁"
+    },
+    "ToBind": {
+      "One": "繫結"
+    },
+    "Confirm?": {
+      "One": "確定{param}?"
+    },
+    "Cancel": {
+      "One": "取消"
+    },
+    "Platform": {
+      "One": "平臺"
+    },
+    "Status": {
+      "One": "狀態"
+    },
+    "Actions": {
+      "One": "操作"
+    },
+    "Filter": {
+      "One": "篩選"
+    },
+    "Add": {
+      "One": "新增"
+    },
+    "Hostname": {
+      "One": "主機名"
+    },
+    "Alias": {
+      "One": "別名"
+    },
+    "Hash": {
+      "One": "雜湊"
+    },
+    "Tags": {
+      "One": "標籤"
+    },
+    "Edit": {
+      "One": "編輯"
+    },
+    "Delete": {
+      "One": "刪除"
+    },
+    "Create": {
+      "One": "建立"
+    },
+    "Update": {
+      "One": "更新"
+    },
+    "LoginName": {
+      "One": "登入名"
+    },
+    "Submit": {
+      "One": "提交"
+    },
+    "OperationSuccess": {
+      "One": "操作成功"
+    },
+    "Owner": {
+      "One": "所有者"
+    },
+    "Name": {
+      "One": "名稱"
+    },
+    "Color": {
+      "One": "顏色"
+    },
+    "CreatedAt": {
+      "One": "建立時間"
+    },
+    "UpdatedAt": {
+      "One": "更新時間"
+    },
+    "Memory": {
+      "One": "記憶體"
+    },
+    "Os": {
+      "One": "作業系統"
+    },
+    "Uuid": {
+      "One": "UUID"
+    },
+    "Version": {
+      "One": "版本"
+    },
+    "Type": {
+      "One": "型別"
+    },
+    "Group": {
+      "One": "組"
+    },
+    "CommonGroup": {
+      "One": "普通組"
+    },
+    "CommonGroupNote": {
+      "One": "只有管理員才能檢視群組成員及其裝置"
+    },
+    "SharedGroup": {
+      "One": "共享組"
+    },
+    "SharedGroupNote": {
+      "One": "所有使用者都可以檢視群組成員及其裝置"
+    },
+    "Nickname": {
+      "One": "暱稱"
+    },
+    "UserTags": {
+      "One": "使用者標籤"
+    },
+    "UserAddressBook": {
+      "One": "使用者地址簿"
+    },
+    "IsAdmin": {
+      "One": "是否管理員"
+    },
+    "PleaseInputNewPassword": {
+      "One": "請輸入新密碼"
+    },
+    "AutoRegister": {
+      "One": "自動註冊"
+    },
+    "AutoRegisterNote": {
+      "One": "如果啟用，則當用戶使用 OAuth 登入時，將自動註冊一個帳戶，而無需繫結現有帳戶"
+    },
+    "ThirdName": {
+      "One": "第三方名稱"
+    },
+    "Close": {
+      "One": "關閉"
+    },
+    "OauthBinding": {
+      "One": "您正在授權繫結"
+    },
+    "OauthLogining": {
+      "One": "您正在授權登入"
+    },
+    "OauthCloseNote": {
+      "One": "如不是您發起的授權，請直接關閉頁面"
+    },
+    "OperationSuccessAndCloseAfter3Seconds": {
+      "One": "操作成功，3秒後將自動關閉頁面"
+    },
+    "ConfirmOauth": {
+      "One": "確認授權"
+    },
+    "Device": {
+      "One": "裝置"
+    },
+    "ChangeLang": {
+      "One": "ToEnglish"
+    },
+    "My": {
+      "One": "我的"
+    },
+    "Info": {
+      "One": "資訊"
+    },
+    "AddressBooks": {
+      "One": "地址簿"
+    },
+    "System": {
+      "One": "系統"
+    },
+    "PeerManage": {
+      "One": "裝置管理"
+    },
+    "AddressBookManage": {
+      "One": "地址簿管理"
+    },
+    "GroupManage": {
+      "One": "群組管理"
+    },
+    "UserManage": {
+      "One": "使用者管理"
+    },
+    "UserAdd": {
+      "One": "使用者新增"
+    },
+    "UserEdit": {
+      "One": "使用者編輯"
+    },
+    "TagsManage": {
+      "One": "標籤管理"
+    },
+    "OauthManage": {
+      "One": "Oauth 管理"
+    },
+    "LoginLog": {
+      "One": "登入日誌"
+    },
+    "LastOnlineTime": {
+      "One": "最後線上時間"
+    },
+    "JustNow": {
+      "One": "剛剛"
+    },
+    "MinutesAgo": {
+      "One": "{param} 分鐘前"
+    },
+    "HoursAgo": {
+      "One": "{param} 小時前"
+    },
+    "DaysAgo": {
+      "One": "{param} 天前"
+    },
+    "MonthsAgo": {
+      "One": "{param} 月前"
+    },
+    "YearsAgo": {
+      "One": "{param} 年前"
+    },
+    "MinutesLess": {
+      "One": "{param} 分鐘內"
+    },
+    "HoursLess": {
+      "One": "{param} 小時內"
+    },
+    "DaysLess": {
+      "One": "{param} 天內"
+    },
+    "Export": {
+      "One": "匯出"
+    },
+    "AddToAddressBook": {
+      "One": "新增到地址簿"
+    },
+    "BatchDelete": {
+      "One": "批量刪除"
+    },
+    "PleaseSelectData": {
+      "One": "請選擇資料"
+    },
+    "PasswordType": {
+      "One": "密碼型別"
+    },
+    "OncePassword": {
+      "One": "一次性密碼"
+    },
+    "FixedPassword": {
+      "One": "固定密碼"
+    },
+    "FixedPasswordWarning": {
+      "One": "固定密碼可能存在洩露風險，請謹慎使用，建議使用一次性密碼"
+    },
+    "ExpireTime": {
+      "One": "過期時間"
+    },
+    "ShareByWebClient": {
+      "One": "通過 Web Client 分享"
+    },
+    "Minutes": {
+      "One": "{param} 分鐘"
+    },
+    "Hours": {
+      "One": "{param} 小時"
+    },
+    "Days": {
+      "One": "{param} 天"
+    },
+    "Weeks": {
+      "One": "{param} 周"
+    },
+    "Months": {
+      "One": "{param} 月"
+    },
+    "Forever": {
+      "One": "永久"
+    },
+    "Error": {
+      "One": "錯誤"
+    },
+    "IDNotExist": {
+      "One": "ID 不存在"
+    },
+    "RemoteDesktopOffline": {
+      "One": "遠端電腦不線上"
+    },
+    "KeyMismatch": {
+      "One": "KEY 不匹配"
+    },
+    "KeyOveruse": {
+      "One": "KEY 使用過度"
+    },
+    "Link": {
+      "One": "連結"
+    },
+    "CopySuccess": {
+      "One": "複製成功"
+    },
+    "CopyFailed": {
+      "One": "複製失敗"
+    },
+    "Timeout": {
+      "One": "超時"
+    },
+    "AuditConnLog": {
+      "One": "連線日誌"
+    },
+    "Peer": {
+      "One": "裝置"
+    },
+    "FromPeer": {
+      "One": "來源裝置"
+    },
+    "FromName": {
+      "One": "來源名稱"
+    },
+    "CloseTime": {
+      "One": "關閉時間"
+    },
+    "AuditFileLog": {
+      "One": "檔案日誌"
+    },
+    "Common": {
+      "One": "普通"
+    },
+    "File": {
+      "One": "檔案"
+    },
+    "Num": {
+      "One": "數量"
+    },
+    "Ip": {
+      "One": "IP"
+    },
+    "FileName": {
+      "One": "檔名"
+    },
+    "FileInfo": {
+      "One": "檔案資訊"
+    },
+    "Path": {
+      "One": "路徑"
+    },
+    "IndexNum": {
+      "One": "序號"
+    },
+    "ToRemote": {
+      "One": "到遠端"
+    },
+    "ToLocal": {
+      "One": "到本地"
+    },
+    "AddressBookName": {
+      "One": "地址簿名稱"
+    },
+    "AddressBookCollection": {
+      "One": "地址簿集"
+    },
+    "AddRule": {
+      "One": "新增規則"
+    },
+    "ShareRules": {
+      "One": "分享規則"
+    },
+    "Rule": {
+      "One": "規則"
+    },
+    "Read": {
+      "One": "讀取"
+    },
+    "ReadWrite": {
+      "One": "讀寫"
+    },
+    "FullControl": {
+      "One": "完全控制"
+    },
+    "ShareTo": {
+      "One": "分享給"
+    },
+    "MyAddressBook": {
+      "One": "我的地址簿"
+    },
+    "AddressBook": {
+      "One": "地址簿"
+    },
+    "AddressBookNameManage": {
+      "One": "地址簿名稱"
+    },
+    "MyAddressBookTips": {
+      "One": "\"我的地址簿\"是系統預設，不可修改、刪除"
+    },
+    "LastOnlineIp": {
+      "One": "最後線上 IP"
+    },
+    "or login in with": {
+      "One": "或使用以下登陸"
+    },
+    "Optional, default is": {
+      "One": "可選, 預設值是"
+    },
+    "Check your IdP docs, without": {
+      "One": "檢查 IdP 的文件, 不包含"
+    },
+    "For OIDC login without a password, enter any 4-20 letters": {
+      "One": "如果通過 OIDC 登入且未設定密碼，請輸入任意 4-20 個字元"
+    },
+    "OldPassword": {
+      "One": "舊密碼"
+    },
+    "NewPassword": {
+      "One": "新密碼"
+    },
+    "ConfirmPassword": {
+      "One": "確認密碼"
+    },
+    "PasswordNotMatchConfirmPassword": {
+      "One": "密碼與確認密碼不匹配"
+    },
+    "ToLogin": {
+      "One": "去登入"
+    },
+    "UserToken": {
+      "One": "使用者 Token"
+    },
+    "Email": {
+      "One": "電子信箱"
+    },
+    "MyPeer": {
+      "One": "我的裝置"
+    },
+    "View": {
+      "One": "檢視"
+    },
+    "Information": {
+      "One": "資訊"
+    },
+    "BatchAddToAB": {
+      "One": "批量新增到地址簿"
+    },
+    "BatchEditTags": {
+      "One": "批量編輯標籤"
+    },
+    "User": {
+      "One": "使用者"
+    },
+    "ShareRecord": {
+      "One": "分享記錄"
+    },
+    "Second": {
+      "One": "秒"
+    },
+    "Captcha": {
+      "One": "驗證碼"
+    },
+    "ServerCmd": {
+      "One": "服務端命令"
+    },
+    "Simple": {
+      "One": "簡單"
+    },
+    "Advanced": {
+      "One": "高階"
+    },
+    "Available": {
+      "One": "可用"
+    },
+    "NotAvailable": {
+      "One": "不可用"
+    },
+    "ServerCmdTips": {
+      "One": "此處功能為實驗性質，請確保 API 和 hbbs/hbbr 處於同一迴環地址下，更多說明請參考 {wiki}"
+    },
+    "Refresh": {
+      "One": "重新整理"
+    },
+    "Save": {
+      "One": "儲存"
+    },
+    "SendCustom": {
+      "One": "傳送自定義"
+    },
+    "Send": {
+      "One": "傳送"
+    },
+    "SendCmd": {
+      "One": "傳送命令"
+    },
+    "Result": {
+      "One": "結果"
+    }
+  }
+  
