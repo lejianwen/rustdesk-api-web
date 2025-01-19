@@ -6,6 +6,7 @@ import ko from 'element-plus/es/locale/lang/ko'
 import ru from 'element-plus/es/locale/lang/ru'
 import fr from 'element-plus/es/locale/lang/fr'
 import es from 'element-plus/es/locale/lang/es'
+import zhTw from 'element-plus/es/locale/lang/zh-tw'
 import { admin, app } from '@/api/config'
 
 const langs = {
@@ -15,6 +16,7 @@ const langs = {
   'ko': { name: '한국어', value: ko, sideBarWidth: '230px' },
   'ru': { name: 'русский', value: ru, sideBarWidth: '250px' },
   'es': { name: 'español', value: es, sideBarWidth: '280px' },
+  'zh-TW': { name: '中文繁体', value: zhTw, sideBarWidth: '210px' },
 }
 const defaultLang = localStorage.getItem('lang') || navigator.language || 'zh-CN'
 export const useAppStore = defineStore({
