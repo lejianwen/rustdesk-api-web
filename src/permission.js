@@ -13,6 +13,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login', '/register']
 const routeStore = useRouteStore(pinia)
 const appStore = useAppStore(pinia)
+appStore.getAdminConfig()
 router.beforeEach(async (to, from, next) => {
 
   document.title = T(to.meta?.title) + ' - ' + appStore.setting.title

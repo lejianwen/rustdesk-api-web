@@ -23,7 +23,7 @@ export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
     setting: {
-      title: 'Rustdesk-Api-Admin',
+      title: 'Rustdesk API Admin',
       hello: '',
       sideIsCollapse: false,
       logo,
@@ -55,16 +55,20 @@ export const useAppStore = defineStore({
     },
     getAppConfig () {
       console.log('getAppConfig')
-      app().then(res => {
+      return app().then(res => {
         this.setting.appConfig = res.data
       })
     },
     getAdminConfig () {
       console.log('getAdminConfig')
-      admin().then(res => {
-        this.setting.title = res.data.title
+      return admin().then(res => {
+        this.replaceAdminTitle(res.data.title)
         this.setting.hello = res.data.hello
       })
+    },
+    replaceAdminTitle(newTitle){
+      document.title = document.title.replace(`- ${this.setting.title}`, `- ${newTitle}`)
+      this.setting.title = newTitle
     },
   },
 })
