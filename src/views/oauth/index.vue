@@ -62,18 +62,25 @@
         <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
         </el-form-item>
-        <el-form-item label="PkceEnable" prop="pkce_enable">
-          <el-switch v-model="formData.pkce_enable"
-                    :active-value="true"
-                    :inactive-value="false"
-          ></el-switch>
-        </el-form-item>
-        <el-form-item v-if="formData.pkce_enable" label="PkceMethod" prop="pkce_method">
-          <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
-            <el-option label="S256 (Recommended)" value="S256"></el-option>
-            <el-option label="Plain" value="Plain"></el-option>
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="PkceEnable" prop="pkce_enable">
+              <el-switch v-model="formData.pkce_enable"
+                        :active-value="true"
+                        :inactive-value="false">
+              </el-switch>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12" v-if="formData.pkce_enable">
+            <el-form-item label="PkceMethod" prop="pkce_method">
+              <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
+                <el-option label="S256 (Recommended)" value="S256"></el-option>
+                <el-option label="Plain" value="Plain"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-form-item :label="T('AutoRegister')" prop="auto_register">
           <el-switch v-model="formData.auto_register"
                      :active-value="true"
