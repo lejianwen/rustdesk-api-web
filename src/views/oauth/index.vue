@@ -69,7 +69,10 @@
           ></el-switch>
         </el-form-item>
         <el-form-item v-if="formData.pkce_enable" label="PkceMethod" prop="pkce_method">
-          <el-input v-model="formData.pkce_method" placeholder="Can be S256 or Plain"></el-input>
+          <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
+            <el-option label="S256 (Recommended)" value="S256"></el-option>
+            <el-option label="Plain" value="Plain"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item :label="T('AutoRegister')" prop="auto_register">
           <el-switch v-model="formData.auto_register"
