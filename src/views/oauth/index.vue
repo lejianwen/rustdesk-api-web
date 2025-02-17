@@ -63,14 +63,13 @@
           <el-input v-model="formData.redirect_url"></el-input>
         </el-form-item>
         <el-form-item label="PkceEnable" prop="pkce_enable">
-          <el-input v-model="formData.pkce_enable"></el-input>
-        </el-form-item>
-        <el-form-item label="PkceMethod" prop="pkce_method">
-          <el-input v-model="formData.pkce_method"></el-input>
           <el-switch v-model="formData.pkce_enable"
-                     :active-value="true"
-                     :inactive-value="false"
+                    :active-value="true"
+                    :inactive-value="false"
           ></el-switch>
+        </el-form-item>
+        <el-form-item v-if="formData.pkce_enable" label="PkceMethod" prop="pkce_method">
+          <el-input v-model="formData.pkce_method" placeholder="Can be S256 or Plain"></el-input>
         </el-form-item>
         <el-form-item :label="T('AutoRegister')" prop="auto_register">
           <el-switch v-model="formData.auto_register"
