@@ -51,7 +51,7 @@
           <el-input v-model="formData.issuer" :placeholder="`${T('Check your IdP docs, without')} '/.well-known/openid-configuration'`"></el-input>
         </el-form-item>
         <el-form-item v-show="formData.oauth_type === 'oidc'" label="Scopes" prop="scopes">
-          <el-input v-model="formData.scopes" :placeholder="`${T('Optional, default is')} 'openid,profile,email'`" ></el-input>
+          <el-input v-model="formData.scopes" :placeholder="`${T('Optional, default is')} 'openid,profile,email'`"></el-input>
         </el-form-item>
         <el-form-item label="ClientId" prop="client_id">
           <el-input v-model="formData.client_id"></el-input>
@@ -62,25 +62,19 @@
         <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
         </el-form-item>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="PkceEnable" prop="pkce_enable">
-              <el-switch v-model="formData.pkce_enable"
-                        :active-value="true"
-                        :inactive-value="false">
-              </el-switch>
-            </el-form-item>
-          </el-col>
+        <el-form-item label="PkceEnable" prop="pkce_enable">
+          <el-switch v-model="formData.pkce_enable"
+                     :active-value="true"
+                     :inactive-value="false">
+          </el-switch>
+        </el-form-item>
 
-          <el-col :span="12" v-if="formData.pkce_enable">
-            <el-form-item label="PkceMethod" prop="pkce_method">
-              <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
-                <el-option label="S256 (Recommended)" value="S256"></el-option>
-                <el-option label="Plain" value="plain"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <el-form-item v-if="formData.pkce_enable" label="PkceMethod" prop="pkce_method">
+          <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
+            <el-option label="S256 (Recommended)" value="S256"></el-option>
+            <el-option label="Plain" value="plain"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item :label="T('AutoRegister')" prop="auto_register">
           <el-switch v-model="formData.auto_register"
                      :active-value="true"
@@ -113,7 +107,7 @@
   const types = [
     { value: 'github', label: 'GitHub' },
     { value: 'google', label: 'Google' },
-    { value: 'oidc',   label: 'OIDC'   }
+    { value: 'oidc', label: 'OIDC' },
   ]
   const getList = async () => {
     listRes.loading = true
@@ -175,19 +169,20 @@
     redirect_url: [{ required: true, message: T('ParamRequired', { param: 'redirect_url' }), trigger: 'blur' }],
     oauth_type: [{ required: true, message: T('ParamRequired', { param: 'oauth_type' }), trigger: 'blur' }],
     issuer: [{ required: true, message: T('ParamRequired', { param: 'issuer' }), trigger: 'blur' }],
-    pkce_method: [{ required: false, message: T('ParamRequired', { param: 'pkce_method' }), trigger: 'blur' },
+    pkce_method: [
+      { required: false, message: T('ParamRequired', { param: 'pkce_method' }), trigger: 'blur' },
       {
         validator: (rule, value, callback) => {
-          const allowedValues = ["S256", "Plain"];
+          const allowedValues = ['S256', 'plain']
           if (!allowedValues.includes(value)) {
-            callback(new Error(T('InvalidParam', { param: 'pkce_method' })));
+            callback(new Error(T('InvalidParam', { param: 'pkce_method' })))
           } else {
-            callback(); // 校验通过
+            callback() // 校验通过
           }
         },
-        trigger: 'change'
-      }
-    ]
+        trigger: 'change',
+      },
+    ],
   }
   const toEdit = (row) => {
     formVisible.value = true
