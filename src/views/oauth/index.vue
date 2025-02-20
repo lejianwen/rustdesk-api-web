@@ -76,7 +76,7 @@
             <el-form-item label="PkceMethod" prop="pkce_method">
               <el-select v-model="formData.pkce_method" placeholder="Select PKCE Method">
                 <el-option label="S256 (Recommended)" value="S256"></el-option>
-                <el-option label="Plain" value="Plain"></el-option>
+                <el-option label="Plain" value="plain"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -176,7 +176,7 @@
     oauth_type: [{ required: true, message: T('ParamRequired', { param: 'oauth_type' }), trigger: 'blur' }],
     issuer: [{ required: true, message: T('ParamRequired', { param: 'issuer' }), trigger: 'blur' }],
     pkce_method: [{ required: false, message: T('ParamRequired', { param: 'pkce_method' }), trigger: 'blur' },
-      { 
+      {
         validator: (rule, value, callback) => {
           const allowedValues = ["S256", "Plain"];
           if (!allowedValues.includes(value)) {
@@ -184,8 +184,8 @@
           } else {
             callback(); // 校验通过
           }
-        }, 
-        trigger: 'change' 
+        },
+        trigger: 'change'
       }
     ]
   }
