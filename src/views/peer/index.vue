@@ -49,6 +49,12 @@
         </el-table-column>
         <el-table-column prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="120"/>
         <el-table-column prop="username" :label="T('Username')" align="center" width="120"/>
+        <el-table-column prop="group_id" :label="T('Group')" align="center" width="120">
+          <template #default="{row}">
+            <span v-if="row.group_id"> <el-tag>{{ groupListRes.list?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
+            <span v-else> - </span>
+          </template>
+        </el-table-column>
         <el-table-column prop="uuid" :label="T('Uuid')" align="center" width="120" show-overflow-tooltip/>
         <el-table-column prop="version" :label="T('Version')" align="center" width="80"/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center" width="150"/>
@@ -77,6 +83,16 @@
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item label="ID" prop="id" required>
           <el-input v-model="formData.id"></el-input>
+        </el-form-item>
+        <el-form-item :label="T('Group')" prop="group_id">
+          <el-select v-model="formData.group_id">
+            <el-option
+                v-for="item in groupListRes.list"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+            ></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item :label="T('Username')" prop="username">
           <el-input v-model="formData.username"></el-input>
@@ -151,6 +167,7 @@
 <script setup>
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { batchRemove, create, list, remove, update } from '@/api/peer'
+  import { list as groupList } from '@/api/device_group'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
@@ -166,6 +183,29 @@
   import createABForm from '@/views/peer/createABForm.vue'
 
   const appStore = useAppStore()
+
+  //group
+  const groupListRes = reactive({
+    list: [], total: 0, loading: false,
+  })
+  const groupListQuery = reactive({
+    page: 1,
+    page_size: 999,
+  })
+  const getGroupList = async () => {
+    groupListRes.loading = true
+    const res = await groupList(groupListQuery).catch(_ => false)
+    groupListRes.loading = false
+    if (res) {
+      groupListRes.list = res.data.list
+      groupListRes.total = res.data.total
+    }
+  }
+  onMounted(getGroupList)
+  //
+
+
+
   const listRes = reactive({
     list: [], total: 0, loading: false,
   })
@@ -220,6 +260,7 @@
   const formVisible = ref(false)
   const formData = reactive({
     row_id: 0,
+    group_id: null,
     cpu: '',
     hostname: '',
     id: '',

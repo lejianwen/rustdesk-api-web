@@ -119,6 +119,12 @@ export const asyncRoutes = [
         component: () => import('@/views/group/index.vue'),
       },
       {
+        path: 'deviceGroup',
+        name: 'DeviceGroup',
+        meta: { title: 'DeviceGroupManage', icon: 'ChatRound' /*keepAlive: true*/ },
+        component: () => import('@/views/group/deviceGroupList.vue'),
+      },
+      {
         path: 'index',
         name: 'UserList',
         meta: { title: 'UserManage', icon: 'User' /*keepAlive: true*/ },

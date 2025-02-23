@@ -504,5 +504,8 @@
   },
   "Result": {
     "One": "Result"
+  },
+  "DeviceGroupManage": {
+    "One": "Device Group Manage"
   }
 }

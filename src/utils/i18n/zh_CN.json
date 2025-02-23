@@ -523,5 +523,8 @@
   },
   "Result": {
     "One": "结果"
+  },
+  "DeviceGroupManage": {
+    "One": "设备组管理"
   }
 }
