@@ -8,7 +8,7 @@
         <el-form-item :label="T('Hostname')">
           <el-input v-model="listQuery.hostname" clearable/>
         </el-form-item>
-        <el-form-item :label="T('LastOnlineTime')"  label-width="100px">
+        <el-form-item :label="T('LastOnlineTime')" label-width="100px">
           <el-select v-model="listQuery.time_ago" clearable>
             <el-option
                 v-for="item in timeFilters"
@@ -29,6 +29,35 @@
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
           <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
+          <el-popover :visible="showImport" placement="bottom" :width="600">
+            <el-upload
+                class="upload-demo"
+                drag
+                accept=".csv"
+                :before-upload="parseCsv"
+            >
+              <el-icon class="el-icon--upload">
+                <upload-filled/>
+              </el-icon>
+              <div class="el-upload__text">
+                Drop file here or <em>click to upload</em>
+              </div>
+              <template #tip>
+                <div class="el-upload__tip">
+                  please upload csv file <br>
+                  columns: <span style="font-weight: bold;font-size: 15px">id,cpu,hostname,memory,os,username,uuid,version,group_id</span>
+                  <br>
+                  <span>you can see export file</span>
+                </div>
+
+              </template>
+
+            </el-upload>
+            <el-button @click="showImport=false" type="primary">{{ T('Cancel') }}</el-button>
+            <template #reference>
+              <el-button @click="showImport=true" type="danger">{{ T('Import') }}</el-button>
+            </template>
+          </el-popover>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
           <el-button type="primary" @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
         </el-form-item>
@@ -187,6 +216,7 @@
   import { batchCreateFromPeers } from '@/api/address_book'
   import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
   import createABForm from '@/views/peer/createABForm.vue'
+  import { UploadFilled } from '@element-plus/icons-vue'
 
   const appStore = useAppStore()
 
@@ -209,8 +239,6 @@
   }
   onMounted(getGroupList)
   //
-
-
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -342,6 +370,54 @@
       const csv = jsonToCsv(data)
       downBlob(csv, 'peers.csv')
     }
+  }
+
+  const showImport = ref(false)
+  const canKeys = ['id', 'cpu', 'hostname', 'memory', 'os', 'username', 'uuid', 'version', 'group_id']
+  const parseCsv = (file) => {
+    const reader = new FileReader()
+    reader.onload = async (e) => {
+      const data = e.target.result
+      console.log(data)
+      //组装数据
+      const rows = data.split('\n')
+      const keys = rows[0].split(',')
+      console.log(keys, rows.slice(1).map(row => row.split(',')))
+      const values = rows.slice(1).map(row => {
+        const obj = {}
+        row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).forEach((v, i) => {
+          //去掉两边的"
+          obj[keys[i]] = v.trim().replace(/^"|"$/g, '')
+        })
+        return obj
+      }).filter(item => item.id)
+      // console.log(values)
+      //移除不需要的key
+      values.forEach(item => {
+        item.group_id = parseInt(item.group_id)
+        Object.keys(item).forEach(key => {
+          if (!canKeys.includes(key)) {
+            delete item[key]
+          }
+        })
+      })
+      console.log(values)
+      const pa = []
+      values.map(item => {
+        pa.push(create(item))
+      })
+      const res = await Promise.all(pa).catch(_ => false)
+      if (res) {
+        ElMessage.success(T('OperationSuccess'))
+        getList()
+      }
+
+    }
+    reader.readAsText(file)
+    return false
+  }
+  const toImport = () => {
+    ElMessage.warning('暂未实现')
   }
 
   const ABFormVisible = ref(false)

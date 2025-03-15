@@ -15,7 +15,7 @@
         <el-main class="app-main">
           <router-view v-slot="{ Component }">
             <transition mode="out-in" name="el-fade-in-linear">
-              <keep-alive :include="[...cachedTags]">
+              <keep-alive :include="cachedTags">
                 <component :is="Component"/>
               </keep-alive>
             </transition>
