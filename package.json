@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@element-plus/icons": "0.0.11",
-    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue": "5.2.1",
     "dotenv": "^10.0.0",
     "qs": "^6.10.2",
     "sass": "^1.43.4",
