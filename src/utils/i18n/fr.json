@@ -510,5 +510,17 @@
   },
   "Result": {
     "One": "Résultat"
+  },
+  "Drop file here or click to upload": {
+    "One": "Déposez le fichier ici ou cliquez pour télécharger"
+  },
+  "Please upload csv file": {
+    "One": "Veuillez télécharger le fichier csv"
+  },
+  "Columns": {
+    "One": "Colonnes"
+  },
+  "You can reference export file": {
+    "One": "Vous pouvez vous référer au fichier d'exportation"
   }
 }

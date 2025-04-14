@@ -493,5 +493,17 @@
   },
   "Result": {
     "One": "결과"
+  },
+  "Drop file here or click to upload": {
+    "One": "여기에 파일을 드롭하거나 클릭하여 업로드하십시오"
+  },
+  "Please upload csv file": {
+    "One": "csv 파일을 업로드하십시오"
+  },
+  "Columns": {
+    "One": "열"
+  },
+  "You can reference export file": {
+    "One": "내보내기 파일을 참조할 수 있습니다"
   }
 }

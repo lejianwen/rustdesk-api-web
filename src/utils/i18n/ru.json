@@ -507,6 +507,18 @@
   },
   "Result": {
     "One": "Результат"
+  },
+  "Drop file here or click to upload": {
+    "One": "Перетащите файл сюда или нажмите, чтобы загрузить"
+  },
+  "Please upload csv file": {
+    "One": "Пожалуйста, загрузите файл csv"
+  },
+  "Columns": {
+    "One": "Столбцы"
+  },
+  "You can reference export file": {
+    "One": "Вы можете ссылаться на экспортируемый файл"
   }
 }
 

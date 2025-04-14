@@ -40,14 +40,14 @@
                 <upload-filled/>
               </el-icon>
               <div class="el-upload__text">
-                Drop file here or <em>click to upload</em>
+                {{ T('Drop file here or click to upload') }}
               </div>
               <template #tip>
                 <div class="el-upload__tip">
-                  please upload csv file <br>
-                  columns: <span style="font-weight: bold;font-size: 15px">id,cpu,hostname,memory,os,username,uuid,version,group_id</span>
+                  {{ T('Please upload csv file') }} <br>
+                  {{ T('Columns') }}: <span style="font-weight: bold;font-size: 15px">id,cpu,hostname,memory,os,username,uuid,version,group_id</span>
                   <br>
-                  <span>you can see export file</span>
+                  <span>{{ T('You can reference export file') }}</span>
                 </div>
 
               </template>
