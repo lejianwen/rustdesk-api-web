@@ -41,7 +41,9 @@ router.beforeEach(async (to, from, next) => {
       } else {
         next({ ...to, replace: true })
       }
-    } else {
+    }/* else if (to.path === '/404') {
+      next({path: to.redirectedFrom?.fullPath, replace: true})
+    }*/ else {
       next()
     }
   }
