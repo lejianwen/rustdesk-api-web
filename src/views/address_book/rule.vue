@@ -60,14 +60,14 @@
         </el-form-item>
         <el-form-item :label="T('Rule')" prop="rule" required>
           <el-radio-group v-model="formData.rule">
-            <el-radio v-for="item in rules" :key="item.value" :label="item.value">
+            <el-radio v-for="item in rules" :key="item.value" :value="item.value">
               {{ item.label }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="T('Type')" prop="type" required>
           <el-radio-group v-model="formData.type">
-            <el-radio v-for="item in types" :key="item.value" :label="parseInt(item.value)">
+            <el-radio v-for="item in types" :key="item.value" :value="parseInt(item.value)">
               {{ item.label }}
             </el-radio>
           </el-radio-group>
