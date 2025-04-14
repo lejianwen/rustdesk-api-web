@@ -17,10 +17,20 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column prop="type" :label="T('Type')" align="center">
+          <template #default="{row}">
+            <div>
+              {{ types.find(t => t.value === row.type)?.label }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="to_id" :label="T('ShareTo')" align="center">
           <template #default="{row}">
-            <div v-if="row.type===1">
-              {{ groupUsersList.find(u => u.id === row.to_id)?.username }}
+            <div v-if="row.type===TYPE_U">
+              {{ users.find(u => u.id === row.to_id)?.username }}
+            </div>
+            <div v-else-if="row.type===TYPE_G">
+              {{ groups.find(g => g.id === row.to_id)?.name }}
             </div>
           </template>
         </el-table-column>
@@ -55,17 +65,35 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="T('ShareTo')" prop="to_id" required>
+        <el-form-item :label="T('Type')" prop="type" required>
+          <el-radio-group v-model="formData.type">
+            <el-radio v-for="item in types" :key="item.value" :label="parseInt(item.value)">
+              {{ item.label }}
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="T('ShareTo')" prop="g_id" required>
           <!--          <el-input-number v-model="formData.to_id"></el-input-number>-->
-          <el-select v-model="formData.to_id">
-            <el-option
-                v-for="item in groupUsersList"
-                :key="item.id"
-                :label="item.username"
-                :value="item.id"
-                :disabled="!item.status"
-            ></el-option>
-          </el-select>
+          <div style="width: 30%">
+            <el-select v-model="formData.g_id" @change="changeGId">
+              <el-option
+                  v-for="item in groups"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+              ></el-option>
+            </el-select>
+          </div>
+          <div style="width: 30%;margin-left: 20px">
+            <el-select v-model="formData.u_id" v-if="formData.type===TYPE_U">
+              <el-option
+                  v-for="item in users.filter(u => u.group_id === formData.g_id)"
+                  :key="item.id"
+                  :label="item.username"
+                  :value="item.id"
+              ></el-option>
+            </el-select>
+          </div>
         </el-form-item>
         <el-form-item>
           <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
@@ -104,8 +132,13 @@
     toAdd,
     submit,
     rules,
-    groupUsersList,
+    types,
+    groups,
+    users,
     getGroupUsers,
+    TYPE_G,
+    TYPE_U,
+    changeGId,
   } = useRepositories(props.is_my ? 'my' : 'admin')
 
   formData.collection_id = props.collection.id
