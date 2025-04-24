@@ -28,7 +28,11 @@
           </template>
         </el-table-column>
         <el-table-column prop="client" label="client" align="center" width="120"/>
-        <el-table-column prop="peer.id" :label="T('Peer')" align="center"/>
+        <el-table-column prop="peer.id" :label="T('Peer')" align="center">
+          <template #default="{row}">
+            {{ row.device_id ? row.device_id : peer?.id }}
+          </template>
+        </el-table-column>
         <el-table-column prop="uuid" label="uuid" align="center"/>
         <el-table-column prop="ip" label="ip" align="center" width="150"/>
         <el-table-column prop="type" label="type" align="center" width="100"/>

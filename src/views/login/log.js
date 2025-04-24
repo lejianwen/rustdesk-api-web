@@ -29,15 +29,21 @@ export function useRepositories (api_type = 'my') {
     const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      const uuids = res.data.list.filter(item => item.uuid).map(item => item.uuid)
-      const peers = await apis[api_type].fetchPeers({ uuids }).catch(_ => false)
-      if (peers?.data?.list) {
-        res.data.list.forEach(item => {
-          if (item.uuid) {
-            item.peer = peers.data.list.find(peer => peer.uuid === item.uuid)
-          }
-        })
+      //通过uuid补全peer信息
+      const uuids = res.data.list.filter(item => item.uuid&&item.client==='client'&&!item.device_id).map(item => item.uuid)
+      if(uuids.length > 0){
+        //uuids去重
+        const uniqueUuids = [...new Set(uuids)]
+        const peers = await apis[api_type].fetchPeers({ uuids: uniqueUuids }).catch(_ => false)
+        if (peers?.data?.list) {
+          res.data.list.forEach(item => {
+            if (item.uuid) {
+              item.peer = peers.data.list.find(peer => peer.uuid === item.uuid)
+            }
+          })
+        }
       }
+
       listRes.list = res.data.list
       listRes.total = res.data.total
     }
