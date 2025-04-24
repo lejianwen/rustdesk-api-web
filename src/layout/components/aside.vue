@@ -14,7 +14,4 @@
 </script>
 
 <style scoped>
-  .scroll-sidebar{
-    position: fixed;
-  }
 </style>
