@@ -446,6 +446,9 @@
   "NewPassword": {
     "One": "新密碼"
   },
+  "NewPasswordEqualOldPassword": {
+    "One": "新密碼不能與舊密碼相同"
+  },
   "ConfirmPassword": {
     "One": "確認密碼"
   },

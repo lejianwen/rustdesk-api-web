@@ -425,6 +425,15 @@
   "LastOnlineIp": {
     "One": "마지막 온라인 IP"
   },
+  "OldPassword": {
+    "One": "이전 비밀번호"
+  },
+  "NewPasswordEqualOldPassword": {
+    "One": "새 비밀번호는 이전 비밀번호와 같을 수 없습니다"
+  },
+  "NewPassword": {
+    "One": "새 비밀번호"
+  },
   "ConfirmPassword": {
     "One": "비밀번호 확인"
   },

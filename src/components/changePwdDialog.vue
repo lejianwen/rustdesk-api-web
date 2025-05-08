@@ -52,14 +52,14 @@
     new_password: '',
     confirmPwd: '',
   })
-  const chagePwdRules = reactive({
-    old_password: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
+  const chagePwdRules = computed(_ => ({
+    old_password: [{ required: true, message: T('ParamRequired', { param: T('OldPassword') }), trigger: 'blur' }],
     new_password: [
-      { required: true, message: '请输入新密码', trigger: 'blur' },
+      { required: true, message: T('ParamRequired', { param: T('NewPassword') }), trigger: 'blur' },
       {
         validator: (rule, value, callback) => {
           if (value === changePwdForm.old_password) {
-            callback(new Error('新密码不能与旧密码相同'))
+            callback(new Error(T('NewPasswordEqualOldPassword'))) //'新密码不能与旧密码相同'
           } else {
             callback()
           }
@@ -67,11 +67,11 @@
         trigger: 'blur',
       }],
     confirmPwd: [
-      { required: true, message: '请再次输入新密码', trigger: 'blur' },
+      { required: true, message: T('ParamRequired', { param: T('ConfirmPassword') }), trigger: 'blur' },
       {
         validator: (rule, value, callback) => {
           if (value !== changePwdForm.new_password) {
-            callback(new Error('两次输入密码不一致'))
+            callback(new Error(T('PasswordNotMatchConfirmPassword')))
           } else {
             callback()
           }
@@ -79,7 +79,7 @@
         trigger: 'blur',
       },
     ],
-  })
+  }))
   const cpwd = ref(null)
   const cancelChangePwd = () => {
     emit('update:visible', false)
@@ -94,9 +94,9 @@
       return
     }
     console.log('changePassword')
-    const confirm = await ElMessageBox.confirm('确定修改密码么？', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const confirm = await ElMessageBox.confirm(T('Confirm?', { param: T('ChangePassword') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
     }).catch(_ => false)
     if (!confirm) {
       return
@@ -105,7 +105,7 @@
     if (!res) {
       return
     }
-    ElMessageBox.alert('修改成功', '修改密码', {
+    ElMessageBox.alert(T('OperationSuccess'), T('ChangePassword'), {
       autofocus: true,
       confirmButtonText: 'OK',
       callback: (action) => {

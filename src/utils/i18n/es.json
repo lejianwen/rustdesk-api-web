@@ -439,6 +439,15 @@
   "LastOnlineIp": {
     "One": "Última IP en línea"
   },
+  "OldPassword": {
+    "One": "Contraseña antigua"
+  },
+  "NewPasswordEqualOldPassword": {
+    "One": "La nueva contraseña no puede ser igual a la antigua"
+  },
+  "NewPassword": {
+    "One": "Nueva contraseña"
+  },
   "ConfirmPassword": {
     "One": "Confirmar contraseña"
   },

@@ -439,6 +439,15 @@
   "LastOnlineIp": {
     "One": "Последний IP онлайн"
   },
+  "OldPassword": {
+    "One": "Старый пароль"
+  },
+  "NewPasswordEqualOldPassword": {
+    "One": "Новый пароль совпадает со старым паролем"
+  },
+  "NewPassword": {
+    "One": "Новый пароль"
+  },
   "ConfirmPassword": {
     "One": "Подтвердите пароль"
   },
