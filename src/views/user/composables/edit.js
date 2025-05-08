@@ -15,7 +15,7 @@ export function useGetDetail (id) {
     form.value = { ...res.data }
   }
   if (id > 0) {
-    onMounted(getDetail(id))
+    onMounted(_ => {getDetail(id)})
   }
 
   const getGroups = async () => {
