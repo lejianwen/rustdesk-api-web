@@ -23,6 +23,15 @@
             <span v-else> - </span>
           </template>
         </el-table-column>
+        <el-table-column :label="T('Status')" align="center">
+          <template #default="{row}">
+            <el-switch v-model="row.status"
+                       :active-value="ENABLE_STATUS"
+                       :inactive-value="DISABLE_STATUS"
+                       @change="changeStatus(row)"
+            ></el-switch>
+          </template>
+        </el-table-column>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
         <el-table-column :label="T('Actions')" align="center" width="650">
@@ -51,6 +60,9 @@
 <script setup>
   import { useRepositories, useDel, useToEditOrAdd, useChangePwd } from '@/views/user/composables'
   import { T } from '@/utils/i18n'
+  import { DISABLE_STATUS, ENABLE_STATUS } from '@/utils/common_options'
+  import { update } from '@/api/user'
+  import { ElMessageBox, ElMessage } from 'element-plus'
   //列表
   const {
     listRes,
@@ -72,6 +84,20 @@
     }
   }
 
+  const changeStatus = async (row) => {
+    /*const confirm = await ElMessageBox.confirm(T('Confirm?', { param: T('Update') }), {
+      confirmButtonText: T('Confirm'),
+      cancelButtonText: T('Cancel'),
+    }).catch(_ => false)
+    if (!confirm) {
+      return false
+    }*/
+    const res = await update(row).catch(_ => false)
+    if (res) {
+      ElMessage.success(T('OperationSuccess'))
+      getList(listQuery)
+    }
+  }
 
 </script>
 

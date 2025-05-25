@@ -87,6 +87,7 @@
     if (!res.code) {
       ElMessage.success(T('LoginSuccess'))
       router.push({ path: redirect || '/', replace: true })
+      return
     }
     if (res.code === 110) {
       // need captcha
