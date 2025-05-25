@@ -86,7 +86,7 @@
 
   }
 
-  const html = computed(_ => marked(appStore.setting.hello))
+  const html = computed(_ => marked(appStore.setting.hello||''))
 
 </script>
 
