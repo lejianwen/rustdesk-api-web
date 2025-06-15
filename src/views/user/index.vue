@@ -8,6 +8,7 @@
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
+          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -63,13 +64,23 @@
   import { DISABLE_STATUS, ENABLE_STATUS } from '@/utils/common_options'
   import { update } from '@/api/user'
   import { ElMessageBox, ElMessage } from 'element-plus'
+  import { onMounted, watch } from 'vue'
   //列表
   const {
     listRes,
     listQuery,
     handlerQuery,
     getList,
+    getGroups,
+    toExport,
   } = useRepositories()
+
+  onMounted(getGroups)
+
+  onMounted(getList)
+
+  watch(() => listQuery.page, getList)
+  watch(() => listQuery.page_size, handlerQuery)
 
   const { toEdit, toAdd, toAddressBook, toTag } = useToEditOrAdd()
 

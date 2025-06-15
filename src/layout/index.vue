@@ -60,7 +60,6 @@
 }
 
 .app-left {
-  height: 100%;
   transition: width 0.5s;
 }
 

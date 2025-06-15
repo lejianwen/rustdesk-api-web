@@ -15,6 +15,7 @@
         <el-form-item>
           <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -62,6 +63,8 @@
   import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/login/log.js'
   import { T } from '@/utils/i18n'
+  import { list } from '@/api/peer'
+  import { downBlob, jsonToCsv } from '@/utils/file'
 
   const { allUsers, getAllUsers } = loadAllUsers()
   getAllUsers()
@@ -73,6 +76,7 @@
     handlerQuery,
     del,
     batchdel,
+    toExport,
   } = useRepositories('admin')
 
   onMounted(getList)
@@ -91,6 +95,7 @@
     }
     batchdel(multipleSelection.value)
   }
+
 </script>
 
 <style scoped lang="scss">

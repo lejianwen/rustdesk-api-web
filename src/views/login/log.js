@@ -2,10 +2,10 @@ import { reactive, ref } from 'vue'
 import { list as admin_fetchPeers } from '@/api/peer'
 import { list as my_fetchPeers } from '@/api/my/peer'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRoute } from 'vue-router'
 import { T } from '@/utils/i18n'
 import { batchDelete as admin_batchDelete, list as admin_list, remove as admin_remove } from '@/api/login_log'
 import { batchDelete as my_batchDelete, list as my_list, remove as my_remove } from '@/api/my/login_log'
+import { downBlob, jsonToCsv } from '@/utils/file'
 
 const apis = {
   admin: { batchDelete: admin_batchDelete, list: admin_list, remove: admin_remove, fetchPeers: admin_fetchPeers },
@@ -30,8 +30,8 @@ export function useRepositories (api_type = 'my') {
     listRes.loading = false
     if (res) {
       //通过uuid补全peer信息
-      const uuids = res.data.list.filter(item => item.uuid&&item.client==='client'&&!item.device_id).map(item => item.uuid)
-      if(uuids.length > 0){
+      const uuids = res.data.list.filter(item => item.uuid && item.client === 'client' && !item.device_id).map(item => item.uuid)
+      if (uuids.length > 0) {
         //uuids去重
         const uniqueUuids = [...new Set(uuids)]
         const peers = await apis[api_type].fetchPeers({ uuids: uniqueUuids }).catch(_ => false)
@@ -95,6 +95,21 @@ export function useRepositories (api_type = 'my') {
     }
   }
 
+  // only Admin
+  const toExport = async () => {
+    if (api_type !== 'admin') {
+      return false
+    }
+    const q = { ...listQuery }
+    q.page_size = 1000000
+    q.page = 1
+    const res = await admin_list(q).catch(_ => false)
+    if (res) {
+      const csv = jsonToCsv(res.data.list)
+      downBlob(csv, 'loginLog.csv')
+    }
+  }
+
   return {
     listRes,
     listQuery,
@@ -102,5 +117,6 @@ export function useRepositories (api_type = 'my') {
     handlerQuery,
     del,
     batchdel,
+    toExport,
   }
 }

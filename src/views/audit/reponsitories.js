@@ -1,9 +1,9 @@
 import { reactive } from 'vue'
 import { list, remove, fileList, fileRemove, batchDelete, fileBatchDelete } from '@/api/audit'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRoute } from 'vue-router'
 import { formatTime } from '@/utils/time'
 import { T } from '@/utils/i18n'
+import { downBlob, jsonToCsv } from '@/utils/file'
 
 export function useRepositories () {
   const listRes = reactive({
@@ -73,6 +73,17 @@ export function useRepositories () {
       getList()
     }
   }
+
+  const toExport = async () => {
+    const q = { ...listQuery }
+    q.page_size = 1000000
+    q.page = 1
+    const res = await list(q).catch(_ => false)
+    if (res) {
+      const csv = jsonToCsv(res.data.list)
+      downBlob(csv, 'connectLog.csv')
+    }
+  }
   return {
     listRes,
     listQuery,
@@ -80,6 +91,7 @@ export function useRepositories () {
     handlerQuery,
     del,
     batchdel,
+    toExport,
   }
 }
 
@@ -151,6 +163,18 @@ export function useFileRepositories () {
       getList()
     }
   }
+
+  const toExport = async () => {
+    const q = { ...listQuery }
+    q.page_size = 1000000
+    q.page = 1
+    const res = await fileList(q).catch(_ => false)
+    if (res) {
+      const csv = jsonToCsv(res.data.list)
+      downBlob(csv, 'fileTransformLog.csv')
+    }
+  }
+
   return {
     listRes,
     listQuery,
@@ -158,5 +182,6 @@ export function useFileRepositories () {
     handlerQuery,
     del,
     batchdel,
+    toExport,
   }
 }

@@ -1,9 +1,10 @@
-import { onMounted, reactive, watch } from 'vue'
+import { reactive } from 'vue'
 import { list, remove, changePwd } from '@/api/user'
 import { list as groups } from '@/api/group'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { T } from '@/utils/i18n'
+import { downBlob, jsonToCsv } from '@/utils/file'
 
 export function useRepositories () {
 
@@ -42,18 +43,24 @@ export function useRepositories () {
       listRes.groups = res.data.list
     }
   }
-  onMounted(getGroups)
 
-  onMounted(getList)
-
-  watch(() => listQuery.page, getList)
-  watch(() => listQuery.page_size, handlerQuery)
+  const toExport = async () => {
+    const q = { ...listQuery }
+    q.page_size = 1000000
+    q.page = 1
+    const res = await list(q).catch(_ => false)
+    if (res) {
+      const csv = jsonToCsv(res.data.list)
+      downBlob(csv, 'users.csv')
+    }
+  }
   return {
     listRes,
     listQuery,
     handlerQuery,
     getList,
     getGroups,
+    toExport,
   }
 }
 

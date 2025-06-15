@@ -38,7 +38,7 @@ export function jsonToCsv (data) {
   let keys = Object.keys(data[0])
   csv += keys.join(',') + '\n'
   data.forEach(row => {
-    csv += keys.map(key => `"${row[key]}"`).join(',') + '\n'
+    csv += keys.map(key => `"${row[key].toString().replaceAll('"', '""')}"`).join(',') + '\n'
   })
   return new Blob([csv], { type: 'text/csv' })
 }
