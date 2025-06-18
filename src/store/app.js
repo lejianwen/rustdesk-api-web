@@ -14,8 +14,8 @@ const langs = {
   'en': { name: 'English', value: en, sideBarWidth: '230px' },
   'fr': { name: 'Français', value: fr, sideBarWidth: '280px' },
   'ko': { name: '한국어', value: ko, sideBarWidth: '230px' },
-  'ru': { name: 'русский', value: ru, sideBarWidth: '250px' },
-  'es': { name: 'español', value: es, sideBarWidth: '280px' },
+  'ru': { name: 'Русский', value: ru, sideBarWidth: '250px' },
+  'es': { name: 'Español', value: es, sideBarWidth: '280px' },
   'zh-TW': { name: '中文繁体', value: zhTw, sideBarWidth: '210px' },
 }
 const defaultLang = localStorage.getItem('lang') || navigator.language || 'zh-CN'

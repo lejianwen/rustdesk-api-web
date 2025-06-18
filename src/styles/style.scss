@@ -10,6 +10,11 @@ $primaryColor: #409eff;
   --tag-bg-color: #efefef;
 }
 
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
 .list-body {
   margin: 10px 0;
 }
