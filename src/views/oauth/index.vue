@@ -59,9 +59,9 @@
         <el-form-item label="ClientSecret" prop="client_secret">
           <el-input v-model="formData.client_secret"></el-input>
         </el-form-item>
-        <el-form-item label="RedirectUrl" prop="redirect_url">
+<!--        <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item label="PkceEnable" prop="pkce_enable">
           <el-switch v-model="formData.pkce_enable"
                      :active-value="true"

@@ -32,6 +32,9 @@
                    :inactive-value="DISABLE_STATUS"
         ></el-switch>
       </el-form-item>
+      <el-form-item :label="T('Remark')" prop="remark">
+          <el-input v-model="form.remark"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button @click="cancel">{{ T('Cancel') }}</el-button>
         <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>

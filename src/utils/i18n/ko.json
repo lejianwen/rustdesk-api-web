@@ -514,5 +514,8 @@
   },
   "You can reference export file": {
     "One": "내보내기 파일을 참조할 수 있습니다"
+  },
+  "Remark": {
+    "One": "비고"
   }
 }

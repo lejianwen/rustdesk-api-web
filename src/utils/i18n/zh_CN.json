@@ -544,5 +544,8 @@
   },
   "You can reference export file": {
     "One": "您可以参考导出文件"
+  },
+  "Remark": {
+    "One": "备注"
   }
 }

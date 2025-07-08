@@ -528,5 +528,8 @@
   },
   "You can reference export file": {
     "One": "Puede hacer referencia al archivo de exportación"
+  },
+  "Remark": {
+    "One": "Remark"
   }
 }
