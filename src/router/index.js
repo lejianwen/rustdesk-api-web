@@ -49,6 +49,10 @@ export const asyncRoutes = [
   //   ],
   // },
   {
+    path: '/',
+    redirect: '/my/info',
+  },
+  {
     path: '/my',
     name: 'My',
     redirect: '/my/info',
@@ -56,7 +60,7 @@ export const asyncRoutes = [
     component: () => import('@/layout/index.vue'),
     children: [
       {
-        path: '/',
+        path: 'info',
         name: 'MyInfo',
         meta: { title: 'Userinfo', icon: 'User' /*keepAlive: true*/ },
         component: () => import('@/views/my/info.vue'),
