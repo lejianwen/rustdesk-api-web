@@ -527,6 +527,12 @@
   "Result": {
     "One": "結果"
   },
+  "DeviceGroupManage": {
+    "One": "设备组管理"
+  },
+  "Import": {
+    "One": "导入"
+  },
   "Drop file here or click to upload": {
     "One": "將檔案拖到這裡，或點擊上傳"
   },
