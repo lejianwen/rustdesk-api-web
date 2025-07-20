@@ -51,7 +51,7 @@ export const asyncRoutes = [
   {
     path: '/my',
     name: 'My',
-    redirect: '/my/info',
+    redirect: '/',
     meta: { title: 'My', icon: 'UserFilled' },
     component: () => import('@/layout/index.vue'),
     children: [
