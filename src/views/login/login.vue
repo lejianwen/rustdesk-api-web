@@ -5,7 +5,7 @@
 
       <el-form label-position="top" class="login-form">
         <el-form-item :label="T('Username')">
-          <el-input v-model="form.username" name="username" autocomplete="username" class="login-input"></el-input>
+          <el-input v-model="form.username" type="username" autocomplete="username" class="login-input"></el-input>
         </el-form-item>
 
         <el-form-item :label="T('Password')">
