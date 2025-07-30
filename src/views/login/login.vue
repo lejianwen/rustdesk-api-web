@@ -131,6 +131,10 @@
       const res = await loginOptions().catch(_ => false)
       if (!res || !res.data) return console.error('No valid response received')
       res.data.ops.map(option => (options.push({ name: option }))) // 创建新的对象数组
+      if (res.data.auto_oidc) {
+        // 如果有自动OIDC登录选项，直接调用第一个
+        handleOIDCLogin(res.data.ops[0])
+      }
       allowRegister.value = res.data.register
       if (res.data.need_captcha) {
         loadCaptcha()
