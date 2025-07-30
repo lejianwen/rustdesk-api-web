@@ -3,7 +3,7 @@
     <div class="login-card">
       <img src="@/assets/logo.png" alt="logo" class="login-logo"/>
 
-      <el-form label-position="top" class="login-form">
+      <el-form v-if="!disablePwd" label-position="top" class="login-form">
         <el-form-item :label="T('Username')">
           <el-input v-model="form.username" type="username" class="login-input"></el-input>
         </el-form-item>
@@ -126,6 +126,7 @@
   }
 
   const allowRegister = ref(false)
+  const disablePwd = ref(false)
   const loadLoginOptions = async () => {
     try {
       const res = await loginOptions().catch(_ => false)
@@ -135,6 +136,7 @@
         // 如果有自动OIDC登录选项，直接调用第一个
         handleOIDCLogin(res.data.ops[0])
       }
+      disablePwd.value = res.data.disable_pwd
       allowRegister.value = res.data.register
       if (res.data.need_captcha) {
         loadCaptcha()
