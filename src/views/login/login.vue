@@ -9,7 +9,7 @@
         </el-form-item>
 
         <el-form-item :label="T('Password')">
-          <el-input v-model="form.password" name="password" type="password" @keyup.enter.native="login" show-password
+          <el-input v-model="form.password" type="password" @keyup.enter.native="login" show-password
                     class="login-input"></el-input>
         </el-form-item>
         <el-form-item :label="T('Captcha')" v-if="captchaCode">
