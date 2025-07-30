@@ -25,7 +25,7 @@
         </el-form-item>
       </el-form>
 
-      <div class="divider" v-if="options.length > 0">
+      <div class="divider" v-if="options.length > 0 && !disablePwd">
         <span>{{ T('or login in with') }}</span>
       </div>
 
