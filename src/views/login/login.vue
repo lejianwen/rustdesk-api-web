@@ -3,9 +3,9 @@
     <div class="login-card">
       <img src="@/assets/logo.png" alt="logo" class="login-logo"/>
 
-      <el-form label-position="top" class="login-form">
+      <el-form v-if="!disablePwd" label-position="top" class="login-form">
         <el-form-item :label="T('Username')">
-          <el-input v-model="form.username" class="login-input"></el-input>
+          <el-input v-model="form.username" type="username" class="login-input"></el-input>
         </el-form-item>
 
         <el-form-item :label="T('Password')">
@@ -25,7 +25,7 @@
         </el-form-item>
       </el-form>
 
-      <div class="divider" v-if="options.length > 0">
+      <div class="divider" v-if="options.length > 0 && !disablePwd">
         <span>{{ T('or login in with') }}</span>
       </div>
 
@@ -126,11 +126,17 @@
   }
 
   const allowRegister = ref(false)
+  const disablePwd = ref(false)
   const loadLoginOptions = async () => {
     try {
       const res = await loginOptions().catch(_ => false)
       if (!res || !res.data) return console.error('No valid response received')
       res.data.ops.map(option => (options.push({ name: option }))) // 创建新的对象数组
+      if (res.data.auto_oidc) {
+        // 如果有自动OIDC登录选项，直接调用第一个
+        handleOIDCLogin(res.data.ops[0])
+      }
+      disablePwd.value = res.data.disable_pwd
       allowRegister.value = res.data.register
       if (res.data.need_captcha) {
         loadCaptcha()
