@@ -64,9 +64,14 @@
             >
           </el-input>
         </el-form-item>
-<!--        <el-form-item label="RedirectUrl" prop="redirect_url">
-          <el-input v-model="formData.redirect_url"></el-input>
-        </el-form-item>-->
+        <el-form-item label="RedirectUrl" prop="redirect_url">
+          <el-input
+            v-model="formData.redirect_url"
+            readonly
+            suffix-icon="el-icon-document-copy"
+            @click="copyRedirectUrl"
+          />
+        </el-form-item>
         <el-form-item label="PkceEnable" prop="pkce_enable">
           <el-switch v-model="formData.pkce_enable"
                      :active-value="true"
@@ -101,6 +106,12 @@
   import { list, create, update, detail, remove } from '@/api/oauth'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+
+  const copyRedirectUrl = () => {
+    navigator.clipboard.writeText(formData.redirect_url)
+      .then(() => ElMessage.success('Copied'))
+      .catch(() => ElMessage.error('Copy failed'))
+  }
 
   const listRes = reactive({
     list: [], total: 0, loading: false,
@@ -172,7 +183,7 @@
   const rules = {
     client_id: [{ required: true, message: T('ParamRequired', { param: 'client_id' }), trigger: 'blur' }],
     client_secret: [{ required: true, message: T('ParamRequired', { param: 'client_secret' }), trigger: 'blur' }],
-    redirect_url: [{ required: true, message: T('ParamRequired', { param: 'redirect_url' }), trigger: 'blur' }],
+    // redirect_url: [{ required: true, message: T('ParamRequired', { param: 'redirect_url' }), trigger: 'blur' }],
     oauth_type: [{ required: true, message: T('ParamRequired', { param: 'oauth_type' }), trigger: 'blur' }],
     issuer: [{ required: true, message: T('ParamRequired', { param: 'issuer' }), trigger: 'blur' }],
     pkce_method: [
@@ -190,6 +201,11 @@
       },
     ],
   }
+
+  const defaultRedirect = () => {
+  return `${window.location.origin}/api/oidc/callback`
+}
+
   const toEdit = (row) => {
     formVisible.value = true
     formData.id = row.id
@@ -198,7 +214,7 @@
     formData.issuer = row.issuer
     formData.client_id = row.client_id
     formData.client_secret = row.client_secret
-    formData.redirect_url = row.redirect_url
+    formData.redirect_url = row.redirect_url || defaultRedirect()
     formData.scopes = row.scopes
     formData.auto_register = row.auto_register
     formData.pkce_enable = row.pkce_enable
@@ -212,7 +228,7 @@
     formData.issuer = ''
     formData.client_id = ''
     formData.client_secret = ''
-    formData.redirect_url = ''
+    formData.redirect_url = defaultRedirect()
     formData.scopes = ''
     formData.auto_register = false
     formData.pkce_enable = false
