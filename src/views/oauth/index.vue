@@ -37,7 +37,7 @@
     </el-card>
     <el-dialog v-model="formVisible" :title="!formData.id?T('Create') :T('Update')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" :rules="rules" label-width="120px">
-        <el-form-item label="Type" prop="">
+        <el-form-item label="Type" prop="oauth_type">
           <el-radio-group v-model="formData.oauth_type" :disabled="!!formData.id">
             <el-radio v-for="item in types" :key="item.value" :value="item.value" style="display: block">
               {{ item.label }}
@@ -57,7 +57,12 @@
           <el-input v-model="formData.client_id"></el-input>
         </el-form-item>
         <el-form-item label="ClientSecret" prop="client_secret">
-          <el-input v-model="formData.client_secret"></el-input>
+          <el-input
+            v-model="formData.client_secret"
+            :type="formData.id ? 'password' : 'text'"
+            :show-password="!formData.id"
+            >
+          </el-input>
         </el-form-item>
 <!--        <el-form-item label="RedirectUrl" prop="redirect_url">
           <el-input v-model="formData.redirect_url"></el-input>
