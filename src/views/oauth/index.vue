@@ -203,8 +203,8 @@
   }
 
   const defaultRedirect = () => {
-  return `${window.location.origin}/api/oidc/callback`
-}
+    return `${window.location.origin}/api/oidc/callback`
+  }
 
   const toEdit = (row) => {
     formVisible.value = true
