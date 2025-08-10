@@ -7,7 +7,7 @@ import ru from 'element-plus/es/locale/lang/ru'
 import fr from 'element-plus/es/locale/lang/fr'
 import es from 'element-plus/es/locale/lang/es'
 import zhTw from 'element-plus/es/locale/lang/zh-tw'
-import { admin, app } from '@/api/config'
+import { admin, app, server } from '@/api/config'
 
 const langs = {
   'zh-CN': { name: '中文', value: zhCn, sideBarWidth: '210px' },
@@ -33,6 +33,12 @@ export const useAppStore = defineStore({
       appConfig: {
         web_client: 1,
       },
+      rustdeskConfig: {
+        'id_server': '',
+        'key': '',
+        'relay_server': '',
+        'api_server': '',
+      },
     },
   }),
 
@@ -52,6 +58,7 @@ export const useAppStore = defineStore({
     loadConfig () {
       this.getAppConfig()
       this.getAdminConfig()
+      this.loadRustdeskConfig()
     },
     getAppConfig () {
       console.log('getAppConfig')
@@ -66,9 +73,21 @@ export const useAppStore = defineStore({
         this.setting.hello = res.data.hello
       })
     },
-    replaceAdminTitle(newTitle){
+    replaceAdminTitle (newTitle) {
       document.title = document.title.replace(`- ${this.setting.title}`, `- ${newTitle}`)
       this.setting.title = newTitle
+    },
+    async loadRustdeskConfig () {
+      console.log('loadRustdeskConfig')
+      const res = await server().catch(_ => false)
+      if (res) {
+        this.setting.rustdeskConfig = res.data
+        const prefix = 'wc-'
+        localStorage.setItem(`${prefix}custom-rendezvous-server`, res.data.id_server)
+        localStorage.setItem(`${prefix}key`, res.data.key)
+        localStorage.setItem(`${prefix}api-server`, res.data.api_server)
+      }
+
     },
   },
 })

@@ -65,12 +65,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="RedirectUrl" prop="redirect_url">
-          <el-input
-            v-model="formData.redirect_url"
-            readonly
-            suffix-icon="el-icon-document-copy"
-            @click="copyRedirectUrl"
-          />
+          <div @click="copyRedirectUrl">{{formData.redirect_url}} <el-icon><CopyDocument></CopyDocument></el-icon></div>
         </el-form-item>
         <el-form-item label="PkceEnable" prop="pkce_enable">
           <el-switch v-model="formData.pkce_enable"
@@ -106,11 +101,13 @@
   import { list, create, update, detail, remove } from '@/api/oauth'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import { handleClipboard } from '@/utils/clipboard'
+  import { useAppStore } from '@/store/app'
+  import { CopyDocument } from '@element-plus/icons'
 
-  const copyRedirectUrl = () => {
-    navigator.clipboard.writeText(formData.redirect_url)
-      .then(() => ElMessage.success('Copied'))
-      .catch(() => ElMessage.error('Copy failed'))
+  const app = useAppStore()
+  const copyRedirectUrl = (e) => {
+    handleClipboard(formData.redirect_url, e)
   }
 
   const listRes = reactive({
@@ -203,7 +200,7 @@
   }
 
   const defaultRedirect = () => {
-    return `${window.location.origin}/api/oidc/callback`
+    return `${app.setting.rustdeskConfig.api_server||window.location.origin}/api/oidc/callback`
   }
 
   const toEdit = (row) => {
