@@ -58,14 +58,18 @@
         </el-form-item>
         <el-form-item label="ClientSecret" prop="client_secret">
           <el-input
-            v-model="formData.client_secret"
-            :type="formData.id ? 'password' : 'text'"
-            :show-password="!formData.id"
-            >
+              v-model="formData.client_secret"
+              :type="formData.id ? 'password' : 'text'"
+              :show-password="!formData.id"
+          >
           </el-input>
         </el-form-item>
         <el-form-item label="RedirectUrl" prop="redirect_url">
-          <div @click="copyRedirectUrl">{{formData.redirect_url}} <el-icon><CopyDocument></CopyDocument></el-icon></div>
+          <div @click="copyRedirectUrl">{{ defaultRedirect() }}
+            <el-icon>
+              <CopyDocument></CopyDocument>
+            </el-icon>
+          </div>
         </el-form-item>
         <el-form-item label="PkceEnable" prop="pkce_enable">
           <el-switch v-model="formData.pkce_enable"
@@ -106,8 +110,9 @@
   import { CopyDocument } from '@element-plus/icons'
 
   const app = useAppStore()
+
   const copyRedirectUrl = (e) => {
-    handleClipboard(formData.redirect_url, e)
+    handleClipboard(defaultRedirect(), e)
   }
 
   const listRes = reactive({
@@ -200,7 +205,7 @@
   }
 
   const defaultRedirect = () => {
-    return `${app.setting.rustdeskConfig.api_server||window.location.origin}/api/oidc/callback`
+    return `${app.setting.rustdeskConfig.api_server || window.location.origin}/api/oidc/callback`
   }
 
   const toEdit = (row) => {
@@ -211,7 +216,7 @@
     formData.issuer = row.issuer
     formData.client_id = row.client_id
     formData.client_secret = row.client_secret
-    formData.redirect_url = row.redirect_url || defaultRedirect()
+    // formData.redirect_url = row.redirect_url || defaultRedirect()
     formData.scopes = row.scopes
     formData.auto_register = row.auto_register
     formData.pkce_enable = row.pkce_enable
@@ -225,7 +230,7 @@
     formData.issuer = ''
     formData.client_id = ''
     formData.client_secret = ''
-    formData.redirect_url = defaultRedirect()
+    // formData.redirect_url = defaultRedirect()
     formData.scopes = ''
     formData.auto_register = false
     formData.pkce_enable = false
