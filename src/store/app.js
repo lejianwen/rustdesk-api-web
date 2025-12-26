@@ -17,19 +17,30 @@ import { admin, app, server } from '@/api/config'
 
 const langs = {
   'zh-CN': { name: '中文', value: zhCn, sideBarWidth: '210px' },
-  'en': { name: 'English', value: en, sideBarWidth: '230px' },
-  'fr': { name: 'Français', value: fr, sideBarWidth: '280px' },
-  'ko': { name: '한국어', value: ko, sideBarWidth: '230px' },
-  'ru': { name: 'Русский', value: ru, sideBarWidth: '250px' },
-  'es': { name: 'Español', value: es, sideBarWidth: '280px' },
+  en: { name: 'English', value: en, sideBarWidth: '230px' },
+  fr: { name: 'Français', value: fr, sideBarWidth: '280px' },
+  ko: { name: '한국어', value: ko, sideBarWidth: '230px' },
+  ru: { name: 'Русский', value: ru, sideBarWidth: '250px' },
+  es: { name: 'Español', value: es, sideBarWidth: '280px' },
   'zh-TW': { name: '中文繁体', value: zhTw, sideBarWidth: '210px' },
-  'sk': { name: 'Slovenčina', value: sk, sideBarWidth: '260px' },
-  'cs': { name: 'Čeština', value: cs, sideBarWidth: '260px' },
-  'de': { name: 'Deutsch', value: de, sideBarWidth: '260px' },
-  'pl': { name: 'Polski', value: pl, sideBarWidth: '260px' },
-  'hu': { name: 'Magyar', value: hu, sideBarWidth: '260px' },
+  sk: { name: 'Slovenčina', value: sk, sideBarWidth: '260px' },
+  cs: { name: 'Čeština', value: cs, sideBarWidth: '260px' },
+  de: { name: 'Deutsch', value: de, sideBarWidth: '260px' },
+  pl: { name: 'Polski', value: pl, sideBarWidth: '260px' },
+  hu: { name: 'Magyar', value: hu, sideBarWidth: '260px' },
 }
-const defaultLang = localStorage.getItem('lang') || navigator.language || 'zh-CN'
+
+// EN-only comment: Normalize browser lang like "en-US" -> "en"
+const resolveDefaultLang = () => {
+  const raw = localStorage.getItem('lang') || navigator.language || 'zh-CN'
+  if (langs[raw]) return raw
+  const short = String(raw).split('-')[0]
+  if (langs[short]) return short
+  return 'en'
+}
+
+const defaultLang = resolveDefaultLang()
+
 export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
@@ -38,17 +49,17 @@ export const useAppStore = defineStore({
       hello: '',
       sideIsCollapse: false,
       logo,
-      langs: langs,
+      langs,
       lang: defaultLang,
-      locale: langs[defaultLang] ? langs[defaultLang] : langs['en'],
+      locale: langs[defaultLang] || langs.en,
       appConfig: {
         web_client: 1,
       },
       rustdeskConfig: {
-        'id_server': '',
-        'key': '',
-        'relay_server': '',
-        'api_server': '',
+        id_server: '',
+        key: '',
+        relay_server: '',
+        api_server: '',
       },
     },
   }),
@@ -58,11 +69,10 @@ export const useAppStore = defineStore({
       this.setting.sideIsCollapse = !this.setting.sideIsCollapse
     },
     setLang (lang) {
-      const key = langs[lang] ? lang : (langs[lang?.split('-')[0]] ? lang.split('-')[0] : 'en')
-      this.setting.lang = key
-      this.setting.locale = langs[key]
-      localStorage.setItem('lang', key)
-    }
+      this.setting.lang = lang
+      this.setting.locale = langs[lang] || langs.en
+      localStorage.setItem('lang', lang)
+    },
     changeLang (v) {
       this.setLang(v)
     },
@@ -72,13 +82,11 @@ export const useAppStore = defineStore({
       this.loadRustdeskConfig()
     },
     getAppConfig () {
-      console.log('getAppConfig')
       return app().then(res => {
         this.setting.appConfig = res.data
       })
     },
     getAdminConfig () {
-      console.log('getAdminConfig')
       return admin().then(res => {
         this.replaceAdminTitle(res.data.title)
         this.setting.hello = res.data.hello
@@ -89,8 +97,7 @@ export const useAppStore = defineStore({
       this.setting.title = newTitle
     },
     async loadRustdeskConfig () {
-      console.log('loadRustdeskConfig')
-      const res = await server().catch(_ => false)
+      const res = await server().catch(() => false)
       if (res) {
         this.setting.rustdeskConfig = res.data
         const prefix = 'wc-'
@@ -98,7 +105,6 @@ export const useAppStore = defineStore({
         localStorage.setItem(`${prefix}key`, res.data.key)
         localStorage.setItem(`${prefix}api-server`, res.data.api_server)
       }
-
     },
   },
 })
