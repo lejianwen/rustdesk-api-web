@@ -7,6 +7,12 @@ import ru from 'element-plus/es/locale/lang/ru'
 import fr from 'element-plus/es/locale/lang/fr'
 import es from 'element-plus/es/locale/lang/es'
 import zhTw from 'element-plus/es/locale/lang/zh-tw'
+import sk from 'element-plus/es/locale/lang/sk'
+import cs from 'element-plus/es/locale/lang/cs'
+import de from 'element-plus/es/locale/lang/de'
+import pl from 'element-plus/es/locale/lang/pl'
+import hu from 'element-plus/es/locale/lang/hu'
+
 import { admin, app, server } from '@/api/config'
 
 const langs = {
@@ -17,6 +23,11 @@ const langs = {
   'ru': { name: 'Русский', value: ru, sideBarWidth: '250px' },
   'es': { name: 'Español', value: es, sideBarWidth: '280px' },
   'zh-TW': { name: '中文繁体', value: zhTw, sideBarWidth: '210px' },
+  'sk': { name: 'Slovenčina', value: sk, sideBarWidth: '260px' },
+  'cs': { name: 'Čeština', value: cs, sideBarWidth: '260px' },
+  'de': { name: 'Deutsch', value: de, sideBarWidth: '260px' },
+  'pl': { name: 'Polski', value: pl, sideBarWidth: '260px' },
+  'hu': { name: 'Magyar', value: hu, sideBarWidth: '260px' },
 }
 const defaultLang = localStorage.getItem('lang') || navigator.language || 'zh-CN'
 export const useAppStore = defineStore({
@@ -47,11 +58,11 @@ export const useAppStore = defineStore({
       this.setting.sideIsCollapse = !this.setting.sideIsCollapse
     },
     setLang (lang) {
-      console.log('setLang', lang)
-      this.setting.lang = lang
-      this.setting.locale = langs[lang]
-      localStorage.setItem('lang', lang)
-    },
+      const key = langs[lang] ? lang : (langs[lang?.split('-')[0]] ? lang.split('-')[0] : 'en')
+      this.setting.lang = key
+      this.setting.locale = langs[key]
+      localStorage.setItem('lang', key)
+    }
     changeLang (v) {
       this.setLang(v)
     },
