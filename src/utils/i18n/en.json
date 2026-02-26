@@ -531,5 +531,35 @@
   },
   "Remark": {
     "One": "Remark"
+  },
+  "UserDeviceManage": { 
+    "One": "User Device Manage"
+  },
+  "UserDeviceBtn": { 
+    "One": "Device Manage"
+  },
+  "MaxDevices": { 
+    "One": "Max Devices"
+  },
+  "DeviceId": { 
+    "One": "Device ID"
+  },
+  "DeviceName": { 
+    "One": "Device Name"
+  },
+  "DeviceOs": { 
+    "One": "OS"
+  },
+  "DeviceType": { 
+    "One": "Type"
+  },
+  "FirstLoginAt": { 
+    "One": "First Login Time"
+  },
+  "LastLoginAt": { 
+    "One": "Last Login Time"
+  },
+  "LastLoginIp": { 
+    "One": "Last Login IP"
   }
 }
