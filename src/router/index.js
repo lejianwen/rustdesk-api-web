@@ -131,6 +131,12 @@ export const asyncRoutes = [
         component: () => import('@/views/user/index.vue'),
       },
       {
+        path: 'userDevice',
+        name: 'UserDeviceManage',
+        meta: { title: 'UserDeviceManage', icon: 'Monitor' /*keepAlive: true*/ },
+        component: () => import('@/views/user_device/index.vue'),
+      },     
+      {
         path: 'add',
         name: 'UserAdd',
         meta: { title: 'UserAdd', hide: true },

@@ -547,5 +547,35 @@
   },
   "Remark": {
     "One": "备注"
+  },
+  "UserDeviceManage": { 
+    "One": "用户设备管理"
+  },
+  "UserDeviceBtn": { 
+    "One": "设备管理"
+  },
+  "MaxDevices": { 
+    "One": "最大设备限制"
+  },
+  "DeviceId": { 
+    "One": "设备ID"
+  },
+  "DeviceName": { 
+    "One": "设备名称"
+  },
+  "DeviceOs": { 
+    "One": "系统"
+  },
+  "DeviceType": { 
+    "One": "类型"
+  },
+  "FirstLoginAt": { 
+    "One": "首次登录时间"
+  },
+  "LastLoginAt": { 
+    "One": "最近登录时间"
+  },
+  "LastLoginIp": { 
+    "One": "最近登录IP"
   }
 }

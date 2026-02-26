@@ -40,6 +40,8 @@
           <template #default="{row}">
             <el-button @click="toTag(row)">{{ T('UserTags') }}</el-button>
             <el-button @click="toAddressBook(row)">{{ T('UserAddressBook') }}</el-button>
+            <!-- ✅ 新增：设备管理（进入该用户的用户设备管理页） -->
+            <el-button type="primary" @click="toUserDevice(row)">{{ T('UserDeviceBtn') }}</el-button>
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="warning" @click="changePass(row)">{{ T('ResetPassword') }}</el-button>
             <el-button type="danger" @click="remove(row)">{{ T('Delete') }}</el-button>
@@ -83,7 +85,7 @@
   watch(() => listQuery.page, getList)
   watch(() => listQuery.page_size, handlerQuery)
 
-  const { toEdit, toAdd, toAddressBook, toTag } = useToEditOrAdd()
+  const { toEdit, toAdd, toAddressBook, toTag, toUserDevice } = useToEditOrAdd()
 
   const { changePass } = useChangePwd()
 
