@@ -534,6 +534,41 @@
   },
   "Remark": {
     "One": "Примечание"
+  },
+  "Bind": {
+    "One": "Привязать"
+  },
+  "Client": {
+    "One": "Клиент"
+  },
+  "DeviceGroup": {
+    "One": "Группа устройств"
+  },
+  "Import": {
+    "One": "Импорт"
+  },
+  "Information": {
+    "One": "Информация"
+  },
+  "InvalidParam": {
+    "One": "Недопустимое значение поля {param}"
+  },
+  "More": {
+    "One": "Ещё"
+  },
+  "MyLoginLog": {
+    "One": "Мои входы"
+  },
+  "PkceMethod": {
+    "One": "Метод PKCE"
+  },
+  "Size": {
+    "One": "Размер"
+  },
+  "Token": {
+    "One": "Токен"
+  },
+  "View": {
+    "One": "Просмотр"
   }
 }
-
