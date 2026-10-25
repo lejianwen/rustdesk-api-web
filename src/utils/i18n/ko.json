@@ -517,5 +517,11 @@
   },
   "Remark": {
     "One": "비고"
+  },
+  "ShowTabs": {
+    "One": "탭 표시"
+  },
+  "HideTabs": {
+    "One": "탭 숨기기"
   }
 }

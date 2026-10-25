@@ -26,6 +26,7 @@ export const useAppStore = defineStore({
       title: 'Rustdesk API Admin',
       hello: '',
       sideIsCollapse: false,
+      showTags: localStorage.getItem('show_tags') !== '0',
       logo,
       langs: langs,
       lang: defaultLang,
@@ -54,6 +55,10 @@ export const useAppStore = defineStore({
     },
     changeLang (v) {
       this.setLang(v)
+    },
+    toggleTags () {
+      this.setting.showTags = !this.setting.showTags
+      localStorage.setItem('show_tags', this.setting.showTags ? '1' : '0')
     },
     loadConfig () {
       this.getAppConfig()

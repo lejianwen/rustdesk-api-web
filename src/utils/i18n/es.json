@@ -531,5 +531,11 @@
   },
   "Remark": {
     "One": "Remark"
+  },
+  "ShowTabs": {
+    "One": "Mostrar pestañas"
+  },
+  "HideTabs": {
+    "One": "Ocultar pestañas"
   }
 }

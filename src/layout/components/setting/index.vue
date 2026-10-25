@@ -45,6 +45,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="showChangePwd">{{ T('ChangePassword') }}</el-dropdown-item>
+          <el-dropdown-item @click="appStore.toggleTags()">{{ T(appStore.setting.showTags ? 'HideTabs' : 'ShowTabs') }}</el-dropdown-item>
           <el-dropdown-item @click="logout">{{ T('Logout') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>

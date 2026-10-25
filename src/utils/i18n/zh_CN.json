@@ -547,5 +547,11 @@
   },
   "Remark": {
     "One": "备注"
+  },
+  "ShowTabs": {
+    "One": "显示标签栏"
+  },
+  "HideTabs": {
+    "One": "隐藏标签栏"
   }
 }

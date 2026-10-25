@@ -547,5 +547,11 @@
   },
   "Remark": {
     "One": "備註"
+  },
+  "ShowTabs": {
+    "One": "顯示分頁列"
+  },
+  "HideTabs": {
+    "One": "隱藏分頁列"
   }
 }

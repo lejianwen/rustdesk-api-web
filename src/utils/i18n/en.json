@@ -531,5 +531,11 @@
   },
   "Remark": {
     "One": "Remark"
+  },
+  "ShowTabs": {
+    "One": "Show Tabs"
+  },
+  "HideTabs": {
+    "One": "Hide Tabs"
   }
 }

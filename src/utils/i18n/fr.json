@@ -534,5 +534,11 @@
   },
   "Remark": {
     "One": "Remarque"
+  },
+  "ShowTabs": {
+    "One": "Afficher les onglets"
+  },
+  "HideTabs": {
+    "One": "Masquer les onglets"
   }
 }

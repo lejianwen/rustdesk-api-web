@@ -8,7 +8,7 @@
         <el-header class="app-header">
           <g-header></g-header>
         </el-header>
-        <div class="header-tags">
+        <div class="header-tags" v-show="appStore.setting.showTags">
           <tags></tags>
         </div>
 
